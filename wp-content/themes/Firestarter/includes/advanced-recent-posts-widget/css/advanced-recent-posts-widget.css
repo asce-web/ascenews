@@ -1,0 +1,21 @@
+/*
+Default CSS Styles for the advanced recent post widget plug-in
+Version 3.0.0
+*/
+
+
+
+a.post-title { font-family: 'Open Sans Condensed', sans-serif; font-size: 18px; font-weight: 400; display:inline; margin-top:10px; }
+
+
+
+
+/*.recent-post-item img{ float:left; margin-right:10px; display:inline; }*/
+
+.recent-post-item {/*original width is 300px*/width:40%; float:left; font-size: 8px;  font-family: 'Open Sans Condensed', serif; border-bottom: 1px #eee solid; padding-bottom:10px;padding-right: 40px; margin-bottom:10px;}
+
+.post-entry {margin-top:0px;}
+
+p.post-date {text-transform: uppercase; font-family: 'Open Sans Condensed', sans-serif; font-size: 10px; line-height: 28px; color: black; display:inline;}
+
+p.post-author { text-transform: uppercase; font-family: 'Open Sans Condensed', sans-serif; font-size: 10px; line-height: 28px; color: black; display:inline;}

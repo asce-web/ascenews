@@ -1,0 +1,115 @@
+#rps {
+	float: left;
+	position: relative;
+}
+
+#rps .window {
+	overflow: hidden; 
+	position: relative;
+}
+
+#rps .slider {
+	position: absolute;
+	top: 0; left: 0;
+}
+
+#rps .slider div{
+	float:left;
+}
+
+.rps-clr{
+	clear:both;
+}
+
+#rps .slider div .col{
+	float:left;
+}
+
+
+#rps .col  img{
+	padding:0px;
+}
+
+
+#rps .col p.slider-content{
+	position:relative;
+}
+
+#rps .col p.slider-content-img{
+	position:relative;
+	margin:0px;
+	padding:0px;
+	border:0px;
+	text-align:center;
+}
+
+#rps .col p.slider-content-both{
+	position:relative;
+	margin:0px;
+	padding:0px;
+	border:0px;
+	text-align:left;
+}
+
+#rps .col p.slider-content-both img{
+	display: block; 
+	background-color: #CCC; 
+	overflow: hidden; 
+	position:relative;
+	margin-top:-15px;
+}
+
+#rps .paging {
+	padding: 0 5px 5px 0;
+	z-index: 100; 
+	text-align: center;
+	display: none;
+	background-color: rgba(0,0,0,0.2);
+	position: absolute;
+	right: 26px;
+	top: 16px;
+	width: 76px;
+}
+
+#rps .paging a {
+	margin-left: 5px;
+	margin-top:5px;
+	border-radius: 30px;
+	
+	background:#fff;
+	cursor: pointer;
+	display: inline-block;
+	height: 14px;
+	text-indent: -9999px;
+	width: 14px;
+	float:left;
+	
+}
+
+#rps .paging a.active {
+	margin-left: 5px;
+	border-radius: 30px;
+	cursor: pointer;
+	display: inline-block;
+	height: 14px;
+	text-indent: -9999px;
+	width: 14px;
+	cursor: default;
+}
+
+#rps .paging a:hover {
+color: #000;
+}
+
+#rps .post-date{
+	position:absolute;
+	margin-left:5px;
+	margin-right:5px;
+	z-index:1000px;
+	background:#F7F5F5;
+	filter:alpha(opacity=60);
+	opacity:0.6;
+	color:#000;
+	font-weight:bold;
+	padding-left:3px;
+}

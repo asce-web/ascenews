@@ -1,0 +1,7 @@
+/** These styles are used in the backend editor AND in your Theme. **/
+
+.guest-name {
+	border-top:1px solid #cccccc;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc;
+}

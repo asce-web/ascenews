@@ -1,0 +1,58 @@
+div.updown-vote-box {
+height:20px;
+float: left;
+padding-right:5px;
+}
+
+div.updown-vote-box div {
+transition: all .7s;
+-ms-transition: all .7s;
+-moz-transition: all .7s;
+-o-transition: all .7s;
+opacity:0.2;
+float:left;
+}
+
+div.updown-vote-box div:hover {opacity:0.5 !important;}
+.updown-down-button {margin-left:5px; margin-right:10px;}
+
+div.updown-vote-box div.updown-up-count,
+div.updown-vote-box div.updown-down-count {
+  margin: 6px 0;
+}
+
+div.updown-vote-box div.updown-down-count,
+div.updown-vote-box div.updown-total-count { float:right; font-size: 14px;
+font-weight: 800; opacity:1;}
+
+
+
+
+div.updown-up-count,
+div.updown-down-count {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+div.updown-up-count, div.updown-pos-count {
+  color: #5ebc40;
+}
+
+div.updown-down-count, div.updown-neg-count {
+  color: #bb5853;
+}
+
+div.updown-active {
+  margin-left: -.5em !important;
+}
+
+img.updown-button {
+  cursor: pointer;
+}
+
+div.updown-vote-box div.updown-label {}
+
+div.updown-vote-box div.updown-label {
+  font-size: 80%;
+  margin: 4px 0;
+}
