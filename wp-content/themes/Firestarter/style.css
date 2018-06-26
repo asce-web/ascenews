@@ -3689,7 +3689,7 @@ padding-bottom: 25px;
     /*width: inherit;*/
 }
 
-#postthumb .post-caption span, .wp-caption-text {
+#postthumb .post-caption , .wp-caption-text {
     color: #2d2d2d;
     font-size: 11px!important;
     font-style: italic;
