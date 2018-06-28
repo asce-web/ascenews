@@ -72,7 +72,7 @@ wp_register_script( 'tfscripts', get_template_directory_uri() . '/includes/tfscr
 //wp_register_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css', '','','' );
 wp_register_style( 'css', get_template_directory_uri() . '/style.css', '','','' );
 wp_register_script( 'retina', get_template_directory_uri() . '/includes/retina/retina.js','','',true );
-wp_register_script( 'sharethis', 'http://w.sharethis.com/button/buttons.js','','',true );
+wp_register_script( 'sharethis', 'https://w.sharethis.com/button/buttons.js','','',true );
 
 if (is_home() || is_category() || is_page() ) {
 wp_enqueue_style('rps'); }
