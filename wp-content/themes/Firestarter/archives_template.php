@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 Template Name: Archive Template
@@ -6,7 +6,7 @@ Template Name: Archive Template
 
 get_header(); ?>
 
-<?php 
+<?php
 add_filter( 'getarchives_where', 'customarchives_where' );
 
 function customarchives_where( $x ) {
@@ -20,7 +20,8 @@ function customarchives_where( $x ) {
 	$s = $s . "(";
 	$s = $s . "SELECT $wpdb->posts.ID FROM $wpdb->posts INNER JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id) INNER JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id) WHERE $wpdb->term_taxonomy.taxonomy = 'category'";
 
-	$exclude = '19,20,28,29'; // category id or list of id's to exclude
+	// $exclude = '19,20,28,29'; // category id or list of id's to exclude
+	$exclude = '3955,3956,28,29'; // category id or list of id's to exclude
 
 	$s = $s . " AND $wpdb->term_taxonomy.term_id NOT IN ($exclude)";
 	$s = $s . ")";
@@ -49,7 +50,7 @@ $adleft3 = get_option_tree('adleft3', $theme_options, false);
 
 
 ?>
-<?php 
+<?php
 $category = get_the_category();
 
 $category_ID =  $category[0]->cat_ID;
@@ -58,34 +59,34 @@ $saved_data = get_tax_meta($category_ID,'color_field_id');
 
 $tf_uniformcolor = get_option_tree('tf_uniformcolor', $theme_options, false);
 
-$catlink = get_category_link($category[0]->term_id); 
+$catlink = get_category_link($category[0]->term_id);
 
 ?>
 
 <div id="archive-container">
 	<div id="archive-content" role="main">
-		
+
 		<div class="category-header"><a href="/site-archives/">Archives</a></div>
-		
+
 		<select class="archive-dropdown" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-  		<option value=""><?php echo esc_attr( __( 'Select Month' ) ); ?></option> 
+  		<option value=""><?php echo esc_attr( __( 'Select Month' ) ); ?></option>
  		<?php wp_get_archives( array( 'type' => 'monthly', 'format' => 'option', 'show_post_count' => 1 ) ); ?>
 		</select>
-		
+
 			<?php $args = array(
 				'type'            => 'postbypost',
 				'limit'           => '',
-				'format'          => 'html', 
+				'format'          => 'html',
 				'before'          => '',
 				'after'           => '',
 				'show_post_count' => false,
 				'echo'            => 1,
 				'order'           => 'DESC'
 			); ?>
-		
+
 
 		<ul class="archive-listing">
-		<?php wp_get_archives( $args ); ?> 
+		<?php wp_get_archives( $args ); ?>
 		</ul>
 	</div>
 </div><!-- #content -->
