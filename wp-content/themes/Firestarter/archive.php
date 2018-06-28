@@ -20,7 +20,7 @@ $adleft3 = get_option_tree('adleft3', $theme_options, false);
 ?>
 
 
- 
+
 
 
 <div class="arch-wrapper">
@@ -29,7 +29,7 @@ $adleft3 = get_option_tree('adleft3', $theme_options, false);
 
 <div class="arch-main-content">
 
-<?php if (have_posts()) :  query_posts($query_string .'&cat=-19,-20,-29'); ?>
+<?php if (have_posts()) :  query_posts($query_string .'&cat=-3955,-3956,-29'); ?>
 <?php while (have_posts()) : the_post(); ?>
 <div class="arch-post">
 
