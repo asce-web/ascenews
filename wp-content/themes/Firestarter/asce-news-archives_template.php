@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 Template Name: ASCE News Archive Template
@@ -6,7 +6,7 @@ Template Name: ASCE News Archive Template
 
 get_header(); ?>
 
-<?php 
+<?php
 add_filter( 'getarchives_where', 'customarchives_where' );
 
 function customarchives_where( $x ) {
@@ -48,7 +48,7 @@ $adleft3 = get_option_tree('adleft3', $theme_options, false);
 
 
 ?>
-<?php 
+<?php
 $category = get_the_category();
 
 $category_ID =  $category[0]->cat_ID;
@@ -57,7 +57,7 @@ $saved_data = get_tax_meta($category_ID,'color_field_id');
 
 $tf_uniformcolor = get_option_tree('tf_uniformcolor', $theme_options, false);
 
-$catlink = get_category_link($category[0]->term_id); 
+$catlink = get_category_link($category[0]->term_id);
 
 ?>
 
@@ -67,12 +67,12 @@ $catlink = get_category_link($category[0]->term_id);
 		<h2>Archives</h2>
 		</div>
 		<!--<select class="archive-dropdown" name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-  		<option value=""><?php #echo esc_attr( __( 'Select Month' ) ); ?></option> 
+  		<option value=""><?php #echo esc_attr( __( 'Select Month' ) ); ?></option>
  		<?php #wp_get_archives( array( 'type' => 'monthly', 'format' => 'option', 'show_post_count' => 1 ) ); ?>
 		</select>-->
-		
+
 			<ul>
-				<?php query_posts("cat=27,-19,-20,-28,-29"); ?>
+				<?php query_posts("cat=27,-3955,-3956,-28,-29"); ?>
 				<?php wp_get_archives('type=postbypost&limit=100'); ?>
 			</ul>
 

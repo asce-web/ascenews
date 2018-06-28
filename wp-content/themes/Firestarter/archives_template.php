@@ -20,7 +20,6 @@ function customarchives_where( $x ) {
 	$s = $s . "(";
 	$s = $s . "SELECT $wpdb->posts.ID FROM $wpdb->posts INNER JOIN $wpdb->term_relationships ON ($wpdb->posts.ID = $wpdb->term_relationships.object_id) INNER JOIN $wpdb->term_taxonomy ON ($wpdb->term_relationships.term_taxonomy_id = $wpdb->term_taxonomy.term_taxonomy_id) WHERE $wpdb->term_taxonomy.taxonomy = 'category'";
 
-	// $exclude = '19,20,28,29'; // category id or list of id's to exclude
 	$exclude = '3955,3956,28,29'; // category id or list of id's to exclude
 
 	$s = $s . " AND $wpdb->term_taxonomy.term_id NOT IN ($exclude)";

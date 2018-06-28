@@ -41,7 +41,7 @@ add_filter( 'post_thumbnail_html', 'tfrecentsidebar_filter_post_thumbnail_html' 
 //Includes
 include_once( 'includes/theme-options.php' );
 include_once( 'includes/recent-posts-slider/recent-posts-slider.php' );
-include_once( 'includes/wp-parallax-content-slider/wp-parallax-content-slider.php' ); 
+include_once( 'includes/wp-parallax-content-slider/wp-parallax-content-slider.php' );
 include_once( 'includes/news-ticker/ticker.php' );
 include_once( 'includes/advanced-recent-posts-widget/advanced-recent-posts-widget.php' );
 include_once( 'includes/custom-styles.php'); // Load Custom Styles
@@ -56,7 +56,7 @@ add_editor_style();
 if ( ! isset( $content_width ) ) $content_width = 980;
 
 //Theme Scripts
-// Let's hook in our function with the javascript files with the wp_enqueue_scripts hook 
+// Let's hook in our function with the javascript files with the wp_enqueue_scripts hook
 add_action( 'wp_enqueue_scripts', 'wp_firestarter_js' );
 
 // Register some javascript files
@@ -138,7 +138,7 @@ add_filter('wp_nav_menu_objects', 'wpb_first_and_last_menu_class');
 
 
 //Thumbnails
-if ( function_exists( 'add_theme_support' ) ) { 
+if ( function_exists( 'add_theme_support' ) ) {
 add_theme_support( 'post-thumbnails' );
 set_post_thumbnail_size(150, 76); // default Post Thumbnail dimensions (cropped) used to be 295x150
 //add_image_size( 'generalslidesize', 460, 470, true );
@@ -163,7 +163,7 @@ add_image_size( 'homeregularthumb', 90, 100, true );
 //	        'label' => 'Secondary Image',
 //                'id' => 'secondary-image',
 //                'post_type' => 'post'
-//            ) ); 
+//            ) );
 }
 
 
@@ -225,7 +225,7 @@ if ( function_exists('register_sidebar') ) {
 //		'after_widget' => '</li>',
 //		'before_title' => '',
 //		'after_title' => '',
-//	)); }	
+//	)); }
 
 if ( function_exists('register_sidebar') ) {
 	register_sidebar(array(
@@ -493,7 +493,7 @@ function time_ago( $type = 'post' ) {
 //        $excerpt = implode(" ",$excerpt).'...';
 //      } else {
 //        $excerpt = implode(" ",$excerpt);
-//      } 
+//      }
 //      $excerpt = preg_replace('`\[[^\]]*\]`','',$excerpt);
 //      return $excerpt;
 //    }
@@ -504,10 +504,10 @@ function time_ago( $type = 'post' ) {
 //        $content = implode(" ",$content).'...';
 //      } else {
 //        $content = implode(" ",$content);
-//      } 
+//      }
 //
 //      $content = preg_replace('/\[.+\]/','', $content);
-//      $content = apply_filters('the_content', $content); 
+//      $content = apply_filters('the_content', $content);
 //      $content = str_replace(']]>', ']]&gt;', $content);
 //      return $content;
 //    }
@@ -602,7 +602,7 @@ require_once RWMB_DIR.'meta-box.php';
 //add_action( 'pre_get_posts', 'tf_author_pre_get' );
 
 function exclude_widget_categories($args){
-$exclude = "1,16,19,20,28,29,3088"; // The IDs of the excluding categories
+$exclude = "1,16,3955,3956,28,29,3088"; // The IDs of the excluding categories
 $args["exclude"] = $exclude;
 return $args;
 }
@@ -661,27 +661,27 @@ function is_subcategory($category = null) {
 
 
 /*//Code below excludes the 'featured' category on the listing
-function the_category_filter($thelist,$separator=' ') {  
-    if(!defined('WP_ADMIN')) {  
-        //Category IDs to exclude  
-        $exclude = array(16);  
+function the_category_filter($thelist,$separator=' ') {
+    if(!defined('WP_ADMIN')) {
+        //Category IDs to exclude
+        $exclude = array(16);
 
-        foreach($exclude as $c) {  
-            $exclude2[] = get_cat_name($c);  
-        }  
-          
-        $cats = explode($separator,$thelist);  
-        $newlist = array();  
-        foreach($cats as $cat) {  
-            $catname = trim(strip_tags($cat));  
-            if(!in_array($catname,$exclude2))  
-                $newlist[] = $cat;  
-        }  
-        return implode($separator,$newlist);  
-    } else {  
-        return $thelist;  
-    }  
-}  
+        foreach($exclude as $c) {
+            $exclude2[] = get_cat_name($c);
+        }
+
+        $cats = explode($separator,$thelist);
+        $newlist = array();
+        foreach($cats as $cat) {
+            $catname = trim(strip_tags($cat));
+            if(!in_array($catname,$exclude2))
+                $newlist[] = $cat;
+        }
+        return implode($separator,$newlist);
+    } else {
+        return $thelist;
+    }
+}
 add_filter('the_category','the_category_filter', 10, 2);
 */
 add_filter('wp_list_categories', 'remove_category_link_prefix');

@@ -1,17 +1,17 @@
-<?php 
+<?php
 if ( get_query_var('paged') ) { $paged = get_query_var('paged'); }
 elseif ( get_query_var('page') ) { $paged = get_query_var('page'); }
 else { $paged = 1; }
-//query_posts(array('category__in' => array(3,4,5,6,7,27), 'posts_per_page' => 10, 'paged' => $paged)); 
-query_posts('posts_per_page=6&cat=-16,-19,-20,-7&paged=' . $paged); 
+//query_posts(array('category__in' => array(3,4,5,6,7,27), 'posts_per_page' => 10, 'paged' => $paged));
+query_posts('posts_per_page=6&cat=-16,-3955,-3956,-7&paged=' . $paged); 
 ?>
 
 <?php if (have_posts()) : ?>
 <?php /* <div class="recent-posts block-header" style="margin: 0 0 1em; padding: 0; border: 0 none;">ASCE Roundup</div><div class="iron-fp-posts"> */ ?>
 <?php while (have_posts()) : the_post(); ?>
 <?php
-            foreach((get_the_category()) as $category) { 
-                //echo $category->cat_name . ' '; 
+            foreach((get_the_category()) as $category) {
+                //echo $category->cat_name . ' ';
             if($category->cat_ID != '16' && $category->parent == 0) {
             $categoryname = $category->cat_name;
             $category_ID =  $category->cat_ID;
@@ -19,24 +19,24 @@ query_posts('posts_per_page=6&cat=-16,-19,-20,-7&paged=' . $paged);
             $saved_data = get_tax_meta($category_ID,'color_field_id');
             }
 
-        } 
+        }
         ?>
 <?php
-#foreach((get_the_category()) as $category) { 
-   //echo $category->cat_name . ' '; 
+#foreach((get_the_category()) as $category) {
+   //echo $category->cat_name . ' ';
 #    if($category->parent == 0) {//this makes sure to display the parent category name if post is tagged to parent and child category like ASCE News
 #	$categoryname = $category->cat_name;
 #    }
-#} 
+#}
 ?>
-<?php 
+<?php
 #$category = get_the_category();
 
 #$category_ID =  $category[0]->cat_ID;
 
 #$saved_data = get_tax_meta($category_ID,'color_field_id');
 
-#$catlink = get_category_link($category[0]->term_id); 
+#$catlink = get_category_link($category[0]->term_id);
 
 ?>
 
