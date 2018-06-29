@@ -732,4 +732,3 @@ $args['reject_unsafe_urls'] = false;
 return $args;
 }
 add_filter( 'http_request_args', 'http_request_local' );
-?>
