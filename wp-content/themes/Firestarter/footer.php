@@ -17,7 +17,7 @@ $tf_footertext = get_option_tree('tf_footertext', $theme_options, false);
       <li class="social-item"><a href="https://twitter.com/ascetweets" class="twitter">Twitter</a></li>
       <li class="social-item"><a href="http://www.linkedin.com/groups?gid=143956&trk=myg_ugrp_ovr" class="linkedin">LinkedIn</a></li>
       <li class="social-item"><a href="http://www.youtube.com/user/AmerSocCivilEng" class="youtube">YouTube</a></li>
-      <li class="social-item"><a href="https://plus.google.com/b/105603289001341360426/+AmerSocCivilEng/posts" class="googleplus">Google+</a></li>
+    <!--  <li class="social-item"><a href="https://plus.google.com/b/105603289001341360426/+AmerSocCivilEng/posts" class="googleplus">Google+</a></li>-->
     </ul>
   </div>
   <div class="separator"></div>
