@@ -28,7 +28,7 @@ $adleft3 = get_option_tree('adleft3', $theme_options, false);
 
 
 <div class="author-posts-wrapper">
-	
+
 <div class="middlewrapper">
 <div id="authorpagebioname">
 <?php echo $curauth->display_name; ?>
@@ -43,7 +43,7 @@ $adleft3 = get_option_tree('adleft3', $theme_options, false);
 
 
 <div id="authorpageimg">
-<?php  echo get_wp_user_avatar( get_the_author_meta( 'user_email', $authorID ), apply_filters( 'twentyten_author_bio_avatar_size', 80 ) ); 
+<?php  echo get_wp_user_avatar( get_the_author_meta( 'user_email', $authorID ), apply_filters( 'twentyten_author_bio_avatar_size', 80 ) );
 
 ?>
 </div>
@@ -71,24 +71,24 @@ Posts by this contributor
 <?php if (have_posts()) : ?>
 <?php while (have_posts()) : the_post(); ?>
 <?php
-#foreach((get_the_category()) as $category) { 
-#   //echo $category->cat_name . ' '; 
+#foreach((get_the_category()) as $category) {
+#   //echo $category->cat_name . ' ';
 #	$categoryname = $category->cat_name;
-#} 
+#}
 ?>
-<?php 
+<?php
 #$category = get_the_category();
 
 #$category_ID =  $category[0]->cat_ID;
 
 #$saved_data = get_tax_meta($category_ID,'color_field_id');
 
-#$catlink = get_category_link($category[0]->term_id); 
+#$catlink = get_category_link($category[0]->term_id);
 
 ?>
 <?php
-            foreach((get_the_category()) as $category) { 
-                //echo $category->cat_name . ' '; 
+            foreach((get_the_category()) as $category) {
+                //echo $category->cat_name . ' ';
             if($category->cat_ID != '16' && $category->parent == 0) {
             $categoryname = $category->cat_name;
             $category_ID =  $category->cat_ID;
@@ -96,7 +96,7 @@ Posts by this contributor
             $saved_data = get_tax_meta($category_ID,'color_field_id');
             }
 
-        } 
+        }
         ?>
 
 <div class="homeregularpost">
