@@ -49,6 +49,7 @@ $headers = array(
     'x-download-options' => array('X-Download-Options', 'hh_x_download_options', 'security'),
     'x-permitted-cross-domain-policies' => array('X-Permitted-Cross-Domain-Policies', 'hh_x_permitted_cross_domain_policies', 'security'),
     'report-to' => array('Report-To', 'hh_report_to', 'security'),
+    'feature-policy' => array('Feature-Policy', 'hh_feature_policy', 'security'),
 );
 
 $options = array(
@@ -138,4 +139,8 @@ $options = array(
     'hh_custom_headers_value',
     'hh_report_to',
     'hh_report_to_value',
+    'hh_feature_policy',
+    'hh_feature_policy_feature',
+    'hh_feature_policy_origin',
+    'hh_feature_policy_value',
 );

@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.9.4
+Version: 1.10.1
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -24,7 +24,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/copyleft/gpl.html>.
 
-Copyright (c) 2017 Zino UI
+Copyright (c) 2017-2018 Zino UI
 */
 
 if (!defined('ABSPATH')) {
@@ -158,6 +158,13 @@ if (get_option('hh_x_dns_prefetch_control') === false) {
 if (get_option('hh_report_to') === false) {
     add_option('hh_report_to', 0, null, 'yes');
     add_option('hh_report_to_value', null, null, 'yes');
+}
+
+if (get_option('hh_feature_policy') === false) {
+    add_option('hh_feature_policy', 0, null, 'yes');
+    add_option('hh_feature_policy_feature', null, null, 'yes');
+    add_option('hh_feature_policy_origin', null, null, 'yes');
+    add_option('hh_feature_policy_value', null, null, 'yes');
 }
 
 function get_http_headers() {
@@ -417,6 +424,36 @@ function get_http_headers() {
 	    }
 	    $headers['Report-To'] = join(', ', $tmp);
 	}
+	if (get_option('hh_feature_policy') == 1) {
+	    $feature_policy_feature = get_option('hh_feature_policy_feature');
+	    $feature_policy_value = get_option('hh_feature_policy_value');
+	    $feature_policy_origin = get_option('hh_feature_policy_origin');
+	    $tmp = array();
+	    foreach ($feature_policy_feature as $feature => $whatever)
+	    {
+	        $value = NULL;
+	        switch ($feature_policy_value[$feature])
+	        {
+	            case '*':
+	            case "'none'":
+    	            $value = $feature_policy_value[$feature];
+    	            break;
+	            case "'self'":
+	                $value = $feature_policy_value[$feature];
+	                if (!empty($feature_policy_origin[$feature]))
+	                {
+	                    $value .= " " . $feature_policy_origin[$feature];
+	                }
+	                break;
+	            case 'origin(s)':
+	                $value = $feature_policy_origin[$feature];
+	                break;
+	        }
+	        
+	        $tmp[] = sprintf("%s %s", $feature, $value);
+	    }
+	    $headers['Feature-Policy'] = join('; ', $tmp);
+	}
 	
 	return array($headers, $statuses, $unset, $append);
 }
@@ -604,6 +641,10 @@ function http_headers_admin() {
 	register_setting('http-headers-xdpc', 'hh_x_dns_prefetch_control_value');
 	register_setting('http-headers-rt', 'hh_report_to');
 	register_setting('http-headers-rt', 'hh_report_to_value');
+	register_setting('http-headers-fp', 'hh_feature_policy');
+	register_setting('http-headers-fp', 'hh_feature_policy_value');
+	register_setting('http-headers-fp', 'hh_feature_policy_feature');
+	register_setting('http-headers-fp', 'hh_feature_policy_origin');
 }
 	
 function http_headers_option($option) {
@@ -860,9 +901,14 @@ function apache_headers_directives() {
 				$all[] = sprintf('  Header always set %s %s', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
 				continue;
 			}
-        if ($key == 'Access-Control-Allow-Origin' && is_array($value)) {
+        if ($key == 'Access-Control-Allow-Origin') {
             $all[] = '  <IfModule mod_setenvif.c>';
-            $all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace('.', '\.', join('|', $value)));
+            if (is_array($value))
+            {
+            	$all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace('.', '\.', join('|', $value)));
+            } else {
+                $all[] = '    SetEnvIf Origin "^(.*)$" CORS=$0';
+            }
             $all[] = '  </IfModule>';
             $all[] = '  Header set Access-Control-Allow-Origin %{CORS}e env=CORS';
             continue;

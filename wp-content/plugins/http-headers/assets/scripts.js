@@ -116,6 +116,15 @@
 			$("#hh-import-file").trigger("click");
 		}).on("change", "#hh-import-file", function () {
 			$("#hh-import-name").html(this.files[0].name);
+		}).on("change", 'select[name^="hh_feature_policy_value"]', function () {
+			var $this = $(this),
+				value = $this.find("option:selected").val(),
+				$input = $this.siblings('input[name^="hh_feature_policy_origin"]');
+			if (value === "'self'" || value === "origin(s)") {
+				$input.show();
+			} else {
+				$input.hide();
+			}
 		});
 		
 		$('.hh-tabs').on('click', 'ul a', function (e) {

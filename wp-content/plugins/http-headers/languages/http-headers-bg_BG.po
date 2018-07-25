@@ -266,6 +266,10 @@ msgstr "Ако в отговора има 'Cache-Control' хедър с една
 msgid "* Works only in Apache mode"
 msgstr "* Работи само в режим Apache"
 
+#: views/feature-policy.php:8
+msgid "With Feature Policy, you opt-in to a set of policies for the browser to enforce on specific features used throughout your site. These policies restrict what APIs the site can access or modify the browser's default behavior for certain features."
+msgstr "С Feature Policy хедъра се присъединявате към набор от правила, които браузърът може да прилага по отношение на конкретни функции, използвани в сайта Ви. Тези правила ограничават какви API може да има достъп до сайта или да променя поведението му по подразбиране за определени функции."
+
 #: views/p3p.php:3
 msgid "The Platform for Privacy Preferences Project (P3P) is a protocol allowing websites to declare their intended use of information they collect about web browser users."
 msgstr "P3P е протокол, позволяващ на уебсайтовете да декларират предназначението на информацията, която събират за уеб потребителите."
