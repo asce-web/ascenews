@@ -268,6 +268,10 @@ msgstr ""
 msgid "* Works only in Apache mode"
 msgstr ""
 
+#: views/feature-policy.php:8
+msgid "With Feature Policy, you opt-in to a set of policies for the browser to enforce on specific features used throughout your site. These policies restrict what APIs the site can access or modify the browser's default behavior for certain features."
+msgstr ""
+
 #: views/p3p.php:3
 msgid "The Platform for Privacy Preferences Project (P3P) is a protocol allowing websites to declare their intended use of information they collect about web browser users."
 msgstr ""

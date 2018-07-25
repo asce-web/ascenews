@@ -46,8 +46,8 @@ if (!defined('ABSPATH')) {
 					?>
 					</select>
 				</td>
-    			<td class="hh-acao"><input type="text" name="hh_access_control_allow_origin_url[]" class="http-header-value" placeholder="http://domain.com" size="35" value="<?php echo esc_attr(@$access_control_allow_origin_url[0]); ?>"<?php echo $access_control_allow_origin == 1 && $access_control_allow_origin_value == 'origin' ? NULL : ' style="display: none" readonly'; ?> /></td>
-    			<td class="hh-acao">&nbsp;</td>
+    			<td class="hh-acao<?php echo $access_control_allow_origin_value == '*' ? ' hh-hidden' : NULL; ?>"><input type="text" name="hh_access_control_allow_origin_url[]" class="http-header-value" placeholder="http://domain.com" size="35" value="<?php echo esc_attr(@$access_control_allow_origin_url[0]); ?>"<?php echo $access_control_allow_origin == 1 && $access_control_allow_origin_value == 'origin' ? NULL : ' readonly'; ?> /></td>
+    			<td class="hh-acao<?php echo $access_control_allow_origin_value == '*' ? ' hh-hidden' : NULL; ?>">&nbsp;</td>
     		</tr>
     		<?php 
 		    foreach ($access_control_allow_origin_url as $i => $url)
@@ -57,7 +57,7 @@ if (!defined('ABSPATH')) {
     		        continue;
     		    }
     		    ?>
-				<tr class="hh-acao">
+				<tr class="hh-acao<?php echo $access_control_allow_origin_value == '*' ? ' hh-hidden' : NULL; ?>">
         			<td>&nbsp;</td>
         			<td><input type="text" name="hh_access_control_allow_origin_url[]" class="http-header-value" placeholder="http://domain.com" size="35" value="<?php echo esc_attr($url); ?>"<?php echo $access_control_allow_origin == 1 && $access_control_allow_origin_value == 'origin' ? NULL : ' readonly'; ?> /></td>
         			<td><button type="button" class="button button-small hh-btn-delete-origin" title="<?php esc_attr_e('Delete', 'http-headers'); ?>">x</button></td>
@@ -65,7 +65,7 @@ if (!defined('ABSPATH')) {
     		    <?php 
     		}
     		?>
-    		<tr class="hh-acao">
+    		<tr class="hh-acao<?php echo $access_control_allow_origin_value == '*' ? ' hh-hidden' : NULL; ?>">
     			<td>&nbsp;</td>
     			<td><button type="button" class="button hh-btn-add-origin">+ <?php _e('Add origin', 'http-headers'); ?></button></td>
     			<td>&nbsp;</td>

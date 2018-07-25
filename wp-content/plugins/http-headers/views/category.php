@@ -219,6 +219,38 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 				            $a_item['url'], $a_item['group'], $a_item['max-age'], isset($a_item['includeSubDomains']) ? ', includeSubDomains' : NULL);
 				    }
 				    $value = join(', ', $tmp);
+				    break;
+				case 'hh_feature_policy':
+				    $fp = array();
+				    $features = get_option('hh_feature_policy_feature');
+				    if (!$features)
+				    {
+				        $features = array();
+				    }
+				    $origins = get_option('hh_feature_policy_origin');
+				    foreach ($features as $key => $whatever)
+				    {
+				        switch ($value[$key])
+				        {
+				            case '*':
+				            case "'none'":
+				                $fp[] = sprintf("%s %s", $key, $value[$key]);
+				                break;
+				            case "'self'":
+				                $fp[] = sprintf("%s %s%s", $key, $value[$key], !empty($origins[$key]) ? " " . $origins[$key] : NULL);
+				                break;
+				            case 'origin(s)':
+				                $fp[] = sprintf("%s %s", $key, $origins[$key]);
+				                break;
+				        }
+				    }
+				    if (!empty($fp))
+				    {
+				        $value = join('; ', $fp);
+				    } else {
+				        $value = "";
+				    }
+				    break;
 				default:
 					$value = !is_array($value) ? $value : join(', ', $value);
 			}
