@@ -3,7 +3,7 @@
 Contributors: flippercode
 Tags: author image, author photo, author avatar, avatar, bbPress, profile avatar, profile image, user avatar, user image, user photo, widget
 Requires at least: 3.6
-Tested up to: 4.9.6
+Tested up to: 4.9.7
 Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -404,6 +404,15 @@ This would output:
 4. After you've chosen a WP User Avatar image, you will see the option to remove it.
 
 == Changelog ==
+
+= 2.1.4 =
+* Fix: Remove Ads from dashboard and all other pages.
+
+= 2.1.3 =
+* Fix: Better Styling
+
+= 2.1.2 =
+* Fix: Tested up to 4.9.7
 
 = 2.1.1 =
 * Fix: Insecure content over https issue is fixed.
