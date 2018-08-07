@@ -1,7 +1,7 @@
 <?php
 /**
  * @package WP User Avatar
- * @version 2.1.1
+ * @version 2.1.4
  */
 
 /*
@@ -10,7 +10,7 @@ Plugin URI: http://wordpress.org/plugins/wp-user-avatar/
 Description: Use any image from your WordPress Media Library as a custom user avatar. Add your own Default Avatar.
 Author: flippercode
 Author URI: http://www.flippercode.com/
-Version: 2.1.1
+Version: 2.1.4
 Text Domain: wp-user-avatar
 Domain Path: /lang/
 */
@@ -38,7 +38,7 @@ class WP_User_Avatar_Setup {
    * @since 1.9.2
    */
   private function _define_constants() {
-    define('WPUA_VERSION', '2.1.1');
+    define('WPUA_VERSION', '2.1.2');
     define('WPUA_FOLDER', basename(dirname(__FILE__)));
     define('WPUA_DIR', plugin_dir_path(__FILE__));
     define('WPUA_INC', WPUA_DIR.'includes'.'/');
@@ -83,6 +83,12 @@ class WP_User_Avatar_Setup {
     require_once(WPUA_INC.'class-wp-user-avatar-subscriber.php');
     require_once(WPUA_INC.'class-wp-user-avatar-update.php');
     require_once(WPUA_INC.'class-wp-user-avatar-widget.php');
+    
+    $hide_ads = apply_filters('wp_remove_ads',false);
+    if( $hide_ads == false) {
+     require_once(WPUA_INC.'plugins/mo-admin-notice.php');   
+    }
+    
     // Load TinyMCE only if enabled
     if((bool) $wpua_tinymce == 1) {
       require_once(WPUA_INC.'wpua-tinymce.php');

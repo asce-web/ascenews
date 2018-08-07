@@ -203,6 +203,13 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
     </table>
     <?php submit_button(); ?>
   </form>
+   <!-- Recommendation Section -->
+  <div class="fc-box">
+    <h3>Recommended Plugin</h3>
+    <p><a target="_blank" href="https://mailoptin.io/?utm_source=wpuseravatar&utm_medium=banner"><img  src="<?php echo WPUA_URL.'images/mailoptin-banner.png'; ?>" /></a></p>
+    <p><em><a target="_blank" href="https://mailoptin.io/?utm_source=wpuseravatar&utm_medium=banner">MailOptin</a> - Grow Your Email List and Send Event Triggered Email Newsletters with Ease.</em></p>
+  </div>
+  <!-- End -->
 </td>
     <td>
     <div id="fc-sidebar">

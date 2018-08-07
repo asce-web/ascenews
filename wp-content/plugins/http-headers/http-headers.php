@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.10.1
+Version: 1.10.2
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -1223,14 +1223,14 @@ function http_headers_post_export() {
     check_admin_referer('export');
     global $wpdb;
     include 'views/includes/config.inc.php';
-    $statement = sprintf("SELECT * FROM wp_options WHERE option_name IN ('%s');", join("','", $options));
+    $statement = sprintf("SELECT * FROM %s WHERE option_name IN ('%s');", $wpdb->options, join("','", $options));
     $results = $wpdb->get_results($statement, ARRAY_A);
     $sql = array();
     foreach ($results as $item)
     {
         $value = str_replace("'", "''", $item['option_value']);
         $query = array();
-        $query[] = "INSERT INTO wp_options (option_id, option_name, option_value, autoload)";
+        $query[] = sprintf("INSERT INTO %s (option_id, option_name, option_value, autoload)", $wpdb->options);
         $query[] = sprintf("VALUES (NULL, '%s', '%s', '%s')", $item['option_name'], $value, $item['autoload']);
         $query[] = sprintf("ON DUPLICATE KEY UPDATE option_value = '%s', autoload = '%s';", $value, $item['autoload']);
         $sql[] = join("\n", $query);
