@@ -22,33 +22,6 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+?>
 
-abstract class Ai1wm_Http_Abstract {
-
-	protected $headers = array(
-		'Accept'          => '*/*',
-		'Accept-Encoding' => '*',
-		'Accept-Charset'  => '*',
-		'Accept-Language' => '*',
-		'User-Agent'      => 'Mozilla/5.0',
-	);
-
-	public function __construct() {
-		// Set user agent
-		if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			$this->headers['User-Agent'] = $_SERVER['HTTP_USER_AGENT'];
-		}
-	}
-
-	public function set_header( $key, $value ) {
-		$this->headers[ $key ] = $value;
-
-		return $this;
-	}
-
-	public function get_header( $key ) {
-		return $this->headers[ $key ];
-	}
-
-	abstract public function get( $url, $blocking = false );
-}
+<a href="https://servmask.com/products/amazon-glacier-extension" target="_blank">Amazon Glacier</a>

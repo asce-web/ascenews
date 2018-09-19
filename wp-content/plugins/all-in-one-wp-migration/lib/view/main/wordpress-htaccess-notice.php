@@ -22,41 +22,20 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+?>
 
-class Ai1wm_Resolve_Controller {
-
-	public static function resolve( $params = array() ) {
-
-		// Set params
-		if ( empty( $params ) ) {
-			$params = stripslashes_deep( $_GET );
-		}
-
-		// Set secret key
-		$secret_key = null;
-		if ( isset( $params['secret_key'] ) ) {
-			$secret_key = trim( $params['secret_key'] );
-		}
-
-		try {
-			// Ensure that unauthorized people cannot access resolve action
-			ai1wm_verify_secret_key( $secret_key );
-		} catch ( Ai1wm_Not_Valid_Secret_Key_Exception $e ) {
-			exit;
-		}
-
-		// Set IP address
-		if ( isset( $params['url_ip'] ) && ( $ip = $params['url_ip'] ) ) {
-			update_option( AI1WM_URL_IP, $ip );
-		}
-
-		// Set adapter
-		if ( isset( $params['url_adapter'] ) && ( $adapter = $params['url_adapter'] ) ) {
-			if ( $adapter === 'curl' ) {
-				update_option( AI1WM_URL_ADAPTER, 'curl' );
-			} else {
-				update_option( AI1WM_URL_ADAPTER, 'stream' );
-			}
-		}
-	}
-}
+<div class="error">
+	<p>
+		<?php
+		printf(
+			__(
+				'All in One WP Migration is not able to create <strong>%s</strong> file. ' .
+				'Try to change permissions of the parent folder or send us an email at ' .
+				'<a href="mailto:support@servmask.com">support@servmask.com</a> for assistance.',
+				AI1WM_PLUGIN_NAME
+			),
+			AI1WM_WORDPRESS_HTACCESS
+		)
+		?>
+	</p>
+</div>

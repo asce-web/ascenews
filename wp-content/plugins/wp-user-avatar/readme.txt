@@ -405,6 +405,9 @@ This would output:
 
 == Changelog ==
 
+= 2.1.5 =
+* Fix: Translation bug resolved in class-wp-user-avatar-admin file in PHP 7.
+
 = 2.1.4 =
 * Fix: Remove Ads from dashboard and all other pages.
 
