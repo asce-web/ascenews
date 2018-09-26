@@ -190,7 +190,6 @@ class WPGO_Simple_Sitemap_Group_Shortcode {
 		// ***********
 		// CONTENT END
 		// ***********
-		ob_start();
 
 		$sitemap = ob_get_contents();
 		ob_end_clean();
