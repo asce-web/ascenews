@@ -5,7 +5,7 @@ Tags: popular, posts, widget, popularity, top
 Requires at least: 4.7
 Tested up to: 4.9.8
 Requires PHP: 5.3
-Stable tag: 4.1.2
+Stable tag: 4.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,6 +23,8 @@ WordPress Popular Posts is a highly customizable widget that displays your most 
 * **Statistics dashboard** - See how your popular posts are doing directly from your admin area.
 * **Sorting options** - Order your popular list by comments, views (default) or average views per day!
 * **Use your own layout!** - WPP is flexible enough to let you customize the look and feel of your popular posts! (see [customizing WPP's HTML markup](https://github.com/cabrerahector/wordpress-popular-posts/wiki/5.-FAQ#how-can-i-use-my-own-html-markup-with-your-plugin) and [How to style WordPress Popular Posts](https://github.com/cabrerahector/wordpress-popular-posts/wiki/6.-Styling-the-list) for more.)
+* **Advanced caching features!** - WordPress Popular Posts includes a few options to make sure your site's performance stays as good as ever! (see [Performance](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more details.)
+* **REST API Support** - Embed your popular posts in your (web) app! (see [REST API Endpoints](https://github.com/cabrerahector/wordpress-popular-posts/wiki/8.-REST-API-Endpoints) for more.)
 * **Disqus support** - Sort your popular posts by Disqus comments count!
 * **Polylang & WPML 3.2+ support** - Show the translated version of your popular posts!
 * **WordPress Multisite support** - Each site on the network can have its own popular posts!
@@ -60,7 +62,7 @@ Please make sure your site meets the [minimum requirements](https://github.com/c
 2. If you have a caching plugin installed on your site, flush its cache now so WPP can start tracking your site.
 3. If you have a security / firewall plugin installed on your site, make sure you [allow WPP access to the REST API](https://wordpress.org/support/topic/wpp-does-not-count-properly/#post-10411163) so it can start tracking your site.
 4. Go to Appearance > Editor. Under "Templates", click on `header.php` and make sure that the `<?php wp_head(); ?>` tag is present (should be right before the closing `</head>` tag).
-5. (Optional, but highly recommended for large / high traffic sites) Enabling [Data Sampling](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling) and/or [Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) might be a good idea. Check [here](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more.
+5. (Optional, but highly recommended for large / high traffic sites) Enabling [Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) and/or [Data Sampling](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#data-sampling) might be a good idea if you're worried about performance. Check [here](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance) for more.
 
 That's it!
 
@@ -86,6 +88,20 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 4. WordPress Popular Posts Stats panel.
 
 == Changelog ==
+= 4.2.0 =
+
+**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is required.**
+
+- **Breaking change**: Database query performance improvements (thanks Stofa!), plugin should be significantly faster for most people out there. Developers: if you're hooking into the `WPP_Query` class to customize the query, you will have to review it as this change will likely break your custom query.
+- **Persistent object caching support**: WPP can now store views count in-memory, reducing greatly the number of database writes which is good for performance!
+- Adds filter hook [wpp_parse_custom_content_tags](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_parse_custom_content_tags).
+- Adds filter hook [wpp_taxonomy_separator](https://github.com/cabrerahector/wordpress-popular-posts/wiki/3.-Filters#wpp_taxonomy_separator).
+- You can now also pass arrays when using the parameters `post_type`, `cat`, `term_id`, `pid` or `author` (see [issue 169](https://github.com/cabrerahector/wordpress-popular-posts/issues/169#issuecomment-419667083) for details).
+- The plugin will use language packs from wordpress.org from now on.
+- Minor fixes and improvements.
+
+Check the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-2-is-all-about-speed/) for more details!
+
 = 4.1.2 =
 
 - Enables [Data Caching](https://github.com/cabrerahector/wordpress-popular-posts/wiki/7.-Performance#caching) by default (new installs only).
@@ -102,19 +118,6 @@ The FAQ section has been moved [here](https://github.com/cabrerahector/wordpress
 - Code cleanup.
 - Fixes a minor bug (plugin returning the wrong excerpt when a translation plugin is used).
 - Bumps minimum required PHP version to 5.3.
-
-= 4.1.0 =
-
-**If you're using a caching plugin, flushing its cache right after installing / upgrading to this version is highly recommended.**
-
-- Adds support for the REST API.
-- Adds At-a-Glance stats.
-- Adds Today time range to Stats section.
-- Drops jQuery dependency on front-end (faster loading times!)
-- The plugin will no longer display debugging information unless WP_DEBUG is set to true.
-- Many minor bug fixes and improvements.
-
-See the [Release notes](https://cabrerahector.com/wordpress/wordpress-popular-posts-4-1-is-here/) for more details!
 
 See [full changelog](https://github.com/cabrerahector/wordpress-popular-posts/blob/master/changelog.md).
 
