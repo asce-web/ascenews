@@ -3,7 +3,7 @@
 Plugin Name: WP-Paginate
 Plugin URI: https://wordpress.org/plugins/wp-paginate/
 Description: A simple and flexible pagination plugin for WordPress posts and comments.
-Version: 2.0.4
+Version: 2.0.5
 Author: Max Foundry
 Author URI: http://maxfoundry.com
 Text Domain: 'wp-paginate'
@@ -60,7 +60,7 @@ if (!class_exists('WPPaginate')) {
         /**
          * @var string The plugin version
          */
-        public $version = '2.0.4';
+        public $version = '2.0.5';
 
         /**
          * @var string The options string name for this plugin
@@ -93,7 +93,7 @@ if (!class_exists('WPPaginate')) {
 				public $fonts = array();
 				
 				public $presets = array();
-
+        
 				/**
          * Constructor
          */
@@ -308,7 +308,12 @@ if (!class_exists('WPPaginate')) {
 							$after_option = $this->options['after'];
 						else
 						  $after_option = '</div>';						
-												
+            
+						if(isset($this->options['slash']))
+							$slash_option = $this->options['slash'];
+						else
+						  $slash_option = false;
+            												
 						$before = stripslashes(html_entity_decode($before_option));
 						$after = stripslashes(html_entity_decode($after_option));
 
@@ -334,6 +339,11 @@ if (!class_exists('WPPaginate')) {
             $nextlink = ($this->type === 'posts')
                 ? rtrim(esc_url(get_pagenum_link($page + 1)), '/')
                 : get_comments_pagenum_link($page + 1);
+            
+            if($slash_option == true) {
+               $prevlink . '/';
+               $nextlink . '/';
+            }
 						
             $output = stripslashes(wp_kses_decode_entities($before));
             if ($pages > 1) {
@@ -349,6 +359,9 @@ if (!class_exists('WPPaginate')) {
                 $ellipsis = "<li><span class='gap'>...</span></li>";
 
                 if ($page > 1 && !empty($previouspage)) {
+                  if($slash_option)
+                    $output .= sprintf('<li><a href="%s/" class="prev">%s</a></li>', $prevlink, stripslashes($previouspage));
+                  else
                     $output .= sprintf('<li><a href="%s" class="prev">%s</a></li>', $prevlink, stripslashes($previouspage));
                 }
 
@@ -360,32 +373,35 @@ if (!class_exists('WPPaginate')) {
 
                 if ($left_gap && !$right_gap) {
                     $output .= sprintf('%s%s%s',
-                        $this->paginate_loop(1, $anchor),
+                        $this->paginate_loop(1, $anchor, 0, $slash_option),
                         $ellipsis,
-                        $this->paginate_loop($block_min, $pages, $page)
+                        $this->paginate_loop($block_min, $pages, $page, $slash_option)
                     );
                 }
                 else if ($left_gap && $right_gap) {
                     $output .= sprintf('%s%s%s%s%s',
-                        $this->paginate_loop(1, $anchor),
+                        $this->paginate_loop(1, $anchor, 0, $slash_option),
                         $ellipsis,
-                        $this->paginate_loop($block_min, $block_high, $page),
+                        $this->paginate_loop($block_min, $block_high, $page, $slash_option),
                         $ellipsis,
-                        $this->paginate_loop(($pages - $anchor + 1), $pages)
+                        $this->paginate_loop(($pages - $anchor + 1), $pages, 0, $slash_option)
                     );
                 }
                 else if ($right_gap && !$left_gap) {
                     $output .= sprintf('%s%s%s',
-                        $this->paginate_loop(1, $block_high, $page),
+                        $this->paginate_loop(1, $block_high, $page, $slash_option),
                         $ellipsis,
-                        $this->paginate_loop(($pages - $anchor + 1), $pages)
+                        $this->paginate_loop(($pages - $anchor + 1), $pages, 0, $slash_option)
                     );
                 }
                 else {
-                    $output .= $this->paginate_loop(1, $pages, $page);
+                    $output .= $this->paginate_loop(1, $pages, $page, $slash_option);
                 }
 
                 if ($page < $pages && !empty($nextpage)) {
+                  if($slash_option)
+                    $output .= sprintf('<li><a href="%s/" class="next">%s</a></li>', $nextlink, stripslashes($nextpage));
+                  else
                     $output .= sprintf('<li><a href="%s" class="next">%s</a></li>', $nextlink, stripslashes($nextpage));
                 }
                 $output .= "</ol>";
@@ -400,13 +416,16 @@ if (!class_exists('WPPaginate')) {
         /**
          * Helper function for pagination which builds the page links.
          */
-        function paginate_loop($start, $max, $page = 0) {
+        function paginate_loop($start, $max, $page = 0, $slash = false) {
             $output = "";
             for ($i = $start; $i <= $max; $i++) {
+              if($slash)
+                $p = ($this->type === 'posts') ? esc_url(get_pagenum_link($i)) : get_comments_pagenum_link($i);
+              else
                 $p = ($this->type === 'posts') ? rtrim(esc_url(get_pagenum_link($i)), '/') : get_comments_pagenum_link($i);
-                $output .= ($page == intval($i))
-                    ? "<li><span class='page current'>$i</span></li>"
-                    : "<li><a href='$p' title='$i' class='page'>$i</a></li>";
+              $output .= ($page == intval($i))
+                  ? "<li><span class='page current'>$i</span></li>"
+                  : "<li><a href='$p' title='$i' class='page'>$i</a></li>";
             }
             return $output;
         }
@@ -448,6 +467,7 @@ if (!class_exists('WPPaginate')) {
                     'nextpage' => '&raquo;',
                     'previouspage' => '&laquo;',
                     'css' => true,
+                    'slash' => false,
                     'before' => '<div class="navigation">',
                     'after' => '</div>',
                     'empty' => true,
@@ -518,6 +538,7 @@ if (!class_exists('WPPaginate')) {
                     $this->options['after'] = esc_attr($_POST['after']);
                     $this->options['empty'] = (isset($_POST['empty']) && $_POST['empty'] === 'on') ? true : false;
                     $this->options['css'] = (isset($_POST['css']) && $_POST['css'] === 'on') ? true : false;
+                    $this->options['slash'] = (isset($_POST['slash']) && $_POST['slash'] === 'on') ? true : false;
                     $this->options['range'] = intval($_POST['range']);
                     $this->options['anchor'] = intval($_POST['anchor']);
                     $this->options['gap'] = intval($_POST['gap']);
@@ -771,6 +792,16 @@ if (!class_exists('WPPaginate')) {
             <td><label for="css">
                 <input type="checkbox" id="css" name="css" <?php echo ($this->options['css'] === true) ? "checked='checked'" : ""; ?>/> <?php printf(__('Include the default stylesheet wp-paginate.css? WP-Paginate will first look for <code>wp-paginate.css</code> in your theme directory (<code>themes/%s</code>).', 'wp-paginate'), get_template()); ?></label></td>
         </tr>
+        <?php
+        if(!isset($this->options['slash']))
+          $this->options['slash'] = false;
+        ?>
+        <tr valign="top">
+            <th scope="row"><?php _e('Add trailing slash:', 'wp-paginate'); ?></th>
+            <td><label for="slash">
+                <input type="checkbox" id="css" name="slash" <?php echo ($this->options['slash'] === true) ? "checked='checked'" : ""; ?>/> <?php printf(__('Adds a trailing slash to the end of pagination links.', 'wp-paginate'), get_template()); ?></label></td>
+        </tr>
+        
         <tr valign="top">
             <th scope="row"><?php _e('Page Range:', 'wp-paginate'); ?></th>
             <td>
