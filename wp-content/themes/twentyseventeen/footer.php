@@ -21,7 +21,12 @@
 				<?php
 				get_template_part( 'template-parts/footer/footer', 'widgets' );
 
+<<<<<<< HEAD
 				if ( has_nav_menu( 'social' ) ) : ?>
+=======
+				if ( has_nav_menu( 'social' ) ) :
+					?>
+>>>>>>> stage
 					<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'twentyseventeen' ); ?>">
 						<?php
 							wp_nav_menu( array(
@@ -33,7 +38,12 @@
 							) );
 						?>
 					</nav><!-- .social-navigation -->
+<<<<<<< HEAD
 				<?php endif;
+=======
+					<?php
+				endif;
+>>>>>>> stage
 
 				get_template_part( 'template-parts/footer/site', 'info' );
 				?>

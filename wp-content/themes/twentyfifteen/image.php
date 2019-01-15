@@ -14,8 +14,14 @@ get_header(); ?>
 
 			<?php
 				// Start the loop.
+<<<<<<< HEAD
 				while ( have_posts() ) : the_post();
 			?>
+=======
+			while ( have_posts() ) :
+				the_post();
+				?>
+>>>>>>> stage
 
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -62,7 +68,12 @@ get_header(); ?>
 								'link_after'  => '</span>',
 								'pagelink'    => '<span class="screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>%',
 								'separator'   => '<span class="screen-reader-text">, </span>',
+<<<<<<< HEAD
 							) );
+=======
+							)
+						);
+>>>>>>> stage
 						?>
 					</div><!-- .entry-content -->
 

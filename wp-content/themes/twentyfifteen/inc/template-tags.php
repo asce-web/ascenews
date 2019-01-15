@@ -10,6 +10,7 @@
  */
 
 if ( ! function_exists( 'twentyfifteen_comment_nav' ) ) :
+<<<<<<< HEAD
 /**
  * Display navigation to next/previous comments when applicable.
  *
@@ -20,6 +21,18 @@ function twentyfifteen_comment_nav() {
 	if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
 	?>
 	<nav class="navigation comment-navigation" role="navigation">
+=======
+	/**
+	 * Display navigation to next/previous comments when applicable.
+	 *
+	 * @since Twenty Fifteen 1.0
+	 */
+	function twentyfifteen_comment_nav() {
+		// Are there comments to navigate through?
+		if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+			?>
+		<nav class="navigation comment-navigation" role="navigation">
+>>>>>>> stage
 		<h2 class="screen-reader-text"><?php _e( 'Comment navigation', 'twentyfifteen' ); ?></h2>
 		<div class="nav-links">
 			<?php
@@ -31,11 +44,19 @@ function twentyfifteen_comment_nav() {
 					printf( '<div class="nav-next">%s</div>', $next_link );
 				endif;
 			?>
+<<<<<<< HEAD
 		</div><!-- .nav-links -->
 	</nav><!-- .comment-navigation -->
 	<?php
 	endif;
 }
+=======
+			</div><!-- .nav-links -->
+		</nav><!-- .comment-navigation -->
+			<?php
+		endif;
+	}
+>>>>>>> stage
 endif;
 
 if ( ! function_exists( 'twentyfifteen_entry_meta' ) ) :
@@ -185,11 +206,19 @@ function twentyfifteen_post_thumbnail() {
 		return;
 	}
 
+<<<<<<< HEAD
 	if ( is_singular() ) :
 	?>
 
 	<div class="post-thumbnail">
 		<?php the_post_thumbnail(); ?>
+=======
+		if ( is_singular() ) :
+			?>
+
+		<div class="post-thumbnail">
+			<?php the_post_thumbnail(); ?>
+>>>>>>> stage
 	</div><!-- .post-thumbnail -->
 
 	<?php else : ?>

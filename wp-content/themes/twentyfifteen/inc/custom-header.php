@@ -31,12 +31,27 @@ function twentyfifteen_custom_header_setup() {
 	 *                                          displayed on the blog.
 	 * }
 	 */
+<<<<<<< HEAD
 	add_theme_support( 'custom-header', apply_filters( 'twentyfifteen_custom_header_args', array(
 		'default-text-color'     => $default_text_color,
 		'width'                  => 954,
 		'height'                 => 1300,
 		'wp-head-callback'       => 'twentyfifteen_header_style',
 	) ) );
+=======
+	add_theme_support(
+		'custom-header',
+		apply_filters(
+			'twentyfifteen_custom_header_args',
+			array(
+				'default-text-color' => $default_text_color,
+				'width'              => 954,
+				'height'             => 1300,
+				'wp-head-callback'   => 'twentyfifteen_header_style',
+			)
+		)
+	);
+>>>>>>> stage
 }
 add_action( 'after_setup_theme', 'twentyfifteen_custom_header_setup' );
 
@@ -89,7 +104,7 @@ function twentyfifteen_header_style() {
 	<?php
 		// Short header for when there is no Custom Header and Header Text is hidden.
 		if ( empty( $header_image ) && ! display_header_text() ) :
-	?>
+			?>
 		.site-header {
 			padding-top: 14px;
 			padding-bottom: 14px;
@@ -126,12 +141,12 @@ function twentyfifteen_header_style() {
 				min-height: 0;
 			}
 		}
-	<?php
+			<?php
 		endif;
 
 		// Has a Custom Header been added?
 		if ( ! empty( $header_image ) ) :
-	?>
+			?>
 		.site-header {
 
 			/*
@@ -168,12 +183,12 @@ function twentyfifteen_header_style() {
 				background: transparent;
 			}
 		}
-	<?php
+			<?php
 		endif;
 
 		// Has the text been hidden?
 		if ( ! display_header_text() ) :
-	?>
+			?>
 		.site-title,
 		.site-description {
 			clip: rect(1px, 1px, 1px, 1px);
@@ -181,8 +196,13 @@ function twentyfifteen_header_style() {
 		}
 	<?php endif; ?>
 	</style>
+<<<<<<< HEAD
 	<?php
 }
+=======
+		<?php
+	}
+>>>>>>> stage
 endif; // twentyfifteen_header_style
 
 /**

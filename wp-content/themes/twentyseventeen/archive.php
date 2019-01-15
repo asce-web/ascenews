@@ -27,7 +27,12 @@ get_header(); ?>
 		<main id="main" class="site-main" role="main">
 
 		<?php
+<<<<<<< HEAD
 		if ( have_posts() ) : ?>
+=======
+		if ( have_posts() ) :
+			?>
+>>>>>>> stage
 			<?php
 			/* Start the Loop */
 			while ( have_posts() ) : the_post();

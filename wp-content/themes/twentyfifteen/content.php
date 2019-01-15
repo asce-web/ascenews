@@ -23,7 +23,7 @@
 			else :
 				the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
 			endif;
-		?>
+			?>
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
@@ -34,6 +34,7 @@
 				the_title( '<span class="screen-reader-text">', '</span>', false )
 			) );
 
+<<<<<<< HEAD
 			wp_link_pages( array(
 				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentyfifteen' ) . '</span>',
 				'after'       => '</div>',
@@ -43,6 +44,19 @@
 				'separator'   => '<span class="screen-reader-text">, </span>',
 			) );
 		?>
+=======
+			wp_link_pages(
+				array(
+					'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentyfifteen' ) . '</span>',
+					'after'       => '</div>',
+					'link_before' => '<span>',
+					'link_after'  => '</span>',
+					'pagelink'    => '<span class="screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>%',
+					'separator'   => '<span class="screen-reader-text">, </span>',
+				)
+			);
+			?>
+>>>>>>> stage
 	</div><!-- .entry-content -->
 
 	<?php

@@ -64,9 +64,15 @@ if ( post_password_required() ) {
 
 	<?php
 		// If comments are closed and there are comments, let's leave a little note, shall we?
+<<<<<<< HEAD
 		if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
 	?>
 		<p class="no-comments"><?php _e( 'Comments are closed.', 'twentyfifteen' ); ?></p>
+=======
+	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
+		?>
+	<p class="no-comments"><?php _e( 'Comments are closed.', 'twentyfifteen' ); ?></p>
+>>>>>>> stage
 	<?php endif; ?>
 
 	<?php comment_form(); ?>

@@ -3,7 +3,11 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
+<<<<<<< HEAD
 Version: 1.10.5
+=======
+Version: 1.12.1
+>>>>>>> stage
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -24,7 +28,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/copyleft/gpl.html>.
 
-Copyright (c) 2017-2018 Zino UI
+Copyright (c) 2017-2019 Zino UI
 */
 
 if (!defined('ABSPATH')) {
@@ -165,6 +169,11 @@ if (get_option('hh_feature_policy') === false) {
     add_option('hh_feature_policy_feature', null, null, 'yes');
     add_option('hh_feature_policy_origin', null, null, 'yes');
     add_option('hh_feature_policy_value', null, null, 'yes');
+}
+
+if (get_option('hh_clear_site_data') === false) {
+    add_option('hh_clear_site_data', 0, null, 'yes');
+    add_option('hh_clear_site_data_value', null, null, 'yes');
 }
 
 function get_http_headers() {
@@ -660,6 +669,8 @@ function http_headers_admin() {
 	register_setting('http-headers-fp', 'hh_feature_policy_value');
 	register_setting('http-headers-fp', 'hh_feature_policy_feature');
 	register_setting('http-headers-fp', 'hh_feature_policy_origin');
+	register_setting('http-headers-csd', 'hh_clear_site_data');
+	register_setting('http-headers-csd', 'hh_clear_site_data_value');
 }
 	
 function http_headers_option($option) {
@@ -670,13 +681,7 @@ function http_headers_option($option) {
     {
         check_admin_referer('http-headers-mtd-options');
 	# When method is changed
-		update_headers_directives();
-		update_auth_credentials();
-		update_auth_directives();
-		update_content_encoding_directives();
-		update_expires_directives();
-		update_cookie_security_directives();
-		update_timing_directives();
+        http_headers_activate();
 	
     } elseif (get_option('hh_method') == 'htaccess') {
 	# When particular header is changed
@@ -1185,6 +1190,7 @@ function update_auth_credentials() {
 
 function update_cookie_security_directives() {
     $lines = array();
+<<<<<<< HEAD
     if (strpos(PHP_SAPI, 'cgi') !== false) {
         $filename = get_home_path().ini_get('user_ini.filename');
         $lines = php_cookie_security_directives();
@@ -1193,6 +1199,22 @@ function update_cookie_security_directives() {
         $lines = apache_cookie_security_directives();
     }
     
+=======
+    $is_apache = get_option('hh_method') == 'htaccess';
+    $htaccess = get_home_path().'.htaccess';
+    if (strpos(PHP_SAPI, 'cgi') !== false) {
+        $filename = get_home_path().ini_get('user_ini.filename');
+        $lines = php_cookie_security_directives();
+    } elseif ($is_apache) {
+        $filename = $htaccess;
+        $lines = apache_cookie_security_directives();
+    }
+    
+    if (!$is_apache) {
+        insert_with_markers($htaccess, "HttpHeadersCookieSecurity", array());
+    }
+    
+>>>>>>> stage
     return insert_with_markers($filename, "HttpHeadersCookieSecurity", $lines);
 }
 
@@ -1325,6 +1347,44 @@ function check_php_requirements() {
     return true;
 }
 
+<<<<<<< HEAD
+=======
+function http_headers_logout() {
+    if (get_option('hh_clear_site_data') == 1) {
+        $values = get_option('hh_clear_site_data_value', array());
+        $tmp = array_keys($values);
+        if ($tmp) {
+            header(sprintf('Clear-Site-Data: "%s"', join('", "', $tmp)));
+        }
+    }
+}
+
+function http_headers_activate() {
+    update_headers_directives();
+    update_auth_credentials();
+    update_auth_directives();
+    update_content_encoding_directives();
+    update_expires_directives();
+    update_cookie_security_directives();
+    update_timing_directives();
+}
+
+function http_headers_deactivate() {
+    $filename = get_home_path().'.htaccess';
+    
+    insert_with_markers($filename, "HttpHeaders", array());
+    insert_with_markers($filename, "HttpHeadersCompression", array());
+    insert_with_markers($filename, "HttpHeadersExpires", array());
+    insert_with_markers($filename, "HttpHeadersTiming", array());
+    insert_with_markers($filename, "HttpHeadersAuth", array());
+    insert_with_markers($filename, "HttpHeadersCookieSecurity", array());
+}
+
+register_activation_hook(__FILE__, 'http_headers_activate');
+register_deactivation_hook(__FILE__, 'http_headers_deactivate');
+add_action('wp_logout', 'http_headers_logout');
+
+>>>>>>> stage
 if ( is_admin() ){ // admin actions
 	add_action('admin_menu', 'http_headers_admin_add_page');
 	add_action('admin_init', 'http_headers_admin');

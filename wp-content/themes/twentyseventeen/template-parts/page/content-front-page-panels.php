@@ -39,15 +39,26 @@ global $twentyseventeencounter;
 			<div class="entry-content">
 				<?php
 					/* translators: %s: Name of current post */
+<<<<<<< HEAD
 					the_content( sprintf(
 						__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
 						get_the_title()
 					) );
 				?>
+=======
+					the_content(
+						sprintf(
+							__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
+							get_the_title()
+						)
+					);
+					?>
+>>>>>>> stage
 			</div><!-- .entry-content -->
 
 			<?php
 			// Show recent blog posts if is blog posts page (Note that get_option returns a string, so we're casting the result as an int).
+<<<<<<< HEAD
 			if ( get_the_ID() === (int) get_option( 'page_for_posts' )  ) : ?>
 
 				<?php // Show four most recent posts.
@@ -57,6 +68,21 @@ global $twentyseventeencounter;
 					'ignore_sticky_posts' => true,
 					'no_found_rows'       => true,
 				) );
+=======
+			if ( get_the_ID() === (int) get_option( 'page_for_posts' ) ) :
+				?>
+
+				<?php
+				// Show three most recent posts.
+				$recent_posts = new WP_Query(
+					array(
+						'posts_per_page'      => 3,
+						'post_status'         => 'publish',
+						'ignore_sticky_posts' => true,
+						'no_found_rows'       => true,
+					)
+				);
+>>>>>>> stage
 				?>
 
 		 		<?php if ( $recent_posts->have_posts() ) : ?>

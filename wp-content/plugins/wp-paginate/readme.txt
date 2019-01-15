@@ -2,7 +2,11 @@
 Contributors: maxfoundry, emartin24, AlanP57
 Tags: paginate, pagination, navigation, page, wp-paginate, comments, rtl, seo, usability
 Requires at least: 2.6.0 (2.7.0 for comments pagination)
+<<<<<<< HEAD
 Tested up to: 4.9.8
+=======
+Tested up to: 5.0.0
+>>>>>>> stage
 Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

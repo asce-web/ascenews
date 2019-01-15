@@ -114,7 +114,17 @@ abstract class AS3CF_Plugin_Base {
 	 */
 	function get_settings( $force = false ) {
 		if ( is_null( $this->settings ) || $force ) {
+<<<<<<< HEAD
 			$this->settings = $this->filter_settings( get_site_option( static::SETTINGS_KEY ) );
+=======
+			$saved_settings = get_site_option( static::SETTINGS_KEY );
+			$this->settings = $this->filter_settings( $saved_settings );
+
+			// If defined settings keys have changed since last time settings were saved to database, re-save to remove the new keys.
+			if ( ! empty( $saved_settings ) && ! empty( $this->defined_settings ) && ! empty( array_intersect_key( $saved_settings, $this->defined_settings ) ) ) {
+				$this->save_settings();
+			}
+>>>>>>> stage
 		}
 
 		return $this->settings;
@@ -170,7 +180,11 @@ abstract class AS3CF_Plugin_Base {
 
 			// Normalize the defined settings before saving, so we can detect when a real change happens.
 			ksort( $this->defined_settings );
+<<<<<<< HEAD
 			update_site_option( 'as3cf_constant_' . static::settings_constant(), $this->defined_settings );
+=======
+			update_site_option( 'as3cf_constant_' . static::settings_constant(), array_diff_key( $this->defined_settings, array_flip( $this->get_monitored_settings_blacklist() ) ) );
+>>>>>>> stage
 		}
 
 		return $this->defined_settings;
@@ -281,6 +295,20 @@ abstract class AS3CF_Plugin_Base {
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Get the blacklisted settings for monitoring changes in defines.
+	 * These settings will not be saved in the database.
+	 * Meant to be overridden in child classes.
+	 *
+	 * @return array
+	 */
+	function get_monitored_settings_blacklist() {
+		return array();
+	}
+
+	/**
+>>>>>>> stage
 	 * List of settings that should skip full sanitize.
 	 *
 	 * @return array
@@ -424,7 +452,11 @@ abstract class AS3CF_Plugin_Base {
 			ksort( $this->settings );
 		}
 
+<<<<<<< HEAD
 		$this->update_site_option( static::SETTINGS_KEY, $this->settings );
+=======
+		$this->update_site_option( static::SETTINGS_KEY, array_diff_key( $this->settings, $this->defined_settings ) );
+>>>>>>> stage
 	}
 
 	/**

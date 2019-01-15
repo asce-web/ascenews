@@ -369,7 +369,11 @@ if ( ! class_exists( 'AS3CF_Compatibility_Check' ) ) {
 				global $as3cfpro;
 				if ( ! empty( $as3cfpro ) && $as3cfpro->get_plugin_slug( true ) === $this->parent_plugin_slug ) {
 					// Don't show update link for addons of a licensed plugin where the license is invalid
+<<<<<<< HEAD
 					if ( ! $as3cfpro->is_valid_licence() ) {
+=======
+					if ( ! $as3cfpro->is_valid_licence( false, true ) ) {
+>>>>>>> stage
 						$msg .= ' ' . sprintf( __( 'A valid license for %s is required to update.', 'amazon-s3-and-cloudfront' ), $this->get_parent_plugin_name() );
 						$msg .= $hide_notice_msg;
 
@@ -407,7 +411,11 @@ if ( ! class_exists( 'AS3CF_Compatibility_Check' ) ) {
 				global $as3cfpro;
 				if ( ! empty( $as3cfpro ) && $as3cfpro->get_plugin_slug( true ) === $this->parent_plugin_slug ) {
 					// Don't show update link for addons of a licensed plugin where the license is invalid
+<<<<<<< HEAD
 					if ( ! $as3cfpro->is_valid_licence() ) {
+=======
+					if ( ! $as3cfpro->is_valid_licence( false, true ) ) {
+>>>>>>> stage
 						$upgrade_msg = ' ' . sprintf( __( 'A valid license for %s is required to update.', 'amazon-s3-and-cloudfront' ), $this->get_parent_plugin_name() );
 					}
 				}

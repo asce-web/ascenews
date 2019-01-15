@@ -20,7 +20,13 @@ get_header(); ?>
 
 			<?php
 			// Start the loop.
+<<<<<<< HEAD
 			while ( have_posts() ) : the_post(); ?>
+=======
+			while ( have_posts() ) :
+				the_post();
+				?>
+>>>>>>> stage
 
 				<?php
 				/*

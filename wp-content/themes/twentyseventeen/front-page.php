@@ -46,7 +46,12 @@ get_header(); ?>
 				twentyseventeen_front_page_section( null, $i );
 			}
 
+<<<<<<< HEAD
 	endif; // The if ( 0 !== twentyseventeen_panel_count() ) ends here. ?>
+=======
+	endif; // The if ( 0 !== twentyseventeen_panel_count() ) ends here.
+		?>
+>>>>>>> stage
 
 	</main><!-- #main -->
 </div><!-- #primary -->

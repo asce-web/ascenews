@@ -3,7 +3,11 @@
 Contributors: flippercode
 Tags: author image, author photo, author avatar, avatar, bbPress, profile avatar, profile image, user avatar, user image, user photo, widget
 Requires at least: 3.6
+<<<<<<< HEAD
 Tested up to: 4.9.8
+=======
+Tested up to: 5.0.0
+>>>>>>> stage
 Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

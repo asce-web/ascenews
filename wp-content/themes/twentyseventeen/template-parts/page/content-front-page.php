@@ -36,11 +36,21 @@
 			<div class="entry-content">
 				<?php
 					/* translators: %s: Name of current post */
+<<<<<<< HEAD
 					the_content( sprintf(
 						__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
 						get_the_title()
 					) );
 				?>
+=======
+					the_content(
+						sprintf(
+							__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
+							get_the_title()
+						)
+					);
+					?>
+>>>>>>> stage
 			</div><!-- .entry-content -->
 
 		</div><!-- .wrap -->

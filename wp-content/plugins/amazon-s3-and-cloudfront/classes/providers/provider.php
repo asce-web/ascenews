@@ -61,6 +61,16 @@ abstract class Provider {
 	protected static $provider_service_name = '';
 
 	/**
+<<<<<<< HEAD
+=======
+	 * The slug for the service's quick start guide doc.
+	 *
+	 * @var string
+	 */
+	protected static $provider_service_quick_start_slug = 'quick-start-guide';
+
+	/**
+>>>>>>> stage
 	 * @var string
 	 */
 	protected static $access_key_id_setting_name = 'access-key-id';
@@ -167,6 +177,18 @@ abstract class Provider {
 	}
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Returns the slug for the service's quick start guide doc.
+	 *
+	 * @return string
+	 */
+	public static function get_provider_service_quick_start_slug() {
+		return static::$provider_service_quick_start_slug;
+	}
+
+	/**
+>>>>>>> stage
 	 * Whether or not access keys are needed.
 	 *
 	 * Keys are needed if we are not using server roles or not defined/set yet.

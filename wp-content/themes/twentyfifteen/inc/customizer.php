@@ -21,6 +21,7 @@ function twentyfifteen_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
 
 	if ( isset( $wp_customize->selective_refresh ) ) {
+<<<<<<< HEAD
 		$wp_customize->selective_refresh->add_partial( 'blogname', array(
 			'selector' => '.site-title a',
 			'container_inclusive' => false,
@@ -60,11 +61,74 @@ function twentyfifteen_customize_register( $wp_customize ) {
 		'description' => __( 'Applied to the header on small screens and the sidebar on wide screens.', 'twentyfifteen' ),
 		'section'     => 'colors',
 	) ) );
+=======
+		$wp_customize->selective_refresh->add_partial(
+			'blogname',
+			array(
+				'selector'            => '.site-title a',
+				'container_inclusive' => false,
+				'render_callback'     => 'twentyfifteen_customize_partial_blogname',
+			)
+		);
+		$wp_customize->selective_refresh->add_partial(
+			'blogdescription',
+			array(
+				'selector'            => '.site-description',
+				'container_inclusive' => false,
+				'render_callback'     => 'twentyfifteen_customize_partial_blogdescription',
+			)
+		);
+	}
+
+	// Add color scheme setting and control.
+	$wp_customize->add_setting(
+		'color_scheme',
+		array(
+			'default'           => 'default',
+			'sanitize_callback' => 'twentyfifteen_sanitize_color_scheme',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		'color_scheme',
+		array(
+			'label'    => __( 'Base Color Scheme', 'twentyfifteen' ),
+			'section'  => 'colors',
+			'type'     => 'select',
+			'choices'  => twentyfifteen_get_color_scheme_choices(),
+			'priority' => 1,
+		)
+	);
+
+	// Add custom header and sidebar text color setting and control.
+	$wp_customize->add_setting(
+		'sidebar_textcolor',
+		array(
+			'default'           => $color_scheme[4],
+			'sanitize_callback' => 'sanitize_hex_color',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'sidebar_textcolor',
+			array(
+				'label'       => __( 'Header and Sidebar Text Color', 'twentyfifteen' ),
+				'description' => __( 'Applied to the header on small screens and the sidebar on wide screens.', 'twentyfifteen' ),
+				'section'     => 'colors',
+			)
+		)
+	);
+>>>>>>> stage
 
 	// Remove the core header textcolor control, as it shares the sidebar text color.
 	$wp_customize->remove_control( 'header_textcolor' );
 
 	// Add custom header and sidebar background color setting and control.
+<<<<<<< HEAD
 	$wp_customize->add_setting( 'header_background_color', array(
 		'default'           => $color_scheme[1],
 		'sanitize_callback' => 'sanitize_hex_color',
@@ -76,6 +140,28 @@ function twentyfifteen_customize_register( $wp_customize ) {
 		'description' => __( 'Applied to the header on small screens and the sidebar on wide screens.', 'twentyfifteen' ),
 		'section'     => 'colors',
 	) ) );
+=======
+	$wp_customize->add_setting(
+		'header_background_color',
+		array(
+			'default'           => $color_scheme[1],
+			'sanitize_callback' => 'sanitize_hex_color',
+			'transport'         => 'postMessage',
+		)
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'header_background_color',
+			array(
+				'label'       => __( 'Header and Sidebar Background Color', 'twentyfifteen' ),
+				'description' => __( 'Applied to the header on small screens and the sidebar on wide screens.', 'twentyfifteen' ),
+				'section'     => 'colors',
+			)
+		)
+	);
+>>>>>>> stage
 
 	// Add an additional description to the header image section.
 	$wp_customize->get_section( 'header_image' )->description = __( 'Applied to the header on small screens and the sidebar on wide screens.', 'twentyfifteen' );
@@ -145,6 +231,7 @@ function twentyfifteen_get_color_schemes() {
 	 *     }
 	 * }
 	 */
+<<<<<<< HEAD
 	return apply_filters( 'twentyfifteen_color_schemes', array(
 		'default' => array(
 			'label'  => __( 'Default', 'twentyfifteen' ),
@@ -155,6 +242,21 @@ function twentyfifteen_get_color_schemes() {
 				'#333333',
 				'#333333',
 				'#f7f7f7',
+=======
+	return apply_filters(
+		'twentyfifteen_color_schemes',
+		array(
+			'default' => array(
+				'label'  => __( 'Default', 'twentyfifteen' ),
+				'colors' => array(
+					'#f1f1f1',
+					'#ffffff',
+					'#ffffff',
+					'#333333',
+					'#333333',
+					'#f7f7f7',
+				),
+>>>>>>> stage
 			),
 		),
 		'dark'    => array(
@@ -348,6 +450,7 @@ add_action( 'customize_preview_init', 'twentyfifteen_customize_preview_js' );
  * @return string Color scheme CSS.
  */
 function twentyfifteen_get_color_scheme_css( $colors ) {
+<<<<<<< HEAD
 	$colors = wp_parse_args( $colors, array(
 		'background_color'            => '',
 		'header_background_color'     => '',
@@ -362,6 +465,25 @@ function twentyfifteen_get_color_scheme_css( $colors ) {
 		'secondary_sidebar_textcolor' => '',
 		'meta_box_background_color'   => '',
 	) );
+=======
+	$colors = wp_parse_args(
+		$colors,
+		array(
+			'background_color'            => '',
+			'header_background_color'     => '',
+			'box_background_color'        => '',
+			'textcolor'                   => '',
+			'secondary_textcolor'         => '',
+			'border_color'                => '',
+			'border_focus_color'          => '',
+			'sidebar_textcolor'           => '',
+			'sidebar_border_color'        => '',
+			'sidebar_border_focus_color'  => '',
+			'secondary_sidebar_textcolor' => '',
+			'meta_box_background_color'   => '',
+		)
+	);
+>>>>>>> stage
 
 	$css = <<<CSS
 	/* Color Scheme */

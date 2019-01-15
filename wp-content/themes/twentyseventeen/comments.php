@@ -27,7 +27,12 @@ if ( post_password_required() ) {
 
 	<?php
 	// You can start editing here -- including this comment!
+<<<<<<< HEAD
 	if ( have_comments() ) : ?>
+=======
+	if ( have_comments() ) :
+		?>
+>>>>>>> stage
 		<h2 class="comments-title">
 			<?php
 			$comments_number = get_comments_number();
@@ -70,10 +75,15 @@ if ( post_password_required() ) {
 	endif; // Check for have_comments().
 
 	// If comments are closed and there are comments, let's leave a little note, shall we?
+<<<<<<< HEAD
 	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
+=======
+	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
+		?>
+>>>>>>> stage
 
 		<p class="no-comments"><?php _e( 'Comments are closed.', 'twentyseventeen' ); ?></p>
-	<?php
+		<?php
 	endif;
 
 	comment_form();

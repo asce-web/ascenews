@@ -3,8 +3,13 @@ Contributors: zinoui
 Donate link: https://zinoui.com/donation
 Tags: custom headers, http headers, headers, security, http header, header, cross domain, cors, xss, clickjacking, mitm, cross origin, cross site, privacy, p3p, hsts, referrer, csp, caching, compression, access control, authentication
 Requires at least: 3.2
+<<<<<<< HEAD
 Tested up to: 4.9.8
 Stable tag: 1.10.5
+=======
+Tested up to: 5.0.3
+Stable tag: 1.12.1
+>>>>>>> stage
 License: GPLv2 or later
 
 HTTP Headers adds CORS & security HTTP headers to your website.
@@ -25,6 +30,7 @@ Headers supported by HTTP Headers includes:
 * Content-Security-Policy
 * Content-Security-Policy-Report-Only
 * Cache-Control
+* Clear-Site-Data
 * Connection
 * Content-Encoding
 * Expect-CT
@@ -80,6 +86,24 @@ Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/D
 
 == Changelog ==
 
+<<<<<<< HEAD
+=======
+= 1.12.1 =
+*Release Date - 9th January, 2019*
+
+* Remove direct calls to cURL
+
+= 1.12.0 =
+*Release Date - 5th January, 2019*
+
+* Better handling of activate/deactivate functions
+
+= 1.11.0 =
+*Release Date - 9th December, 2018*
+
+* Added support of "Clear-Site-Data" header
+
+>>>>>>> stage
 = 1.10.5 =
 *Release Date - 6th November, 2018*
 
