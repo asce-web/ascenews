@@ -64,8 +64,6 @@ class AWS_Provider extends Provider {
 	protected static $provider_service_name = 'Amazon S3';
 
 	/**
-<<<<<<< HEAD
-=======
 	 * The slug for the service's quick start guide doc.
 	 *
 	 * @var string
@@ -73,7 +71,6 @@ class AWS_Provider extends Provider {
 	protected static $provider_service_quick_start_slug = 'amazon-s3-quick-start-guide';
 
 	/**
->>>>>>> stage
 	 * @var array
 	 */
 	protected static $access_key_id_constants = array(

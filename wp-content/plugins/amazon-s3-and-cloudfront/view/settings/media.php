@@ -1,9 +1,6 @@
 <?php
-<<<<<<< HEAD
-=======
 // TODO: Update SASS to enable modals/copy-buckets view output when relevant.
 
->>>>>>> stage
 /* @var \Amazon_S3_And_CloudFront|\Amazon_S3_And_CloudFront_Pro $this */
 $prefix                 = $this->get_plugin_prefix_slug();
 $selected_provider      = $this->get_setting( 'provider', static::$default_provider );
@@ -11,10 +8,6 @@ $selected_region        = $this->get_setting( 'region' );
 $selected_bucket        = $this->get_setting( 'bucket' );
 $selected_bucket_prefix = $this->get_object_prefix();
 
-<<<<<<< HEAD
-$storage_classes = $this->get_provider()->needs_access_keys() ? ' as3cf-needs-access-keys' : ' as3cf-has-access-keys';
-$storage_classes .= $selected_bucket ? ' as3cf-has-bucket' : ' as3cf-needs-bucket';
-=======
 if ( $this->get_provider()->needs_access_keys() ) {
 	$storage_classes = ' as3cf-needs-access-keys';
 } else {
@@ -26,20 +19,16 @@ if ( $selected_bucket ) {
 } else {
 	$storage_classes .= ' as3cf-needs-bucket';
 }
->>>>>>> stage
 
 if ( ! empty( $_GET['action'] ) && 'change-provider' === $_GET['action'] ) {
 	$storage_classes .= ' as3cf-change-provider';
 }
-<<<<<<< HEAD
-=======
 
 if ( ! empty( $_GET['action'] ) && 'change-bucket' === $_GET['action'] ) {
 	$storage_classes .= ' as3cf-change-bucket';
 }
 
 $storage_classes = apply_filters( 'as3cf_media_tab_storage_classes', $storage_classes );
->>>>>>> stage
 ?>
 <div id="tab-media" data-prefix="as3cf" class="as3cf-tab as3cf-content<?php echo $storage_classes; // xss ok ?>">
 	<div class="error inline as3cf-bucket-error as3cf-error" style="display: none;">
@@ -49,15 +38,6 @@ $storage_classes = apply_filters( 'as3cf_media_tab_storage_classes', $storage_cl
 		</p>
 	</div>
 
-<<<<<<< HEAD
-	<?php do_action( 'as3cf_pre_tab_render', 'media' ) ?>
-	<?php $this->render_bucket_permission_errors() ?>
-
-	<div class="as3cf-main-settings">
-		<form method="post">
-			<input type="hidden" name="action" value="save" />
-			<input type="hidden" name="plugin" value="<?php echo $this->get_plugin_slug(); ?>" />
-=======
 	<?php
 	do_action( 'as3cf_pre_tab_render', 'media' );
 	$can_write = $this->render_bucket_permission_errors();
@@ -67,20 +47,15 @@ $storage_classes = apply_filters( 'as3cf_media_tab_storage_classes', $storage_cl
 		<form method="post">
 			<input type="hidden" name="action" value="save"/>
 			<input type="hidden" name="plugin" value="<?php echo $this->get_plugin_slug(); ?>"/>
->>>>>>> stage
 			<?php
 			wp_nonce_field( $this->get_settings_nonce_key() );
 			do_action( 'as3cf_form_hidden_fields' );
 
-<<<<<<< HEAD
-			$this->render_view( 'provider-select' );
-=======
 			$this->render_view( 'provider-select', compact( 'can_write' ) );
 
 			$this->render_view( 'bucket-select', array( 'prefix' => $prefix, 'selected_provider' => $selected_provider, 'selected_region' => $selected_region, 'selected_bucket' => $selected_bucket ) );
 
 			do_action( 'as3cf_pre_media_settings' );
->>>>>>> stage
 			?>
 
 			<table class="form-table as3cf-media-settings">
@@ -279,12 +254,6 @@ $storage_classes = apply_filters( 'as3cf_media_tab_storage_classes', $storage_cl
 						$this->render_view( 'notice', $remove_local_args ); ?>
 					</td>
 				</tr>
-<<<<<<< HEAD
-			</table>
-			<p>
-				<button type="submit" class="button button-primary" <?php echo $this->maybe_disable_save_button(); ?>><?php _e( 'Save Changes', 'amazon-s3-and-cloudfront' ); ?></button>
-			</p>
-=======
 
 				<!-- Save button for main settings -->
 				<tr>
@@ -293,16 +262,10 @@ $storage_classes = apply_filters( 'as3cf_media_tab_storage_classes', $storage_cl
 					</td>
 				</tr>
 			</table>
->>>>>>> stage
 		</form>
 	</div>
 
 	<?php
-<<<<<<< HEAD
-	$this->render_view( 'bucket-select', array( 'prefix' => $prefix, 'selected_provider' => $selected_provider, 'selected_region' => $selected_region, 'selected_bucket' => $selected_bucket ) );
-
-=======
->>>>>>> stage
 	if ( $this->get_provider()->needs_access_keys() ) {
 		?>
 		<p class="as3cf-need-help">

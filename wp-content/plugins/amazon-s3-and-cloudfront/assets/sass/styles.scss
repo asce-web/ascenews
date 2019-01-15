@@ -110,24 +110,10 @@ $as3cf_assets: #0769ad;
  */
 .as3cf-tab {
 	.as3cf-main-settings {
-<<<<<<< HEAD
-		display: none;
-
-=======
->>>>>>> stage
 		.as3cf-provider-select {
 			display: none;
 		}
 
-<<<<<<< HEAD
-		.as3cf-media-settings {
-			display: none;
-		}
-	}
-
-	.as3cf-bucket-container {
-		display: none;
-=======
 		.as3cf-bucket-container {
 			display: none;
 
@@ -139,7 +125,6 @@ $as3cf_assets: #0769ad;
 		.as3cf-media-settings {
 			display: none;
 		}
->>>>>>> stage
 	}
 
 	&.as3cf-needs-access-keys, &.as3cf-has-access-keys.as3cf-change-provider {
@@ -148,38 +133,18 @@ $as3cf_assets: #0769ad;
 		}
 
 		.as3cf-main-settings {
-<<<<<<< HEAD
-			display: block;
-
-=======
->>>>>>> stage
 			.as3cf-provider-select {
 				display: block;
 			}
 
-<<<<<<< HEAD
-=======
 			.as3cf-bucket-container {
 				display: none;
 			}
 
->>>>>>> stage
 			.as3cf-media-settings {
 				display: none;
 			}
 		}
-<<<<<<< HEAD
-
-		.as3cf-bucket-container {
-			display: none;
-		}
-	}
-
-	&.as3cf-has-access-keys.as3cf-needs-bucket:not(.as3cf-change-provider) {
-		.as3cf-main-settings {
-			display: none;
-
-=======
 	}
 
 	&.as3cf-has-access-keys.as3cf-needs-bucket:not(.as3cf-change-provider), &.as3cf-has-access-keys.as3cf-change-bucket:not(.as3cf-change-provider) {
@@ -188,61 +153,34 @@ $as3cf_assets: #0769ad;
 		}
 
 		.as3cf-main-settings {
->>>>>>> stage
 			.as3cf-provider-select {
 				display: none;
 			}
 
-<<<<<<< HEAD
-=======
 			.as3cf-bucket-container {
 				display: block;
 			}
 
->>>>>>> stage
 			.as3cf-media-settings {
 				display: none;
 			}
 		}
-<<<<<<< HEAD
-
-		.as3cf-bucket-container {
-			display: block;
-		}
-	}
-
-	&.as3cf-has-access-keys.as3cf-has-bucket:not(.as3cf-change-provider) {
-		.as3cf-main-settings {
-			display: block;
-
-=======
 	}
 
 	&.as3cf-has-access-keys.as3cf-has-bucket:not(.as3cf-change-provider):not(.as3cf-change-bucket) {
 		.as3cf-main-settings {
->>>>>>> stage
 			.as3cf-provider-select {
 				display: none;
 			}
 
-<<<<<<< HEAD
-=======
 			.as3cf-bucket-container {
 				display: none;
 			}
 
->>>>>>> stage
 			.as3cf-media-settings {
 				display: block;
 			}
 		}
-<<<<<<< HEAD
-
-		.as3cf-bucket-container {
-			display: none;
-		}
-=======
->>>>>>> stage
 	}
 }
 
@@ -549,8 +487,6 @@ $as3cf_assets: #0769ad;
 			display: none !important;
 		}
 	}
-<<<<<<< HEAD
-=======
 
 	p.actions {
 		margin: 20px -30px -30px;
@@ -570,7 +506,6 @@ $as3cf_assets: #0769ad;
 			min-width: 90px;
 		}
 	}
->>>>>>> stage
 }
 
 /**
@@ -651,18 +586,6 @@ $as3cf_assets: #0769ad;
 			margin-right: 20px;
 			line-height: 28px;
 		}
-<<<<<<< HEAD
-
-		.bucket-action-cancel {
-			color: #a00;
-			text-decoration: none;
-
-			&:hover {
-				color: red;
-			}
-		}
-=======
->>>>>>> stage
 	}
 
 	.as3cf-bucket-list {
@@ -695,18 +618,6 @@ $as3cf_assets: #0769ad;
 			}
 		}
 	}
-<<<<<<< HEAD
-
-	.as3cf-bucket-select,
-	.as3cf-bucket-create {
-		display: none;
-	}
-
-	.bucket-actions.select {
-		display: none;
-	}
-=======
->>>>>>> stage
 }
 
 #tab-media {

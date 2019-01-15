@@ -3,11 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-<<<<<<< HEAD
-Version: 1.10.5
-=======
 Version: 1.12.1
->>>>>>> stage
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -1190,16 +1186,6 @@ function update_auth_credentials() {
 
 function update_cookie_security_directives() {
     $lines = array();
-<<<<<<< HEAD
-    if (strpos(PHP_SAPI, 'cgi') !== false) {
-        $filename = get_home_path().ini_get('user_ini.filename');
-        $lines = php_cookie_security_directives();
-    } elseif (get_option('hh_method') == 'htaccess') {
-        $filename = get_home_path().'.htaccess';
-        $lines = apache_cookie_security_directives();
-    }
-    
-=======
     $is_apache = get_option('hh_method') == 'htaccess';
     $htaccess = get_home_path().'.htaccess';
     if (strpos(PHP_SAPI, 'cgi') !== false) {
@@ -1214,7 +1200,6 @@ function update_cookie_security_directives() {
         insert_with_markers($htaccess, "HttpHeadersCookieSecurity", array());
     }
     
->>>>>>> stage
     return insert_with_markers($filename, "HttpHeadersCookieSecurity", $lines);
 }
 
@@ -1347,8 +1332,6 @@ function check_php_requirements() {
     return true;
 }
 
-<<<<<<< HEAD
-=======
 function http_headers_logout() {
     if (get_option('hh_clear_site_data') == 1) {
         $values = get_option('hh_clear_site_data_value', array());
@@ -1384,7 +1367,6 @@ register_activation_hook(__FILE__, 'http_headers_activate');
 register_deactivation_hook(__FILE__, 'http_headers_deactivate');
 add_action('wp_logout', 'http_headers_logout');
 
->>>>>>> stage
 if ( is_admin() ){ // admin actions
 	add_action('admin_menu', 'http_headers_admin_add_page');
 	add_action('admin_init', 'http_headers_admin');
