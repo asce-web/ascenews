@@ -18,3 +18,5 @@ wp-content/ai1wm-backups
 /sitemap.xml
 /sitemap.xml.gz
 
+.DS_Store
+wp-content/.DS_Store
