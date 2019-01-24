@@ -82,8 +82,13 @@ the_post_thumbnail('channelthumb');
 <div class="homepostsmeta"><?php the_time(get_option('date_format')); ?></div><!-- /homepostsmeta -->
 
 <div class="homeregularexcerpt"><p><?php the_excerpt(); ?></p></div><!-- /homeregularexcerpt -->
-<div class="homepostsauthormeta">BY&nbsp; <?php the_author_posts_link(); ?></div><!-- /homepostsauthormeta -->
+<!-- <div class="homepostsauthormeta">BY&nbsp; <?php the_author_posts_link(); ?></div> --> <!-- /homepostsauthormeta -->
 
+<?php $author = get_post_meta($post->ID, 'Author', true);
+if($author){ ?>
+    <div class="homepostauthormeta">BY&nbsp;<?php echo $author;?></div><?php }
+else{ ?>
+    <div class="homepostauthormeta">BY&nbsp;<?php the_author_posts_link(); ?></div> <?php } ?>
 </div>
 <?php endwhile; ?>
 <?php if(function_exists('wp_paginate')) {

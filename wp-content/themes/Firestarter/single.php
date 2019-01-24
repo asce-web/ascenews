@@ -63,8 +63,14 @@ $classes = "no-post-header";
 
 <div id="posttitle"><h1><?php the_title(); ?></h1></div>
 
-<div class="homepostsauthormeta">BY&nbsp; <?php the_author_posts_link(); ?></div>
+<!-- <div class="homepostsauthormeta">BY&nbsp; <?php the_author_posts_link(); ?></div> -->
 
+<?php $author = get_post_meta($post->ID, 'Author', true);
+if($author){ ?>
+	<div class="homepostauthormeta">BY&nbsp;<?php echo $author;?></div><?php }
+	else{ ?>
+		<div class="homepostauthormeta">BY&nbsp;<?php the_author_posts_link(); ?></div> <?php } ?>
+            
 <div id="singlepostinfo">
 <?php the_time(get_option('date_format')); ?> 
 </div><!-- /singlepostinfo -->
