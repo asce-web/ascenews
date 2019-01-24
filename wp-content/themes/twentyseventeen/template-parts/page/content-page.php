@@ -21,6 +21,13 @@
 		<?php
 			the_content();
 
+<<<<<<< HEAD
+			wp_link_pages( array(
+				'before' => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
+				'after'  => '</div>',
+			) );
+		?>
+=======
 			wp_link_pages(
 				array(
 					'before' => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
@@ -28,5 +35,6 @@
 				)
 			);
 			?>
+>>>>>>> stage
 	</div><!-- .entry-content -->
 </article><!-- #post-## -->

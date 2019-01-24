@@ -21,23 +21,29 @@
 				<?php
 				get_template_part( 'template-parts/footer/footer', 'widgets' );
 
+<<<<<<< HEAD
+				if ( has_nav_menu( 'social' ) ) : ?>
+=======
 				if ( has_nav_menu( 'social' ) ) :
 					?>
+>>>>>>> stage
 					<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'twentyseventeen' ); ?>">
 						<?php
-							wp_nav_menu(
-								array(
-									'theme_location' => 'social',
-									'menu_class'     => 'social-links-menu',
-									'depth'          => 1,
-									'link_before'    => '<span class="screen-reader-text">',
-									'link_after'     => '</span>' . twentyseventeen_get_svg( array( 'icon' => 'chain' ) ),
-								)
-							);
+							wp_nav_menu( array(
+								'theme_location' => 'social',
+								'menu_class'     => 'social-links-menu',
+								'depth'          => 1,
+								'link_before'    => '<span class="screen-reader-text">',
+								'link_after'     => '</span>' . twentyseventeen_get_svg( array( 'icon' => 'chain' ) ),
+							) );
 						?>
 					</nav><!-- .social-navigation -->
+<<<<<<< HEAD
+				<?php endif;
+=======
 					<?php
 				endif;
+>>>>>>> stage
 
 				get_template_part( 'template-parts/footer/site', 'info' );
 				?>

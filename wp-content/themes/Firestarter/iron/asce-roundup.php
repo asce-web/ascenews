@@ -70,14 +70,14 @@ query_posts('posts_per_page=6&cat=-16,-3955,-3956,-7&paged=' . $paged);
 
 <div class="homepostsinfo"> <!--homepostsmeta goes below originally -->
 
+<!-- <div class="homepostsauthormeta">BY&nbsp; <?php the_author_posts_link(); ?></div> --> <!-- /homepostsauthormeta -->
 
-
-<!-- <div class="homepostsauthormeta">BY&nbsp; <?php the_author_posts_link(); ?></div> --><!-- /homepostsauthormeta -->
 <?php $author = get_post_meta($post->ID, 'Author', true);
-    if($author) { ?>
-        <div class="homepostauthormeta">BY&nbsp;<?php echo $author;?></div><?php }
-        else {?>
-            <div class="homepostauthormeta">BY&nbsp;<?php the_author_posts_link(); ?></div> <?php }?>
+if($author){ ?>
+	<div class="homepostauthormeta">BY&nbsp;<?php echo $author;?></div><?php }
+else{ ?>
+	<div class="homepostauthormeta">BY&nbsp;<?php the_author_posts_link(); ?></div> <?php } ?>
+
 
 <!-- /homepostsinfo -->
 

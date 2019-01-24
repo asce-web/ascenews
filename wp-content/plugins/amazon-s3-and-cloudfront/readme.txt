@@ -87,7 +87,7 @@ This version requires PHP 5.3.3+ and the Amazon Web Services plugin
 * Tested: WordPress 5.0
 
 = WP Offload Media Lite 2.0 - 2018-09-24 =
-* [Release Summary Blog Post](https://deliciousbrains.com/wp-offload-media-supports-digitalocean-spaces/)
+* [Release Summary Blog Post](https://deliciousbrains.com/wp-offload-s3-is-now-wp-offload-media-and-adds-support-for-digitalocean-spaces/)
 * New: DigitalOcean Spaces is now supported
 * New: Plugin name updated from WP Offload S3 Lite to WP Offload Media Lite
 * Improvement: More logical UI layout and better description of each setting

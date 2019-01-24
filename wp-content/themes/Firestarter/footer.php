@@ -21,7 +21,7 @@ $tf_footertext = get_option_tree('tf_footertext', $theme_options, false);
     </ul>
   </div>
   <div class="separator"></div>
-	<div class="mission"><div style="position:absolute;top:-1280px;"><a href="http://nyartbookfair.com/blog">fake watches</a></div>
+	<div class="mission">
 		Founded in 1852, the American Society of Civil Engineers (ASCE) represents more than 150,000 members worldwide and is America's oldest national engineering society.
 	</div>
 	<div class="ftmenu">

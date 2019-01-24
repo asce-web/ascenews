@@ -20,7 +20,7 @@
 	<p><?php _e( 'No items', 'my-text-domain' ); ?></p>
 <?php else : ?>
 
-<div style="margin: 0 0 1em; padding: 0; border: 0 none;" class="recent-posts block-header">Save America's Infrastructure<a href="http://magazzuwatch.com"><img src="/wp-content/themes/Firestarter/images/asce.png" alt="replica watches" /></a></div>
+<div style="margin: 0 0 1em; padding: 0; border: 0 none;" class="recent-posts block-header">Save America's Infrastructure<a href="https://www.infrastructurereportcard.org"><img src="/wp-content/themes/Firestarter/images/asce.png" alt="Save America's Infrastructure" /></a></div>
 <div class="iron-fp-posts">
 <?php foreach ( $rss_items as $item ) : ?>
 <?php
