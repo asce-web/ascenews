@@ -2,49 +2,46 @@
 Contributors: dgwyer, wpgoplugins
 Tags: seo sitemap, html, sitemap, html sitemap, seo, global, sort, shortcode, pages, posts, custom post types, post types, responsive, responsive sitemap
 Requires at least: 3.0
-Tested up to: 4.9.8
-Stable tag: 2.6
+Tested up to: 5.1
+Stable tag: 2.9
 
-The best HTML5 sitemap available for WordPress! No setup required. Flexible customization options available.
+The most popular HTML sitemap available for WordPress! No setup required. Flexible customization options available.
 
 == Description ==
 
+The most popular HTML sitemap available for WordPress!
+
 Simple Sitemap helps improve your SEO ranking by automatically generating a HTML sitemap of all your content! There are flexible options to include only the content you want to include on your sitemap, and to format output.
 
-It takes just seconds to add a sitemap to your website. Simply include the <code>[simple-sitemap]</code> on a page to display a dynamically generated sitemap. It's that easy!
+Absolutely no setup steps needed. It takes just seconds to add a sitemap to your website. Simply include the <code>[simple-sitemap]</code> on a page to display a dynamically generated sitemap. It's that easy!
 
 Whatever your requirements, Simple Sitemap has you covered.
 
-The sitemap shortcode has several attributes you can use to control how your sitemap is rendered including:
+The <code>[simple-sitemap]</code> shortcode has many attributes you can use to control how your sitemap is rendered including:
 
-*   'types': comma separated list of post types to display in the sitemap
-*   'show_label': show the heading label for each post ['true'|'false']
-*   'links': show sitemap list as links or plain text ['true'|'false']
-*   'page_depth': hierarchy of child pages to show [0|1|2|3]
-*   'order': sort order of list ['asc'|'desc']
-*   'orderby': field to sort by [title|author|date|ID]
-*   'exclude': comma separated list of post IDs to exclude
+*   <code>'types'</code>: Comma separated list of post types to display in the sitemap
+*   <code>'show_label'</code>: Show the heading label for each post ['true'|'false']
+*   <code>'links'</code>: show Sitemap list as links or plain text ['true'|'false']
+*   <code>'page_depth'</code>: Hierarchy of child pages to show
+*   <code>'order'</code>: Sort order of list ['asc'|'desc']
+*   <code>'orderby'</code>: Field to sort by [title|author|date|ID]
+*   <code>'exclude'</code>: Comma separated list of post IDs to exclude
+
+Plus, there is a bonus shortcode <code>[simple-sitemap-group]</code> included to display a list of posts grouped category or tags.
 
 This gives your visitors an efficient way to view ALL site content in ONE place. It is also great for SEO purposes and makes it easier for spiders to index your site.
 
-To display the sitemap simply add the [simple-sitemap] shortcode to any post or page (or text widget) and you'll have a full indexed sitemap enabled on your website!
+To display the sitemap simply add the <code>[simple-sitemap]</code> or <code>[simple-sitemap-group]</code> shortcode to any post or page (or text widget) and you'll have a full indexed sitemap enabled on your website!
 
 Please <a href="https://wordpress.org/support/view/plugin-reviews/simple-sitemap"><strong>rate</strong></a> this Plugin if you find it useful. It only takes a moment but it's very much appreciated. :)
 
-><strong>We're proud to announce that <a href="https://wpgoplugins.com/plugins/simple-sitemap-pro">Simple Sitemap Pro</a> is now available!</strong>
->
->Upgrade today for even more flexible sitemap options including:
->
-> *   *New* tabbed sitemap layout.
-> *   Fully responsive sitemap for column AND tabbed layouts, on all devices!
-> *   Display sitemap in a horizontal list.
-> *   Show hierarchical parent pages as links or plain text.
-> *   Exclude individual pages.
-> *   Customize sitemap titles for specific pages (via filter).
->
-> Checkout the <a href="https://wordpress.org/plugins/simple-sitemap/screenshots/">screenshots</a>, or click <a href="https://wpgoplugins.com/plugins/simple-sitemap-pro">here</a> for more details.
->
->See our <a href="https://www.wpgoplugins.com" target="_blank">WordPress plugin site</a> for more top plugins!
+For more advanced features and we recommend using <a href="https://wpgoplugins.com/plugins/simple-sitemap-pro">Simple Sitemap Pro</a> which includes many more shortcode attribute options, plus additional shortcodes, to generate almost any type of sitemap you can think of!
+
+View the <a target="_blank" href="https://demo.wpgothemes.com/flexr/simple-sitemap-pro-demo/">live demo</a> to see all the available sitemap types.
+
+Checkout the <a href="https://wordpress.org/plugins/simple-sitemap/screenshots/">screenshots</a> below, or click <a href="https://wpgoplugins.com/plugins/simple-sitemap-pro">here</a> for more details.
+
+For more top plugins see our <a href="https://www.wpgoplugins.com" target="_blank">WordPress plugin site</a>. Why not stop by and say hello, we'd love to hear about your needs for a HTML sitemap or anything else WordPress related.
 
 == Installation ==
 
@@ -57,13 +54,21 @@ Please <a href="https://wordpress.org/support/view/plugin-reviews/simple-sitemap
 
 == Frequently Asked Questions ==
 
+= Where can I see all the available sitemap shortcodes and attributes? =
+
+Visit the <a target="_blank" href="https://wpgoplugins.com/document/simple-sitemap-pro-documentation/">plugin documentation page</a> to see available sitemap shortcodes and related options.
+
+= Is there a live demo available for the plugin? =
+
+Yes! You can see live examples of every sitemap available <a target="_blank" href="https://demo.wpgothemes.com/flexr/simple-sitemap-pro-demo/">here</a>.
+
 = Can I generate an XML sitemap too? =
 
-No. This plugin is for generating an HTML sitemap only.
+No. This plugin is for generating a HTML sitemap only.
 
 == Screenshots ==
 
-1. Once plugin has been activated simply add the [simple-sitemap] shortcode to any page, post, or text widget.
+1. Once the plugin has been activated simply add the [simple-sitemap] shortcode to any page, post, or text widget.
 2. Simple Sitemap displays a list of all the specified post types.
 3. Plugin admin page details all the shortcode attributes available.
 4. Display sitemap inside a tabbed layout! (Pro only)
@@ -76,19 +81,36 @@ No. This plugin is for generating an HTML sitemap only.
 
 == Changelog ==
 
-= 2.6, September 21, 2018 =
+= 2.9 - April 2, 2019 =
+
+* Updated settings page info.
+* Plugin readme updated.
+
+= 2.8 - March 14, 2019 =
+
+* Updated settings page info.
+
+= 2.7 - March 6, 2019 =
+
+* Added link to sitemap plugin settings page directly from main plugin index page.
+* Removed redundant .bak file.
+* Plugin settings page information updated.
+* Removed redirect to settings page after activation.
+* Removed admin notice popup displayed after activation.
+
+= 2.6 - September 21, 2018 =
 
 * Fixed bug with [simple-sitemap-group] shortcode. Was previously buffering output twice causing display issues.
 
-= 2.5, JUNE 19, 2018 =
+= 2.5 - JUNE 19, 2018 =
 
 * Settings page updated.
 
-= 2.4, OCTOBER 9, 2017 =
+= 2.4 - OCTOBER 9, 2017 =
 
 * Added live sitemap demo gallery on plugin settings page.
 
-= 2.3, SEPTEMBER 25, 2017 =
+= 2.3 - SEPTEMBER 25, 2017 =
 
 * New 'container_tag' shortcode attribute added to all shortcodes to output the sitemap as an ordered list, or unordered list. See plugin settings page for more information.
 * Updated plugin readme.txt.

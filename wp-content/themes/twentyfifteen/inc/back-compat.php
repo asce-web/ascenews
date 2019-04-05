@@ -44,11 +44,6 @@ function twentyfifteen_upgrade_notice() {
  * @since Twenty Fifteen 1.0
  */
 function twentyfifteen_customize() {
-<<<<<<< HEAD
-	wp_die( sprintf( __( 'Twenty Fifteen requires at least WordPress version 4.1. You are running version %s. Please upgrade and try again.', 'twentyfifteen' ), $GLOBALS['wp_version'] ), '', array(
-		'back_link' => true,
-	) );
-=======
 	wp_die(
 		sprintf( __( 'Twenty Fifteen requires at least WordPress version 4.1. You are running version %s. Please upgrade and try again.', 'twentyfifteen' ), $GLOBALS['wp_version'] ),
 		'',
@@ -56,7 +51,6 @@ function twentyfifteen_customize() {
 			'back_link' => true,
 		)
 	);
->>>>>>> stage
 }
 add_action( 'load-customize.php', 'twentyfifteen_customize' );
 
