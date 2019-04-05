@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__ . '/vendor/autoload.php';
+
 class Meow_WR2X_Core {
 
 	public $admin = null;
@@ -98,14 +100,12 @@ class Meow_WR2X_Core {
 	function picture_rewrite( $buffer ) {
 		if ( !isset( $buffer ) || trim( $buffer ) === '' )
 			return $buffer;
-		if ( !function_exists( "str_get_html" ) )
-			include( __DIR__ . '/inc/simple_html_dom.php' );
-
+		$html = new KubAT\PhpSimple\HtmlDomParser();
 		$lazysize = get_option( "wr2x_picturefill_lazysizes" ) && $this->admin->is_registered();
 		$killSrc = !get_option( "wr2x_picturefill_keep_src" );
 		$nodes_count = 0;
 		$nodes_replaced = 0;
-		$html = str_get_html( $buffer );
+		$html = $html->str_get_html( $buffer );
 		if ( !$html ) {
 			$this->log( "The HTML buffer is null, another plugin might block the process." );
 			return $buffer;
@@ -633,6 +633,7 @@ class Meow_WR2X_Core {
 	function resize( $file_path, $width, $height, $crop, $newfile, $customCrop = false ) {
 		$crop_params = $crop == '1' ? true : $crop;
 		$orig_size = getimagesize( $file_path );
+		$image_src = array ();
 		$image_src[0] = $file_path;
 		$image_src[1] = $orig_size[0];
 		$image_src[2] = $orig_size[1];
@@ -985,16 +986,34 @@ class Meow_WR2X_Core {
 			return $meta;
 	}
 
+	/**
+	 * @param mixed[] $meta
+	 * int       width
+	 * int       height
+	 * string    file
+	 * mixed[][] sizes
+	 */
 	function generate_images( $meta ) {
 		global $_wp_additional_image_sizes;
 		$sizes = $this->get_image_sizes();
-		if ( !isset( $meta['file'] ) )
-			return;
-		$originalfile = $meta['file'];
+		if ( !isset( $meta['file'] ) ) return;
+
 		$uploads = wp_upload_dir();
+
+		// Check if the full-size-retina version of the generation source exists.
+		// If it exists, replace the file path and its dimensions
+		if ( $retina = $this->get_retina( $uploads['basedir'] . '/' . $meta['file'] ) ) {
+			$meta['file'] = substr( $retina, strlen( $uploads['basedir'] ) + 1 );
+			$dim = getimagesize( $retina );
+			$meta['width']  = $dim[0];
+			$meta['height'] = $dim[1];
+		}
+
+		$originalfile = $meta['file'];
 		$pathinfo = pathinfo( $originalfile );
 		$original_basename = $pathinfo['basename'];
 		$basepath = trailingslashit( $uploads['basedir'] ) . $pathinfo['dirname'];
+
 		$ignore = get_option( "wr2x_ignore_sizes" );
 		if ( empty( $ignore ) )
 			$ignore = array();
@@ -1050,13 +1069,14 @@ class Meow_WR2X_Core {
 					// Change proposed by Nicscott01, slighlty modified by Jordy (+isset)
 					// (https://wordpress.org/support/topic/issue-with-crop-position?replies=4#post-6200271)
 					$crop = isset( $_wp_additional_image_sizes[$name] ) ? $_wp_additional_image_sizes[$name]['crop'] : true;
-					$customCrop = null;
+					$customCrop = apply_filters( 'wr2x_custom_crop', null );
 
-					// Support for Manual Image Crop
-					// If the size of the image was manually cropped, let's keep it.
-					if ( class_exists( 'ManualImageCrop' ) && isset( $meta['micSelectedArea'] ) && isset( $meta['micSelectedArea'][$name] ) && isset( $meta['micSelectedArea'][$name]['scale'] ) ) {
-						$customCrop = $meta['micSelectedArea'][$name];
-					}
+					// // Support for Manual Image Crop
+					// // If the size of the image was manually cropped, let's keep it.
+					// if ( class_exists( 'ManualImageCrop' ) && isset( $meta['micSelectedArea'] ) && isset( $meta['micSelectedArea'][$name] ) && isset( $meta['micSelectedArea'][$name]['scale'] ) ) {
+					// 	$customCrop = $meta['micSelectedArea'][$name];
+					// }
+
 					$image = $this->resize( $originalfile, $meta['sizes'][$name]['width'] * 2,
 						$meta['sizes'][$name]['height'] * 2, $crop, $retina_file, $customCrop );
 				}

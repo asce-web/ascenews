@@ -3,7 +3,7 @@
 Plugin Name: Simple Sitemap
 Plugin URI: http://wordpress.org/plugins/simple-sitemap/
 Description: HTML sitemap to display content as a single linked list of posts, pages, or custom post types. You can even display posts in groups sorted by taxonomy!
-Version: 2.6
+Version: 2.9
 Author: David Gwyer
 Author URI: http://www.wpgoplugins.com
 Text Domain: simple-sitemap
