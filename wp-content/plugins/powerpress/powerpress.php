@@ -3,11 +3,11 @@
 Plugin Name: Blubrry PowerPress
 Plugin URI: http://create.blubrry.com/resources/powerpress/
 Description: <a href="http://create.blubrry.com/resources/powerpress/" target="_blank">Blubrry PowerPress</a> is the No. 1 Podcasting plugin for WordPress. Developed by podcasters for podcasters; features include Simple and Advanced modes, multiple audio/video player options, subscribe to podcast tools, podcast SEO features, and more! Fully supports Apple Podcasts (previously iTunes), Google Podcasts, Spotify, Stitcher, and Blubrry Podcasting directories, as well as all podcast applications and clients.
-Version: 7.4
+Version: 7.4.2
 Author: Blubrry
 Author URI: http://www.blubrry.com/
 Requires at least: 3.6
-Tested up to: 4.9.9
+Tested up to: 5.1.1
 Text Domain: powerpress
 Change Log:
 	Please see readme.txt for detailed change log.
@@ -20,7 +20,7 @@ Credits:
 	getID3(), License: GPL 2.0+ by James Heinrich <info [at] getid3.org> http://www.getid3.org
 		Note: getid3.php analyze() function modified to prevent redundant filesize() function call.
 	
-Copyright 2008-2017 Blubrry (http://www.blubrry.com)
+Copyright 2008-2019 Blubrry (http://www.blubrry.com)
 
 License: GPL (http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)
 
@@ -28,11 +28,14 @@ License: GPL (http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt)
 */
 
 
-if( !function_exists('add_action') )
-	die("access denied.");
+if( !function_exists('add_action') ) {
+	header( 'Status: 403 Forbidden' );
+	header( 'HTTP/1.1 403 Forbidden' );
+	exit();
+}
 	
 // WP_PLUGIN_DIR (REMEMBER TO USE THIS DEFINE IF NEEDED)
-define('POWERPRESS_VERSION', '7.4' );
+define('POWERPRESS_VERSION', '7.4.2' );
 
 // Translation support:
 if ( !defined('POWERPRESS_ABSPATH') )
@@ -200,8 +203,10 @@ function powerpress_content($content)
 	if( !empty($GeneralSettings['posttype_podcasting']) )
 	{
 		$post_type = get_query_var('post_type');
-		//$post_type = get_post_type();
-		
+		if ( is_array( $post_type ) ) {
+			$post_type = reset( $post_type ); // get first element in array
+		}
+			
 		// Get the feed slugs and titles for this post type
 		$PostTypeSettingsArray = get_option('powerpress_posttype_'.$post_type);
 		// Loop through this array of post type settings...
@@ -1342,6 +1347,13 @@ function powerpress_template_redirect()
 {
 	if( is_feed() && powerpress_is_custom_podcast_feed() )
 	{
+		if ( defined('WPSEO_VERSION') && version_compare(WPSEO_VERSION, '7.7',  '>=') && class_exists( 'WPSEO_Frontend' ) ) {
+			$wpseo_frontend = WPSEO_Frontend::get_instance();
+			if( !empty($wpseo_frontend) ) {
+				remove_action( 'template_redirect', array( $wpseo_frontend, 'noindex_feed' ) );
+			}
+		}
+
 		remove_action('template_redirect', 'ol_feed_redirect'); // Remove this action so feedsmith doesn't redirect
 		global $powerpress_feed;
 		if( !isset($powerpress_feed['feed_redirect_url']) )
@@ -1673,6 +1685,8 @@ function powerpress_load_general_feed_settings()
 		$GeneralSettings = get_option('powerpress_general');
 		if( !isset($GeneralSettings['custom_feeds']['podcast']) )
 			$GeneralSettings['custom_feeds']['podcast'] = 'Podcast Feed'; // Fixes scenario where the user never configured the custom default podcast feed.
+		if( empty($GeneralSettings['default_url']) )
+			$GeneralSettings['default_url'] = '';
 		
 		if( $GeneralSettings )
 		{
@@ -1810,9 +1824,13 @@ function powerpress_load_general_feed_settings()
 				if( !empty($GeneralSettings['posttype_podcasting']) )
 				{
 					$post_type = get_query_var('post_type');
-					//$post_type = get_post_type();
+					
 					if( !empty($post_type) )
 					{
+						if ( is_array( $post_type ) ) {
+							$post_type = reset( $post_type ); // get first element in array
+						}
+						
 						// Get the settings for this podcast post type
 						$PostTypeSettingsArray = get_option('powerpress_posttype_'. $post_type);
 						if( !empty($PostTypeSettingsArray[ $feed_slug ]) )
@@ -1984,7 +2002,7 @@ function powerpress_posts_fields($cols)
 		{
 			$feed_slug = get_query_var('feed');
 			global $wpdb;
-			$cols .= ", {$wpdb->postmeta}.meta_value AS podcast_meta_value ";
+			$cols .= ", pp_{$wpdb->postmeta}.meta_value AS podcast_meta_value ";
 		}
 	}
 
@@ -2006,8 +2024,8 @@ function powerpress_posts_join($join)
 	if( powerpress_is_custom_podcast_feed() || get_query_var('feed') === 'podcast' )
 	{
 		global $wpdb;
-		$join .= " INNER JOIN {$wpdb->postmeta} ";
-		$join .= " ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id ";
+		$join .= " INNER JOIN {$wpdb->postmeta} AS pp_{$wpdb->postmeta} ";
+		$join .= " ON {$wpdb->posts}.ID = pp_{$wpdb->postmeta}.post_id ";
 	}
 
   return $join;
@@ -2030,13 +2048,13 @@ function powerpress_posts_where($where)
 		$where .= " AND (";
 		
 		if( powerpress_is_custom_podcast_feed() && get_query_var('feed') !== 'podcast' )
-			$where .= " {$wpdb->postmeta}.meta_key = '_". get_query_var('feed') .":enclosure' ";
+			$where .= " pp_{$wpdb->postmeta}.meta_key = '_". get_query_var('feed') .":enclosure' ";
 		else	
-			$where .= " {$wpdb->postmeta}.meta_key = 'enclosure' ";
+			$where .= " pp_{$wpdb->postmeta}.meta_key = 'enclosure' ";
 	
 		// Include Podpress data if exists...
 		if( !empty($powerpress_feed['process_podpress']) && get_query_var('feed') === 'podcast' )
-			$where .= " OR {$wpdb->postmeta}.meta_key = 'podPressMedia' OR {$wpdb->postmeta}.meta_key = '_podPressMedia' ";
+			$where .= " OR pp_{$wpdb->postmeta}.meta_key = 'podPressMedia' OR pp_{$wpdb->postmeta}.meta_key = '_podPressMedia' ";
 		
 		$where .= ") ";
 	}
@@ -2171,8 +2189,10 @@ function get_the_powerpress_content()
 	if( !empty($GeneralSettings['posttype_podcasting']) )
 	{
 		$post_type = get_query_var('post_type');
-		//$post_type = get_post_type();
-		
+		if ( is_array( $post_type ) ) {
+			$post_type = reset( $post_type ); // get first element in array
+		}
+			
 		// Get the feed slugs and titles for this post type
 		$PostTypeSettingsArray = get_option('powerpress_posttype_'.$post_type);
 		// Loop through this array of post type settings...
@@ -3044,30 +3064,32 @@ function powerpress_raw_duration($duration)
 }
 
 // For grabbing data from Podpress data stored serialized, the strings for some values can sometimes get corrupted, so we fix it...
+
 function powerpress_repair_serialize($string)
 {
 	if( @unserialize($string) )
 		return $string; // Nothing to repair...
+	
 	$string = preg_replace_callback('/(s:(\d+):"([^"]*)")/', 
-			create_function(
-					'$matches',
-					'if( strlen($matches[3]) == $matches[2] ) return $matches[0]; return sprintf(\'s:%d:"%s"\', strlen($matches[3]), $matches[3]);'
-			), 
-			$string);
+		'powerpress_repair_serialize_callback', 
+		$string);
 	
 	if( substr($string, 0, 2) == 's:' ) // Sometimes the serialized data is double serialized, so we need to re-serialize the outside string
 	{
-		$string = preg_replace_callback('/(s:(\d+):"(.*)";)$/', 
-			create_function(
-					'$matches',
-					'if( strlen($matches[3]) == $matches[2] ) return $matches[0]; return sprintf(\'s:%d:"%s";\', strlen($matches[3]), $matches[3]);'
-			), 
+		$string = preg_replace_callback('/(s:(\d+):"(.*)"(;))$/', 
+			'powerpress_repair_serialize_callback', 
 			$string);
 	}
 	
 	return $string;
 }
 
+function powerpress_repair_serialize_callback($matches)
+{
+	if( strlen($matches[3]) == $matches[2] )
+		return $matches[0];
+	return sprintf('s:%d:"%s"', strlen($matches[3]), $matches[3]) . (!empty($matches[4])?';':'');
+}
 
 function powerpress_base64_encode($value)
 {
@@ -3411,6 +3433,10 @@ function powerpress_premium_content_authorized_filter($default, $feed_slug)
 	}
 	
 	$post_type = get_query_var('post_type');
+	if ( is_array( $post_type ) ) {
+		$post_type = reset( $post_type ); // get first element in array
+	}
+	
 	if( $post_type != 'post' )
 	{
 		$GeneralSettings = get_option('powerpress_general');
@@ -3441,6 +3467,10 @@ function powerpress_premium_content_message($post_id, $feed_slug, $EpisodeData =
 		return '';
 	$FeedSettings = get_option('powerpress_feed_'.$feed_slug);
 	$post_type = get_query_var('post_type');
+	if ( is_array( $post_type ) ) {
+		$post_type = reset( $post_type ); // get first element in array
+	}
+	
 	if( $post_type != 'post' )
 	{
 		$GeneralSettings = get_option('powerpress_general');

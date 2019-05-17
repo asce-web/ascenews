@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2018 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,10 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
 
 class Ai1wm_Export_Config {
 
@@ -69,7 +73,57 @@ class Ai1wm_Export_Config {
 			}
 		}
 
-		// Set no replace email
+		// Set no spam comments
+		if ( isset( $params['options']['no_spam_comments'] ) ) {
+			$config['NoSpamComments'] = true;
+		}
+
+		// Set no post revisions
+		if ( isset( $params['options']['no_post_revisions'] ) ) {
+			$config['NoPostRevisions'] = true;
+		}
+
+		// Set no media
+		if ( isset( $params['options']['no_media'] ) ) {
+			$config['NoMedia'] = true;
+		}
+
+		// Set no themes
+		if ( isset( $params['options']['no_themes'] ) ) {
+			$config['NoThemes'] = true;
+		}
+
+		// Set no inactive themes
+		if ( isset( $params['options']['no_inactive_themes'] ) ) {
+			$config['NoInactiveThemes'] = true;
+		}
+
+		// Set no must-use plugins
+		if ( isset( $params['options']['no_muplugins'] ) ) {
+			$config['NoMustUsePlugins'] = true;
+		}
+
+		// Set no plugins
+		if ( isset( $params['options']['no_plugins'] ) ) {
+			$config['NoPlugins'] = true;
+		}
+
+		// Set no inactive plugins
+		if ( isset( $params['options']['no_inactive_plugins'] ) ) {
+			$config['NoInactivePlugins'] = true;
+		}
+
+		// Set no cache
+		if ( isset( $params['options']['no_cache'] ) ) {
+			$config['NoCache'] = true;
+		}
+
+		// Set no database
+		if ( isset( $params['options']['no_database'] ) ) {
+			$config['NoDatabase'] = true;
+		}
+
+		// Set no email replace
 		if ( isset( $params['options']['no_email_replace'] ) ) {
 			$config['NoEmailReplace'] = true;
 		}

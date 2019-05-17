@@ -14,9 +14,33 @@ class WPGO_Simple_Sitemap_Links {
 
 		add_filter( 'plugin_row_meta', array( &$this, 'plugin_action_links' ), 10, 2 );
 		add_filter( 'plugin_action_links', array( &$this, 'plugin_settings_link' ), 10, 2 );
+
+		// redirect user to plugin settings page when plugin activated manually
+		register_activation_hook( $this->module_roots['file'], array( $this, 'set_redirect_transient' ) );
+		add_action( 'admin_init', array( &$this, 'redirect_settings_page' ) );
 	}
 
-//			update_option('ss_plugin_version', $current_version);
+	/* Runs only when the plugin is activated. */
+	public function set_redirect_transient() {
+		set_transient( 'simple-sitemap-redirect', true, 60 );
+	}
+
+	/**
+	 * Redirect automatically to plugin settings page
+	 */
+	public function redirect_settings_page() {
+		// only do this if the user can activate plugins
+		if ( ! current_user_can( 'manage_options' ) )
+			return;
+
+		// don't do anything if the transient isn't set
+		if ( ! get_transient( 'simple-sitemap-redirect' ) )
+			return;
+
+		delete_transient( 'simple-sitemap-redirect' );
+		wp_safe_redirect( admin_url( 'options-general.php?page=simple-sitemap%2Fclasses%2Fsimple-sitemap-settings.php') );
+		exit;
+	}
 
 	// Display a Settings link on the main Plugins page
 	public function plugin_action_links( $links, $file ) {

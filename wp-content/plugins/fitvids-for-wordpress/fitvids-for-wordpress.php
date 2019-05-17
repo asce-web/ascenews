@@ -3,10 +3,10 @@
 Plugin Name: FitVids for WordPress
 Plugin URI: http://wordpress.org/extend/plugins/fitvids-for-wordpress/
 Description: This plugin makes videos responsive using the FitVids jQuery plugin on WordPress.
-Version: 3.0.4
+Version: 3.0.6
 Tags: videos, fitvids, responsive
 Author: Kevin Dees
-Author URI: http://php-built.com
+Author URI: https://kevdees.com
 */
 
 if ( ! function_exists('add_action')) {
@@ -21,7 +21,7 @@ class FitVidsWP
 	public $message = '';
 	public $request = array();
 	public $activating = false;
-	public $jquery_version = '1.12.4';
+	public $jquery_version = '3.4.1';
 	public $transient = 'fitvids-admin-notice';
 	public $id = 'fitvids-wp';
 

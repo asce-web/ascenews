@@ -1069,7 +1069,7 @@ class Meow_WR2X_Core {
 					// Change proposed by Nicscott01, slighlty modified by Jordy (+isset)
 					// (https://wordpress.org/support/topic/issue-with-crop-position?replies=4#post-6200271)
 					$crop = isset( $_wp_additional_image_sizes[$name] ) ? $_wp_additional_image_sizes[$name]['crop'] : true;
-					$customCrop = apply_filters( 'wr2x_custom_crop', null );
+					$customCrop = apply_filters( 'wr2x_custom_crop', null, $id, $name );
 
 					// // Support for Manual Image Crop
 					// // If the size of the image was manually cropped, let's keep it.

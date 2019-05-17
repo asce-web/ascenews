@@ -1,9 +1,10 @@
 === Simple Sitemap - Create a Responsive HTML Sitemap  ===
 Contributors: dgwyer, wpgoplugins
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FBAG4ZHA4TTUC
 Tags: seo sitemap, html, sitemap, html sitemap, seo, global, sort, shortcode, pages, posts, custom post types, post types, responsive, responsive sitemap
 Requires at least: 3.0
 Tested up to: 5.1
-Stable tag: 2.9
+Stable tag: 3.0
 
 The most popular HTML sitemap available for WordPress! No setup required. Flexible customization options available.
 
@@ -80,6 +81,10 @@ No. This plugin is for generating a HTML sitemap only.
 10. Show sitemap in a horizontal list separated by any character(s). (Pro only)
 
 == Changelog ==
+
+= 3.0 - April 26, 2019 =
+
+* Updated settings page styles.
 
 = 2.9 - April 2, 2019 =
 

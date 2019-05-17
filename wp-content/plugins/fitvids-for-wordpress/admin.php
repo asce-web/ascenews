@@ -72,7 +72,7 @@ if ( ! function_exists('add_action')) {
                                type="checkbox"
                             <?php $this->print_cdn_field_checked(); ?>
                         >
-                        My theme is missing jQuery. Add jQuery 1.12.4 from Google CDN.
+                        My theme is missing jQuery. Add jQuery 3.4.1 from Google CDN.
                     </label>
                 </td>
             </tr>

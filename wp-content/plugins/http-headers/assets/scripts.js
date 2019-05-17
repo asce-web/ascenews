@@ -125,6 +125,22 @@
 			} else {
 				$input.hide();
 			}
+		}).on("change", 'input[name^="hh_content_security_policy_value"]', function () {
+			
+			var $this = $(this);
+			
+			if (this.checked) {
+				if (/\[\*\]$/.test(this.name)) {
+					$this.closest("td").find('input[type="checkbox"]').not(this).prop("checked", false);
+					$this.closest("p").siblings("p").hide();
+				} else {
+					$this.closest("td").find('input[type="checkbox"][name$="[*]"]').prop("checked", false);
+				}
+			} else {
+				if (/\[\*\]$/.test(this.name)) {
+					$this.closest("p").siblings("p").show();
+				}
+			}
 		});
 		
 		$('.hh-tabs').on('click', 'ul a', function (e) {

@@ -113,6 +113,7 @@ function powerpress_languages()
 	$langs['sv'] = __('Swedish', 'powerpress');
 	$langs['sv-fi'] = __('Swedish (Finland)', 'powerpress');
 	$langs['sv-se'] = __('Swedish (Sweden)', 'powerpress');
+	$langs['ta'] = __('Tamil', 'powerpress');
 	$langs['tr'] = __('Turkish', 'powerpress');
 	$langs['uk'] = __('Ukranian', 'powerpress');
 	return $langs;

@@ -2,9 +2,9 @@
 Contributors: yani.iliev, bangelov, pimjitsawang
 Tags: move, transfer, copy, migrate, backup, clone, restore, db migration, wordpress migration, website migration, database export, database import, apoyo, sauvegarde, di riserva, バックアップ
 Requires at least: 3.3
-Tested up to: 4.9
+Tested up to: 5.2
 Requires PHP: 5.2.17
-Stable tag: 6.76
+Stable tag: 6.95
 License: GPLv2 or later
 
 Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
@@ -33,7 +33,7 @@ Mobile device compatible: All in One WP Plugin is the first plugin to offer true
 = Compatible with WordPress v3.3 to present =
 * We have a comprehensive Quality Assurance and testing process that ensures that the plugin is always compatible with the latest release of WordPress, but we don't support versions of WordPress prior to version 3.3 (2012)
 
-= WP-CLI Integration is included =
+= WP-CLI Integration is available in Unlimited Extension =
 * [WP-CLI Integration Documentation](https://help.servmask.com/knowledgebase/cli-integration/)
 
 = Support =
@@ -44,6 +44,7 @@ Mobile device compatible: All in One WP Plugin is the first plugin to offer true
 = Migrate WordPress to cloud storage services using our completely new premium extensions =
 **All of the Cloud Storage and Multisite extensions include premium support and the Unlimited extension free of charge**
 
+* [File](https://import.wp-migration.com)
 * [Unlimited](https://servmask.com/products/unlimited-extension)
 * [Dropbox](https://servmask.com/products/dropbox-extension)
 * [Multisite](https://servmask.com/products/multisite-extension)
@@ -59,6 +60,9 @@ Mobile device compatible: All in One WP Plugin is the first plugin to offer true
 * [Google Cloud Storage](https://servmask.com/products/google-cloud-storage-extension)
 * [Microsoft Azure Storage](https://servmask.com/products/microsoft-azure-storage-extension)
 * [Amazon Glacier](https://servmask.com/products/amazon-glacier-extension)
+* [pCloud](https://servmask.com/products/pcloud-extension)
+* [WebDAV](https://servmask.com/products/webdav-extension)
+* [S3 Client](https://servmask.com/products/s3-client-extension)
 
 = Supported hosting providers =
 **The plugin does not have any dependencies, making it compatible with all PHP hosting providers. We support a vast range of hosting providers. Some of the most popular include:**
@@ -104,6 +108,167 @@ Alternatively you can download the plugin using the download button on this page
 All-in-One WP Migration **asks for your consent** to collect **requester's email address** when filling plugin's contact form. [GDPR Compliant Privacy Policy](https://www.iubenda.com/privacy-policy/946881)
 
 == Changelog ==
+= 6.95 =
+**Changed**
+
+* Remove the cleanup of failed imports. It causes some of the imports to fail
+
+= 6.94 =
+**Fixed**
+
+* Decrease memory use during export and import of the database
+* Wait 5 seconds longer for servers to process export/import jobs
+
+**Changed**
+
+* Removed emoticon from Import success screen
+
+= 6.93 =
+**Changed**
+
+* Simplified the text on successful import
+* Improved the speed of exporting the database
+
+**Removed**
+
+* Feedback option from the sidebar
+
+= 6.92 =
+**Added**
+
+* Workaround for PHP 7.3.2 bug when database export uses more memory https://bugs.php.net/bug.php?id=77597
+
+= 6.91 =
+**Changed**
+
+* Reverted monkey-patched fix for some GoDaddy hosting plans. The issue was fixed by GoDaddy yesterday
+
+= 6.90 =
+**Changed**
+
+* Improved URL replacement
+* Improved compatibility with some of GoDaddy hosting plans
+
+= 6.89 =
+**Changed**
+
+* Tested up to WordPress 5.1
+
+= 6.88 =
+**Fixed**
+
+* Table data type issue on export/import
+* PHP notice on custom backup labels
+
+= 6.87 =
+**Added**
+
+* Custom backup labels on Backups page
+* Support for OptimizePress
+
+**Fixed**
+
+* Translation text on Import page
+
+= 6.86 =
+**Added**
+
+* Support for MySQL BIT field type
+
+**Fixed**
+
+* WP CLI issue on export/import
+
+= 6.85 =
+**Changed**
+
+* Tested up to WordPress 5.1
+
+= 6.84 =
+**Fixed**
+
+* Set the type of backup file during download via HTML attribute
+* Removed Math_BigInteger class which was causing issues with other plugins
+
+= 6.83 =
+**Added**
+
+* Check for minimum required extension version on import
+* Disable Join My Multisite, MultiSite Clone Duplicator and WordPress MU Domain Mapping plugins after restoring a backup
+
+**Fixed**
+
+* Support for WordPress 3.3
+
+= 6.82 =
+**Added**
+
+* Support for PHP 7.3
+
+**Fixed**
+
+* Feedback form on settings page
+
+= 6.81 =
+**Added**
+
+* Support for S3 Compatible Storage Providers
+
+**Fixed**
+
+* Design issue with localized download button
+
+= 6.80 =
+**Added**
+
+* Additional escape characters from folder names
+
+**Fixed**
+
+* Corner case table prefix on export
+
+**Changed**
+
+* Tested up to WordPress 5.0
+
+= 6.79 =
+**Added**
+
+* File import has been re-added with limits imposed by server using wp_max_upload_size(). This article describes how to adjust the limits [How-to: Increase maximum upload file size](https://help.servmask.com/2018/10/27/how-to-increase-maximum-upload-file-size-in-wordpress/)
+* Clean storage directory of files and folders created more than 24 hours ago
+* Support for force-https-littlebizzy plugin
+* Support for wp-simple-firewall
+
+**Fixed**
+
+* The restore a backup message explains to users how to restore their backups without having to use an premium extension
+
+= 6.78 =
+**Added**
+
+* Support for WebDAV
+* Support for Muffin Builder 2.0
+* Display processed database records on large tables
+
+**Removed**
+
+* File import has been moved to its own free extension
+* WP CLI support is now in Unlimited Extension
+* Restore a backup is now in Unlimited Extension
+
+= 6.77 =
+**Added**
+
+* Support for pCloud
+
+**Fixed**
+
+* Respect user's profile language choice when localizing the plugin
+
+**Removed**
+
+* sanitize_option_siteurl and sanitize_option_home filters during import
+
 = 6.76 =
 **Added**
 

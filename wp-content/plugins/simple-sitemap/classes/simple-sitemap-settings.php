@@ -51,7 +51,7 @@ class WPGO_Simple_Sitemap_Settings {
 
 			<h2 style="margin:25px 0 0 0;">Sitemap Shortcodes & Attributes</h2>
 			<div class="ss-box" style="margin-top:30px;">
-				<h4 style="margin-top:5px;display:inline-block;">Available Shortcodes</h4><button id="shortcodes-btn" class="button">Expand <span style="vertical-align:sub;width:16px;height:16px;font-size:16px;" class="dashicons dashicons-arrow-down-alt2"></span></button>
+				<h4 style="margin-top:5px;display:inline-block;margin-bottom:10px;">Available Shortcodes</h4><button id="shortcodes-btn" class="button">Expand <span style="vertical-align:sub;width:16px;height:16px;font-size:16px;" class="dashicons dashicons-arrow-down-alt2"></span></button>
 
 				<div id="shortcodes-wrap">
 					<p style="margin:15px 0 0 0;"><code>[simple-sitemap]</code> <?php printf( __( 'Display a list of posts for one or more post types.<br><br>', 'simple-sitemap' ) ); ?>
@@ -73,7 +73,7 @@ class WPGO_Simple_Sitemap_Settings {
 			<?php $pro_attribute = '<span class="pro" title="Shortcode attribute available in Simple Sitemap Pro"><a href="https://wpgoplugins.com/plugins/simple-sitemap-pro/" target="_blank">PRO</a></span>'; ?>
 
 			<div class="ss-box">
-				<h4 style="margin-top:5px;display:inline-block;">Shortcode Attributes & Default Values</h4><button id="attributes-btn" class="button">Expand <span style="vertical-align:sub;width:16px;height:16px;font-size:16px;" class="dashicons dashicons-arrow-down-alt2"></span></button>
+				<h4 style="margin-top:5px;display:inline-block;margin-bottom:10px;">Shortcode Attributes & Default Values</h4><button id="attributes-btn" class="button">Expand <span style="vertical-align:sub;width:16px;height:16px;font-size:16px;" class="dashicons dashicons-arrow-down-alt2"></span></button>
 				<div id="attributes-wrap">
 					<p>Note: Default values are always used for missing shortcode attributes. i.e. Override only the values you want to change.</p>
 					<p style="margin:20px 0 0 0;"><code><b>[simple-sitemap ... ]</b></code></p>
@@ -163,12 +163,12 @@ class WPGO_Simple_Sitemap_Settings {
 					<th scope="row">Help support this plugin</th>
 					<td>
 						<div style="float:left;"><a style="margin-right:10px;line-height:0;display:block;" href="https://wpgoplugins.com/plugins/simple-sitemap-pro/" target="_blank"><img style="box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);width:75px;border-radius:2px;border:2px white solid;" src="<?php echo plugins_url(); ?>/simple-sitemap/images/david.png"></a></div>
-						<p style="margin-top:0;">Hi there, I'm David. I spend a lot of time developing FREE WordPress plugins like this one. If you like Simple Sitemap and use it on your website please consider making a <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FBAG4ZHA4TTUC" target="_blank">donation</a>, or purchase the <a href="https://wpgoplugins.com/plugins/simple-sitemap-pro/" target="_blank">pro version</a>, to help fund continued development (and to keep Dexter in doggy biscuits).</p>
+						<p style="margin-top:0;">Hi there, I'm David. I spend a lot of time developing FREE WordPress plugins like this one. If you like Simple Sitemap and use it on your website please consider making a <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FBAG4ZHA4TTUC" target="_blank">donation</a>, or purchase the <a href="https://wpgoplugins.com/plugins/simple-sitemap-pro/" target="_blank">pro version</a>, to help fund continued development (and to keep Dexter in doggy biscuits!).</p>
 					</td>
 				</tr>
 
 				<tr valign="top">
-					<th scope="row">Our other top plugins!</th>
+					<th scope="row">Try our other top plugins!</th>
 					<td>
 						<table class="other-plugins-tbl">
 							<tr><td><a class="plugin-image-link" href="https://wpgoplugins.com/plugins/flexible-faqs/" target="_blank"><img src="<?php echo plugins_url(); ?>/simple-sitemap/images/flexible-faq-thumb.png"></a></td></tr>
@@ -189,7 +189,7 @@ class WPGO_Simple_Sitemap_Settings {
 					<th scope="row">Read all about it!</th>
 					<td>
 						<p>Subscribe to our newsletter for news and updates about the latest development work. Be the first to find out about future projects and exclusive promotions.</p>
-						<div><a class="plugin-btn" target="_blank" href="http://eepurl.com/bXZmmD">I Want In</a></div>
+						<div><a class="plugin-btn" target="_blank" href="http://eepurl.com/bXZmmD">Sign Me Up!</a></div>
 					</td>
 				</tr>
 

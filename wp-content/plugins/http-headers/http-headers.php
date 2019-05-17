@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.12.1
+Version: 1.12.2
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -172,6 +172,49 @@ if (get_option('hh_clear_site_data') === false) {
     add_option('hh_clear_site_data_value', null, null, 'yes');
 }
 
+function build_csp_value($value) {
+    $csp = array();
+    foreach ($value as $key => $val)
+    {
+        if (is_array($val))
+        {
+            $source = NULL;
+            if (isset($val['source']))
+            {
+                $source = $val['source'];
+                unset($val['source']);
+            }
+            if (!empty($val))
+            {
+                $val = join(" ", array_keys($val));
+                if ($source)
+                {
+                    $val .= " " . $source;
+                }
+                $csp[] = sprintf("%s %s", $key, $val);
+            } elseif ($source) {
+                $csp[] = sprintf("%s %s", $key, $source);
+            }
+        } else {
+            if (in_array($key, array('block-all-mixed-content', 'upgrade-insecure-requests')))
+            {
+                $csp[] = $key;
+            }
+            if (in_array($key, array('plugin-types', 'report-to')) && !empty($val))
+            {
+                $csp[] = sprintf("%s %s", $key, $val);
+            }
+        }
+    }
+    
+    if (!$csp)
+    {
+        return NULL; 
+    }
+    
+    return join('; ', $csp);
+}
+
 function get_http_headers() {
 	$statuses = array();
 	$unset = array();
@@ -281,19 +324,12 @@ function get_http_headers() {
 	
 	if (get_option('hh_content_security_policy') == 1)
 	{
-		$csp = array();
-		$values = get_option('hh_content_security_policy_value');
-		$csp_report_only = get_option('hh_content_security_policy_report_only');
-		foreach ($values as $key => $val)
+		$value = get_option('hh_content_security_policy_value');
+		$csp = build_csp_value($value);
+		if ($csp)
 		{
-			if (!empty($val))
-			{
-				$csp[] = sprintf("%s %s", $key, $val);
-			}
-		}
-		if (!empty($csp))
-		{
-			$headers['Content-Security-Policy'.($csp_report_only ? '-Report-Only' : NULL)] = join('; ', $csp);
+		    $csp_report_only = get_option('hh_content_security_policy_report_only');
+			$headers['Content-Security-Policy'.($csp_report_only ? '-Report-Only' : NULL)] = $csp;
 		}
 	}
 
@@ -427,14 +463,18 @@ function get_http_headers() {
 	        $tmp[] = sprintf('{"url": "%s", "group": "%s", "max-age": %u%s}', 
 	            $item['url'], $item['group'], $item['max-age'], isset($item['includeSubDomains']) ? ', includeSubDomains' : NULL);
 	    }
-	    $headers['Report-To'] = join(', ', $tmp);
+	    if ($tmp)
+	    {
+	    	$headers['Report-To'] = join(', ', $tmp);
+		}
 	}
 	if (get_option('hh_feature_policy') == 1) {
 	    $feature_policy_feature = get_option('hh_feature_policy_feature');
 	    $feature_policy_value = get_option('hh_feature_policy_value');
 	    $feature_policy_origin = get_option('hh_feature_policy_origin');
 	    $tmp = array();
-	    foreach ($feature_policy_feature as $feature => $whatever)
+	    $feature_policy_feature = is_array($feature_policy_feature) ? $feature_policy_feature : array();
+	    foreach (array_keys($feature_policy_feature) as $feature)
 	    {
 	        $value = NULL;
 	        switch ($feature_policy_value[$feature])
@@ -457,7 +497,10 @@ function get_http_headers() {
 	        
 	        $tmp[] = sprintf("%s %s", $feature, $value);
 	    }
-	    $headers['Feature-Policy'] = join('; ', $tmp);
+	    if ($tmp)
+	    {
+	    	$headers['Feature-Policy'] = join('; ', $tmp);
+		}
 	}
 	
 	return array($headers, $statuses, $unset, $append);
@@ -936,6 +979,14 @@ function apache_headers_directives() {
         }
         if ($key == 'Access-Control-Allow-Origin') {
             $all[] = '  <IfModule mod_setenvif.c>';
+            if (!is_array($value)) {
+                if ($value) {
+                    $value = array($value);
+                } else {
+                    $value = array();
+                }
+            }
+            $value[] = 'null';
             if (is_array($value))
             {
             	$all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace('.', '\.', join('|', $value)));
@@ -1224,7 +1275,7 @@ function http_headers_enqueue($hook) {
         //return;
     }
 
-    wp_enqueue_script('http_headers_admin_scripts', plugin_dir_url( __FILE__ ) . 'assets/scripts.js');
+    wp_enqueue_script('http_headers_admin_scripts', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array(), '1.13.0', true);
     wp_localize_script('http_headers_admin_scripts', 'hh', array(
         'lbl_delete' => __('Delete', 'http-headers'),
         'lbl_value' => __('Value', 'http-headers'),
