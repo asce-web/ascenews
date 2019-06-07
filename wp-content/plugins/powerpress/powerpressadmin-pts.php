@@ -88,7 +88,7 @@ class PowerPressPostToSocial {
 	}
 
 	function do_pings() {
-		$Settings = powerpress_get_settings( 'powerpress_general' );
+		$Settings = get_option( 'powerpress_general' );
 
 		$post_id = get_the_ID();
 		$program_keyword = $Settings['blubrry_program_keyword'];
@@ -111,7 +111,7 @@ class PowerPressPostToSocial {
  * @return array|mixed|object|string
  */
 function callUpdateListing( $post_id, $program_keyword, $guid ) {
-	$Settings = powerpress_get_settings('powerpress_general');
+	$Settings = get_option( 'powerpress_general' );
 	$episodeData = powerpress_get_enclosure_data( $post_id );
 	if( empty($episodeData['duration']) )
 		$episodeData['duration'] = '';
@@ -130,7 +130,7 @@ function callUpdateListing( $post_id, $program_keyword, $guid ) {
 		$subtitle = substr( get_the_content( $post_id ), 0, 255 );
 	}
 
-	$FeedSettings = powerpress_get_settings( 'powerpress_feed' );
+	$FeedSettings = get_option( 'powerpress_feed' );
 
 	$post_params = array(
 		'feed-url'  => '',                                           // required
@@ -174,7 +174,7 @@ function callUpdateListing( $post_id, $program_keyword, $guid ) {
  * @return array|mixed|object|string
  */
 function callGetSocialOptions( $program_keyword ) {
-	$Settings = powerpress_get_settings( 'powerpress_general' );
+	$Settings = get_option( 'powerpress_general' );
 
 	$api_url_array = powerpress_get_api_array();
 

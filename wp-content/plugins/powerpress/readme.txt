@@ -3,8 +3,8 @@ Contributors: amandato, blubrry
 Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts, google podcasts, google play, enclosure, professional, apple, apple tv, ipad, iphone, soundcloud, squarespace, youtube, viddler, ustream, podcasting, audio, video, rss2, feed, player, media, rss, mp3, music, embed, feedburner, statistics, stats, flv, flash, id3, episodes, blubrry, mp4, m4v, wordpressmu, mu, wordpress mu, multisite, multi site, mediacaster, post, plugin, posts, simple, social, dashboard, TSG, Buzzsprout, MTR, WP-boxCast, CastMyBlog, tgs podcasting,  simple podcasting, seriously simple podcasting, seriously-simple-podcasting, serious, seriously, ssp, podlove, podcast.de, clammr, clammr radio, audio player, stitcher, tunein, show, shows, series, docs, documentation, support, free, add-ons, extensions, addons, libsyn, libsyn-podcasting, podbean, podomatic, spreaker
 Requires at least: 3.6
 Requires PHP: 5.2
-Tested up to: 4.9.9
-Stable tag: 7.4
+Tested up to: 5.1.1
+Stable tag: 7.4.2
 Donate link: https://create.blubrry.com/resources/podcast-media-hosting/
 License: GPLv2 or later
 
@@ -233,6 +233,27 @@ To install Blubrry PowerPress manually, follow these steps:
 
 = Fan of PowerPress and want to show your support? =
 If you are a fan of PowerPress, we would greatly appreciate it if you could take a moment and [leave us a review on WordPress.org](https://wordpress.org/support/plugin/powerpress/reviews/?rate=5#new-post). Your support is greatly appreciated!
+
+
+= 7.4.2 =
+* Released on 4/26/2019
+* Fixed `T_FUNCTION` bug for PHP 5.2 (not an issue if you have PHP 5.3 or newer)
+
+
+= 7.4.1 =
+* Released on 4/10/2019
+* Added logic to authentication email addresses differently for premium password protected podcasts.
+* Added support for YoastSEO and Google Podcasts (Thanks @sunkast for bringing to our attention!) 
+* Removed use of `create_function` to fix damaged serialized data created by the old PodPress plugin. (Thanks @oilmanmag and Dimitris for bringing to our attention!)
+* Fixed `esc_attr()`bug with podpress import.
+* Added Tamil (ta) as a podcast feed language option. Thanks KT for requesting! If you do not see your language pelase contact us we will add it!
+* Changed feed join query to solve conflict with the Affiliate Disclosure Pro plugin. (Thanks @ndnakashima for bringing to our attention!)
+* New functionality for Taxonomy podcasting and the `powerpress_subscribe` shortcode (Thanks @tristanmason for testing!)
+* Fixed taxonomy bugs with the playlist player shortcodes (Thanks @tristanmason for the code and helping us test!)
+* PowerPress playlist player can now be ordered in ascending order with attribute order="asc" (Thanks @tristanmason for the code and helping us test!)
+* Fixed bug with skipto shortcode leaving a blank value in feeds. (Thanks @tszt for bringing to our attention!)
+* Skipto timestamp now uses the timestamp exactly as you entered it as the label as long as it has at least one colon to separate minutes from seconds.
+* Fixed bug for post type podcasting in the situation where there can be multiple post types for blog posts or pages. (Thanks @shawnogordo for the bug fix!)
 
 
 = 7.4 =

@@ -881,6 +881,13 @@ self.parent.tb_remove();
 
 function powerpress_admin_jquery_header($title, $jquery = false)
 {
+	if( function_exists('get_current_screen') ) {
+		$current_screen = get_current_screen();
+		if( !empty($current_screen) && is_object($current_screen) && $current_screen->is_block_editor() ) { 
+			return;
+		}
+	}
+	
 	header( "Expires: Mon, 26 Jul 1997 05:00:00 GMT" );
 	header( "Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" );
 	header( 'Cache-Control: no-store, no-cache, must-revalidate' );

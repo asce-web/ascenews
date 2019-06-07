@@ -4,7 +4,7 @@ Tags: retina, images, image, responsive, lazysizes, lazy, attachment, media, fil
 Requires at least: 4.4
 Tested up to: 5.1
 Requires PHP: 7.0
-Stable tag: 5.5.3
+Stable tag: 5.5.5
 
 Make your website look beautiful and crisp on modern displays by creating and displaying retina images. WP 4.4+ is also supported and enhanced.
 
@@ -33,6 +33,12 @@ More information and tutorial available one https://meowapps.com/wp-retina-2x/.
 3. Check if it works! - if it doesn't, read the FAQ, the tutorial, and check the forums.
 
 == Changelog ==
+
+= 5.5.5 =
+* Fix: Display Full-Size Retina uploader only if the option is active.
+
+= 5.5.4 =
+* Add: Filter for cropping plugins.
 
 = 5.5.3 =
 * Fix: Usage of Composer.

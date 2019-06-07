@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2018 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,10 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
 
 class Ai1wm_Feedback_Controller {
 
@@ -69,10 +73,25 @@ class Ai1wm_Feedback_Controller {
 			exit;
 		}
 
+		$extensions = Ai1wm_Extensions::get();
+
+		if ( defined( 'AI1WMTE_PLUGIN_NAME' ) ) {
+			unset( $extensions[ AI1WMTE_PLUGIN_NAME ] );
+		}
+
+		$purchases = array();
+		foreach ( $extensions as $extension ) {
+			if ( $uuid = get_option( $extension['key'] ) ) {
+				$purchases[] = $uuid;
+			}
+		}
+
+		$purchases = implode( PHP_EOL, $purchases );
+
 		$model = new Ai1wm_Feedback;
 
 		// Send feedback
-		$errors = $model->add( $type, $email, $message, $terms );
+		$errors = $model->add( $type, $email, $message, $terms, $purchases );
 
 		echo json_encode( array( 'errors' => $errors ) );
 		exit;

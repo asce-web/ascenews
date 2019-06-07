@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2018 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,10 @@
  * ███████║███████╗██║  ██║ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║███████║██║  ██╗
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
 
 class Ai1wm_Updater {
 
@@ -78,7 +82,11 @@ class Ai1wm_Updater {
 					if ( version_compare( $extension['version'], $update['version'], '<' ) ) {
 
 						// Get download URL
-						$download_url = add_query_arg( array( 'siteurl' => get_site_url() ), sprintf( '%s/%s', $update['download_link'], $purchase_id ) );
+						if ( $update['slug'] === 'file-extension' ) {
+							$download_url = add_query_arg( array( 'siteurl' => get_site_url() ), sprintf( '%s', $update['download_link'] ) );
+						} else {
+							$download_url = add_query_arg( array( 'siteurl' => get_site_url() ), sprintf( '%s/%s', $update['download_link'], $purchase_id ) );
+						}
 
 						// Set plugin details
 						$transient->response[ $extension['basename'] ] = (object) array(
@@ -119,22 +127,22 @@ class Ai1wm_Updater {
 				if ( ( $response = json_decode( $response['body'], true ) ) ) {
 					// Slug is mandatory
 					if ( ! isset( $response['slug'] ) ) {
-						return;
+						continue;
 					}
 
 					// Version is mandatory
 					if ( ! isset( $response['version'] ) ) {
-						return;
+						continue;
 					}
 
 					// Homepage is mandatory
 					if ( ! isset( $response['homepage'] ) ) {
-						return;
+						continue;
 					}
 
 					// Download link is mandatory
 					if ( ! isset( $response['download_link'] ) ) {
-						return;
+						continue;
 					}
 
 					$updates[ $slug ] = $response;

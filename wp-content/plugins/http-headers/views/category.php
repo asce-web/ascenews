@@ -123,18 +123,7 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = join(', ', array_keys($value));
 					break;
 				case 'hh_content_security_policy':
-					$csp = array();
-					foreach ($value as $key => $val)
-					{
-						if (!empty($val))
-						{
-							$csp[] = sprintf("%s %s", $key, $val);
-						}
-					}
-					if (!empty($csp))
-					{
-						$value = join('; ', $csp);
-					}
+				    $value = build_csp_value($value);
 					if (get_option('hh_content_security_policy_report_only')) {
 						$item[0] .= '-Report-Only';
 					}

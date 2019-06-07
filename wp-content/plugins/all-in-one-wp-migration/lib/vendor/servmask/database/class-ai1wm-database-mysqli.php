@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2018 ServMask Inc.
+ * Copyright (C) 2014-2019 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,10 @@
  * ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'Kangaroos cannot jump here' );
+}
+
 class Ai1wm_Database_Mysqli extends Ai1wm_Database {
 
 	/**
@@ -32,7 +36,14 @@ class Ai1wm_Database_Mysqli extends Ai1wm_Database {
 	 * @return resource
 	 */
 	public function query( $input ) {
-		return mysqli_query( $this->wpdb->dbh, $input, MYSQLI_STORE_RESULT );
+		if ( mysqli_real_query( $this->wpdb->dbh, $input ) ) {
+			// Copy results from the internal mysqlnd buffer into the PHP variables fetched
+			if ( defined( 'MYSQLI_STORE_RESULT_COPY_DATA' ) ) {
+				return mysqli_store_result( $this->wpdb->dbh, MYSQLI_STORE_RESULT_COPY_DATA );
+			}
+
+			return mysqli_store_result( $this->wpdb->dbh );
+		}
 	}
 
 	/**

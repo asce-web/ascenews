@@ -3479,7 +3479,7 @@ function powerpress_remote_fopen($url, $basic_auth = false, $post_args = array()
 		}
 		else if( $http_code > 399 )
 		{
-			echo '40x';
+			//echo '40x';
 			$GLOBALS['g_powerpress_remote_error'] = "HTTP $http_code";
 			$GLOBALS['g_powerpress_remote_errorno'] = $http_code;
 			switch( $http_code )
