@@ -18,6 +18,7 @@ class Meow_WR2X_Core {
 		add_action( 'init', array( $this, 'init' ) );
 		include( __DIR__ . '/api.php' );
 
+		// In Admin
 		if ( is_admin() ) {
 			include( __DIR__ . '/ajax.php' );
 			new Meow_WR2X_Ajax( $this );
@@ -32,6 +33,15 @@ class Meow_WR2X_Core {
 		}
 	}
 
+	function is_rest() {
+		$prefix = rest_get_url_prefix() . '/';
+		$method = $_SERVER['REQUEST_METHOD'];
+		$uri = $_SERVER['REQUEST_URI'];
+		if ( strpos( $uri, $prefix ) !== false )
+			return true;
+		return false;
+	}
+
 	function init() {
 		//load_plugin_textdomain( 'wp-retina-2x', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
@@ -39,6 +49,10 @@ class Meow_WR2X_Core {
 			remove_image_size( 'medium_large' );
 			add_filter( 'image_size_names_choose', array( $this, 'unset_medium_large' ) );
 			add_filter( 'intermediate_image_sizes_advanced', array( $this, 'unset_medium_large' ) );
+		}
+
+		if ( $this->is_rest() ) {
+			return;
 		}
 
 		if ( is_admin() ) {
@@ -190,9 +204,18 @@ class Meow_WR2X_Core {
 
 		// INLINE CSS BACKGROUND
 		if ( get_option( 'wr2x_picturefill_css_background', false ) && $this->admin->is_registered() ) {
+			// Standard CSS background
 			preg_match_all( "/url(?:\(['\"]?)(.*?)(?:['\"]?\))/", $buffer, $matches );
 			$match_css = $matches[0];
 			$match_url = $matches[1];
+			// Lazy CSS background
+			preg_match_all( "/data-background=(?:['\"])(.*?)(?:['\"])/", $buffer, $matches );
+			$match_css = array_merge( $match_css, $matches[0] );
+			$match_url = array_merge( $match_url, $matches[1] );
+			// Lazy CSS background
+			preg_match_all( "/data-bigimg=(?:['\"])(.*?)(?:['\"])/", $buffer, $matches );
+			$match_css = array_merge( $match_css, $matches[0] );
+			$match_url = array_merge( $match_url, $matches[1] );
 			if ( count( $matches ) != 2 )
 				return $buffer;
 			$nodes_count = 0;
@@ -219,6 +242,7 @@ class Meow_WR2X_Core {
 			$this->log( "$nodes_replaced/$nodes_count background src were replaced." );
 		}
 
+		$html->clear();
 		return $buffer;
 	}
 

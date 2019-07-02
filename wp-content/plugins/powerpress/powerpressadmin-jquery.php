@@ -117,21 +117,6 @@ function powerpress_admin_jquery_init()
 			exit;
 			
 		}; // No break here, let this fall thru..
-		case 'powerpress-jquery-media-delete': {
-			
-			if( !current_user_can('edit_posts') )
-			{
-				powerpress_admin_jquery_header('Uploader');
-				powerpress_page_message_add_notice( __('You do not have sufficient permission to upload media.', 'powerpress') );
-				powerpress_page_message_print();
-				powerpress_admin_jquery_footer();
-				exit;
-			}
-			
-			check_admin_referer('powerpress-jquery-media-delete');
-			$DeleteFile = $_GET['delete'];
-			
-		}; // No break here, let this fall thru..
 		
 		case 'powerpress-jquery-hosting': {
 		
@@ -150,6 +135,22 @@ function powerpress_admin_jquery_init()
 				exit;
 				
 		}; break;
+		
+		case 'powerpress-jquery-media-delete': {
+			
+			if( !current_user_can('edit_posts') )
+			{
+				powerpress_admin_jquery_header('Uploader');
+				powerpress_page_message_add_notice( __('You do not have sufficient permission to upload media.', 'powerpress') );
+				powerpress_page_message_print();
+				powerpress_admin_jquery_footer();
+				exit;
+			}
+			
+			check_admin_referer('powerpress-jquery-media-delete');
+			$DeleteFile = $_GET['delete'];
+			
+		}; // No break here, let this fall thru..
 		
 		case 'powerpress-jquery-media': {
 			
@@ -906,6 +907,7 @@ function powerpress_admin_jquery_header($title, $jquery = false)
 <?php
 
 // In case these functions haven't been included yet...
+if( !defined('WP_ADMIN') )
 require_once(ABSPATH . 'wp-admin/includes/admin.php');
 
 wp_admin_css( 'css/global' );
@@ -940,6 +942,7 @@ function powerpress_admin_jquery_footer($jquery = false)
 </body>
 </html>
 <?php
+	exit();
 }
 
 ?>

@@ -3,8 +3,8 @@ Contributors: amandato, blubrry
 Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts, google podcasts, google play, enclosure, professional, apple, apple tv, ipad, iphone, soundcloud, squarespace, youtube, viddler, ustream, podcasting, audio, video, rss2, feed, player, media, rss, mp3, music, embed, feedburner, statistics, stats, flv, flash, id3, episodes, blubrry, mp4, m4v, wordpressmu, mu, wordpress mu, multisite, multi site, mediacaster, post, plugin, posts, simple, social, dashboard, TSG, Buzzsprout, MTR, WP-boxCast, CastMyBlog, tgs podcasting,  simple podcasting, seriously simple podcasting, seriously-simple-podcasting, serious, seriously, ssp, podlove, podcast.de, clammr, clammr radio, audio player, stitcher, tunein, show, shows, series, docs, documentation, support, free, add-ons, extensions, addons, libsyn, libsyn-podcasting, podbean, podomatic, spreaker
 Requires at least: 3.6
 Requires PHP: 5.2
-Tested up to: 5.1.1
-Stable tag: 7.4.2
+Tested up to: 5.2.2
+Stable tag: 7.4.4
 Donate link: https://create.blubrry.com/resources/podcast-media-hosting/
 License: GPLv2 or later
 
@@ -235,6 +235,25 @@ To install Blubrry PowerPress manually, follow these steps:
 If you are a fan of PowerPress, we would greatly appreciate it if you could take a moment and [leave us a review on WordPress.org](https://wordpress.org/support/plugin/powerpress/reviews/?rate=5#new-post). Your support is greatly appreciated!
 
 
+= 7.4.4 =
+* Releasd on 6/21/2019
+* Fixed bug introduced in last update that calculated the total number of episodes when viewing podcasts in channels and post types in PowerPress admin. (Thanks @edzila60610 for bringing to our attention!)
+* Removed all mentions of Google+. (Thanks @k_abel for bringing to our attention!)
+* Fixed notice message getting cut off for the "Clear Plugins Update Cache" option under "Tools". (Thanks @k_abel for bringing to our attention!)
+* Added option `archive`="true" for the `powerpress_subscribe` shortcode to allow for the shortcode to be added to archive/category pages.
+
+
+= 7.4.3 =
+* Released on 6/12/2019
+* Updated labels for Subscribe buttons and links in admin.
+* Note: Apple has announced the end of life for iTunes desktop (except for Windows). PowerPress will be removing iTunes desktop specific features where they conflict with the Apple Podcasts iOS app.
+* Enhanced iTunes summary updated, optimized for latest iOS podcasts app. It is now designed for Apple Podcasts iOS app rather than for iTunes desktop. (Thanks Robin for your assistance!)
+* Force feed discovery on homepage only to use default podcast feed for Google Search.
+* Fixed bug with deleting media files hosted on Blubrry Podcast hosting.
+* Fixed bug with posts with revisions being part of the total number of episodes when viewing podcast feeds in PowerPress settings.
+* Fixed bug with skipto position time not getting included in feed show notes. (Thanks @tszt for bringing to our attention!)
+
+
 = 7.4.2 =
 * Released on 4/26/2019
 * Fixed `T_FUNCTION` bug for PHP 5.2 (not an issue if you have PHP 5.3 or newer)
@@ -461,4 +480,4 @@ Please [contact blubrry](http://www.blubrry.com/contact.php) with the link to yo
 
 == Blubrry Social == 
  
- [Twitter](https://twitter.com/blubrry) - [Facebook](https://www.facebook.com/blubrry) - [Google+](https://plus.google.com/u/0/104806426850567631953/posts)
+ [Twitter](https://twitter.com/blubrry) - [Facebook](https://www.facebook.com/blubrry) - [YouTube](https://www.youtube.com/channel/UC9sE1Yz2deZiGAP67xYx9Xg)

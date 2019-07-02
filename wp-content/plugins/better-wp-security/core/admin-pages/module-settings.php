@@ -36,7 +36,7 @@ class ITSEC_Module_Settings_Page {
 	 * @access protected
 	 * @var string
 	 */
-	protected $type = 'recommended'; // "additional" or "recommended"
+	protected $type = 'recommended'; // "advanced" or "recommended"
 
 	/**
 	 * Whether the settings require resaving after activation in order to fully-activate the module.

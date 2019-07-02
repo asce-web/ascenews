@@ -107,8 +107,21 @@ final class ITSEC_Setup {
 				self::upgrade_data_to_4031();
 			}
 
+			if ( $build < 4067 ) {
+				delete_site_option( 'itsec_pro_just_activated' );
+			}
+
 			if ( $build < 4069 ) {
 				self::upgrade_data_to_4069();
+				delete_site_option( 'itsec_free_just_activated' );
+			}
+
+			if ( $build < 4076 ) {
+				$digest = wp_next_scheduled( 'itsec_digest_email' );
+
+				if ( $digest ) {
+					wp_unschedule_event( $digest, 'itsec_digest_email' );
+				}
 			}
 
 			// Run upgrade routines for modules to ensure that they are up-to-date.

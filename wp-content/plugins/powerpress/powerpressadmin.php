@@ -1325,7 +1325,7 @@ function powerpress_admin_init()
 					
 					delete_option('update_plugins'); // OLD method
 					delete_option('_site_transient_update_plugins'); // New method
-					powerpress_page_message_add_notice( sprintf( __('Plugins Update Cache cleared successfully. You may now to go the %s page to see the latest plugin versions.', 'powerpress'), '<a href="'. admin_url() .'plugins.php" title="'.  __('Manage Plugins', 'powerpress') .'">'.  __('Manage Plugins', 'powerpress') .'</a>') );
+					powerpress_page_message_add_notice( sprintf( __('Plugins Update Cache cleared successfully. You may now to go the %s page to see the latest plugin versions.', 'powerpress'), '<a href="'. admin_url() .'plugins.php" title="'.  __('Manage Plugins', 'powerpress') .'">'.  __('Manage Plugins', 'powerpress') .'</a>'), 'inline', false );
 					
 				}; break;
 				case 'powerpress-ios11-fields': {
@@ -3955,7 +3955,7 @@ function powerpress_admin_episodes_per_feed($feed_slug, $post_type='post')
 	if( $feed_slug != 'podcast' )
 		$field = '_'. $feed_slug .':enclosure';
 	global $wpdb;
-	if ( $results = $wpdb->get_results("SELECT COUNT(post_id) AS episodes_total FROM $wpdb->postmeta WHERE meta_key = '$field'", ARRAY_A) ) {
+	if ( $results = $wpdb->get_results("SELECT COUNT(pm.post_id) AS episodes_total FROM $wpdb->posts AS p INNER JOIN $wpdb->postmeta AS pm ON pm.post_id = p.ID WHERE pm.meta_key = '$field' AND p.post_status <> 'auto-draft' AND p.post_status <> 'trash' AND p.post_status <> 'inherit' ", ARRAY_A) ) {
 		if( count($results) )
 		{
 			foreach( $results as $key => $row ) {

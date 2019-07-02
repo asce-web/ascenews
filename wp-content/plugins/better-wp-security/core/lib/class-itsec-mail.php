@@ -469,6 +469,14 @@ final class ITSEC_Mail {
 		$this->add_html( $deferred, $group );
 	}
 
+	public function insert_before( $identifier, $html ) {
+		$this->groups = ITSEC_Lib::array_insert_before( $identifier, $this->groups, count( $this->groups ), $html );
+	}
+
+	public function insert_after( $identifier, $html ) {
+		$this->groups = ITSEC_Lib::array_insert_after( $identifier, $this->groups, count( $this->groups ), $html );
+	}
+
 	/**
 	 * Include debug info in the email.
 	 *

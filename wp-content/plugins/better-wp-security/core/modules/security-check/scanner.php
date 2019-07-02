@@ -123,9 +123,9 @@ final class ITSEC_Security_Check_Scanner {
 			'style_class' => 'regular-text',
 		) );
 		self::$feedback->add_input( 'select', 'updates_optin', array(
-			'format'  => __( 'Receive email updates about WordPress Security from iThemes: %1$s', 'better-wp-security' ),
+			'format'  => __( 'Receive email updates about WordPress Security and marketing news from iThemes: %1$s', 'better-wp-security' ),
 			'options' => array( 'true' => __( 'Yes', 'better-wp-security' ), 'false' => __( 'No', 'better-wp-security' ) ),
-			'value'   => 'true',
+			'value'   => 'false',
 		) );
 		self::$feedback->add_input( 'hidden', 'method', array(
 			'value' => 'activate-network-brute-force',
