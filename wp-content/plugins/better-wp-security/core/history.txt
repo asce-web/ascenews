@@ -798,3 +798,9 @@
 	Bug Fix: Resolve warning when a user is set to "No Role".
 5.1.4 - 2019-03-22 - Chris Jean & Timothy Jacobs
 	Bug Fix: Hide backend bypass.
+5.2.0 - 2019-05-30 - Chris Jean & Timothy Jacobs
+	New: iThemes Security Admin Notices are now conveniently located in the new Security Messages Menu. Check your notices in the Security menu on the WordPress Admin Bar.
+	Tweak: Remove 'DELETE' method from "System Tweaks -> Filter Request Methods"
+5.2.1 - 2019-06-06 - Chris Jean & Timothy Jacobs
+	Enhancement: Add Security Message when a Notification Center email fails to send.
+	Enhancement: Replace Trace IP with IP Tracker Online.

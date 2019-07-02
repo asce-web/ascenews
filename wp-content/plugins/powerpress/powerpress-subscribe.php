@@ -382,6 +382,7 @@ function powerpress_subscribe_shortcode( $attr ) {
 	
 	// Only works on pages...
 	if ( !is_singular() ) {
+		if( empty($attr['archive']) )
 		return '';
 	}
 

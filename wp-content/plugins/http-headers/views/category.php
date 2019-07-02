@@ -175,7 +175,14 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = join('<br>', $tmp);
 					break;
 				case 'hh_cookie_security':
-					$value = is_array($value) ? join(', ', array_keys($value)) : NULL;
+				    if (is_array($value)) {
+				        if (isset($value['SameSite']) && !is_samesite_supported()) {
+				            unset($value['SameSite']);
+                        }
+                    }
+					$value = is_array($value) && !empty($value)
+                        ? '&#10004; ' . join(' &#10004; ', array_keys($value))
+                        : NULL;
 					break;
 				case 'hh_expect_ct':
 					$tmp = array();

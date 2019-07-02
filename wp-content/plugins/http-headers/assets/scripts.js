@@ -141,6 +141,20 @@
 					$this.closest("p").siblings("p").show();
 				}
 			}
+		}).on("change", 'input[type="checkbox"][name="hh_cookie_security_value[SameSite]"]', function () {
+			if (this.checked) {
+				$(".hh-csv-value")
+					.removeClass("hh-hidden")
+					.find('input[type="radio"]')
+					.prop("disabled", false)
+					.filter(":first")
+					.prop("checked", true);
+			} else {
+                $(".hh-csv-value")
+					.addClass("hh-hidden")
+					.find('input[type="radio"]')
+					.prop("disabled", true);
+			}
 		});
 		
 		$('.hh-tabs').on('click', 'ul a', function (e) {

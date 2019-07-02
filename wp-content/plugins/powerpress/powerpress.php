@@ -3,11 +3,11 @@
 Plugin Name: Blubrry PowerPress
 Plugin URI: http://create.blubrry.com/resources/powerpress/
 Description: <a href="http://create.blubrry.com/resources/powerpress/" target="_blank">Blubrry PowerPress</a> is the No. 1 Podcasting plugin for WordPress. Developed by podcasters for podcasters; features include Simple and Advanced modes, multiple audio/video player options, subscribe to podcast tools, podcast SEO features, and more! Fully supports Apple Podcasts (previously iTunes), Google Podcasts, Spotify, Stitcher, and Blubrry Podcasting directories, as well as all podcast applications and clients.
-Version: 7.4.2
+Version: 7.4.4
 Author: Blubrry
 Author URI: http://www.blubrry.com/
 Requires at least: 3.6
-Tested up to: 5.1.1
+Tested up to: 5.2.2
 Text Domain: powerpress
 Change Log:
 	Please see readme.txt for detailed change log.
@@ -35,7 +35,7 @@ if( !function_exists('add_action') ) {
 }
 	
 // WP_PLUGIN_DIR (REMEMBER TO USE THIS DEFINE IF NEEDED)
-define('POWERPRESS_VERSION', '7.4.2' );
+define('POWERPRESS_VERSION', '7.4.4' );
 
 // Translation support:
 if ( !defined('POWERPRESS_ABSPATH') )
@@ -419,16 +419,45 @@ function powerpress_pinw(pinw_url){window.open(pinw_url, 'PowerPressPlayer','too
 	
 	if( !empty($Powerpress['feed_links']) )
 	{
-		// Loop through podcast feeds and display them here 
-		foreach( $Powerpress['custom_feeds'] as $feed_slug=> $title )
-		{
+		if( is_home() ) {
+			$feed_slug = 'podcast';
 			$href = get_feed_link($feed_slug);
-			if ( isset($title) && isset($href) )
-				echo '<link rel="alternate" type="' . feed_content_type() . '" title="' . esc_attr( $title ) . '" href="' . esc_url( $href ) . '" />' . "\n";
-		}
-		reset($Powerpress['custom_feeds']);
+			// Podcast default and channel feed settings
+			$Settings = get_option('powerpress_feed_'. $feed_slug);
+
+			if( empty($Settings) && $feed_slug == 'podcast' )
+				$Settings = get_option('powerpress_feed'); // Get the main feed settings
+			
+			if( empty($Settings['title']) )
+				$Settings['title'] = get_bloginfo_rss('name'); // Get blog title
+
+			// Get the default podcast feed...
+			echo '<link rel="alternate" type="' . feed_content_type() . '" title="' . esc_attr( $Settings['title'] ) . '" href="' . esc_url( $href ) . '" />' . "\n";
+		} else if( is_category() ) {
 		
-		// TODO: Add logic to add category, post type and taxonomy feeds as well
+			$category_id = get_query_var('cat');
+			if( $category_id ) {
+				$Settings = get_option('powerpress_cat_feed_'.$category_id );
+				if( empty($Settings['title']) ) {
+					$Settings['title'] = get_cat_name( $category_id ); // Get category title
+					$Settings['title'] .= ' '. apply_filters( 'document_title_separator', '-' ) .' ';
+					$Settings['title'] .= get_bloginfo_rss('name');
+				}
+				if( empty($Settings['title']) )	{
+					$Settings['title'] = get_bloginfo_rss('name'); // Get blog title, best we can do
+				}
+				
+				if( !empty($Settings['feed_redirect_url']) )
+					$Settings['feed_url'] = $Settings['feed_redirect_url'];
+				else if( !empty($General['cat_casting_podcast_feeds']) )
+					$Settings['feed_url'] = get_category_feed_link($category_id, 'podcast');
+				else
+					$Settings['feed_url'] = get_category_feed_link( $category_id ); // Get category feed URL
+				
+				// Get the category podcast feed...
+				echo '<link rel="alternate" type="' . feed_content_type() . '" title="' . esc_attr( $Settings['title'] ) . '" href="' . esc_url( $Settings['feed_url'] ) . '" />' . "\n";
+			}
+		}
 	}
 }
 
@@ -528,8 +557,16 @@ function powerpress_rss2_head()
 	{
 		if( is_category() )
 			$Feed['url'] = get_category_link($cat_ID);
-		else
+		else {
+
+			$blogHomepage = get_option('page_for_posts');
+			if( !empty($blogHomepage) ) {
+				$Feed['url'] = get_permalink( $blogHomepage );
+			}
+			
+			if( empty($Feed['url']) )
 			$Feed['url'] = get_bloginfo('url');
+	}
 	}
 	
 	$General = get_option('powerpress_general');
@@ -1111,10 +1148,24 @@ function powerpress_bloginfo_rss($content, $field = '')
 					}
 				}; break;
 				case 'url': {
+					// If the website URL is set for this podcast then lets use it...
 					if( !empty($Feed['url']) )
 						return trim($Feed['url']);
-					else if( is_category() )
+						
+					if( is_category() ) {
 						return get_category_link( get_query_var('cat') );
+					} else {
+						$urlTemp = '';
+						$blogHomepage = get_option('page_for_posts');
+						if( !empty($blogHomepage) ) {
+							$urlTemp = get_permalink( $blogHomepage );
+						}
+						
+						if( empty($urlTemp) )
+							$urlTemp = get_bloginfo('url');
+						if( !empty($urlTemp) )
+							return $urlTemp;
+					}
 				}; break;
 				case 'name': { // As of wp 4.4+ title is handled by get_the_title_rss completely.
 					if( !empty($Feed['title']) )
@@ -1566,6 +1617,9 @@ function powerpress_init()
 			//add_filter( 'get_wp_title_rss', 'wp_encode_emoji' );
 		}
 	}
+	
+	remove_action( 'wp_head', 'feed_links', 2 );
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
 }
 
 add_action('init', 'powerpress_init', -100); // We need to add the feeds before other plugins start screwing with them
@@ -2564,7 +2618,14 @@ function powerpress_get_the_exerpt($for_summary = false, $no_filters = false, $p
 			$post = get_post($post_id);
 			$subtitle = $post->post_excerpt;
 			if ( $subtitle == '') {
-				$subtitle = strip_shortcodes( $post->post_content );
+				
+				$subtitle = $post->post_content;
+				$shortcodesTemp = $GLOBALS['shortcode_tags'];
+				$GLOBALS['shortcode_tags']['skipto'] = 'powerpress_shortcode_skipto';
+				$subtitle = do_shortcode($subtitle);
+				$GLOBALS['shortcode_tags'] = $shortcodesTemp;
+				
+				$subtitle = strip_shortcodes( $subtitle );
 				$subtitle = str_replace(']]>', ']]&gt;', $subtitle);
 				$subtitle = strip_tags($subtitle);
 			}
@@ -2573,7 +2634,15 @@ function powerpress_get_the_exerpt($for_summary = false, $no_filters = false, $p
 		{
 			$subtitle = $GLOBALS['post']->post_excerpt;
 			if ( $subtitle == '') {
-				$subtitle = strip_shortcodes( $GLOBALS['post']->post_content );
+				
+				$subtitle = $GLOBALS['post']->post_content;
+				
+				$shortcodesTemp = $GLOBALS['shortcode_tags'];
+				$GLOBALS['shortcode_tags']['skipto'] = 'powerpress_shortcode_skipto';
+				$subtitle = do_shortcode($subtitle);
+				$GLOBALS['shortcode_tags'] = $shortcodesTemp;
+				
+				$subtitle = strip_shortcodes( $subtitle );
 				$subtitle = str_replace(']]>', ']]&gt;', $subtitle);
 				$subtitle = strip_tags($subtitle);
 			}
@@ -2592,18 +2661,25 @@ function powerpress_get_the_content($for_summary = true, $no_filters = false, $n
 	if( $no_filters ) {
 		global $post;
 		$content_no_html = $post->post_content;
-		$content_no_html = strip_shortcodes( $content_no_html );
+			
+		$shortcodesTemp = $GLOBALS['shortcode_tags'];
+		$GLOBALS['shortcode_tags']['skipto'] = 'powerpress_shortcode_skipto';
+		$content_no_html = do_shortcode($content_no_html);
+		$GLOBALS['shortcode_tags'] = $shortcodesTemp;
+	
+		//$content_no_html = strip_shortcodes( $content_no_html );
 		$content_no_html = str_replace(']]>', ']]&gt;', $content_no_html);
 		$content_no_html = wp_staticize_emoji( _oembed_filter_feed_content( $content_no_html ) );
 	} else {
 		$content_no_html = get_the_content();
 	}
+			
 	$content_no_html = strip_shortcodes( $content_no_html ); 
 	if( $no_strip_tags )
 		return $content_no_html;
 	
 	if( $for_summary ) {
-		return trim( strip_tags($content_no_html, '<a><p><br>') );
+		return trim( strip_tags($content_no_html, '<a><p><br><ul><li>') );
 	}
 	return trim( strip_tags($content_no_html) );
 }
@@ -2615,8 +2691,8 @@ function powerpress_enhanced_itunes_summary($no_filters = false)
 	} else {
 		$summary = apply_filters( 'the_content', powerpress_get_the_content(false, $no_filters, true) );
 	}
-	$summary = str_replace("<li>", '<li>* ', $summary);
-	$summary = strip_tags($summary, '<a><br>'); // We can leave a tags for itunes:summary, this will also strip CDATA tags
+	$summary = str_replace("<li>", '<li>* ', $summary); // Make sure our bullet lists stay nicely formatted.
+	$summary = strip_tags($summary, '<a>'); // We can leave a tags for itunes:summary, this will also strip CDATA tags
 	return $summary;
 }
 

@@ -1,30 +1,35 @@
 === WP Retina 2x ===
 Contributors: TigrouMeow
 Tags: retina, images, image, responsive, lazysizes, lazy, attachment, media, files, iphone, ipad, high-dpi
+Donate link: https://commerce.coinbase.com/checkout/d047546a-77a8-41c8-9ea9-4a950f61832f
 Requires at least: 4.4
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 7.0
-Stable tag: 5.5.5
+Stable tag: 5.5.6
 
 Make your website look beautiful and crisp on modern displays by creating and displaying retina images. WP 4.4+ is also supported and enhanced.
 
 == Description ==
 
-This plugin does two things: it creates the image files required by the High-DPI devices and it displays them to your visitors accordingly. Your website will look beautiful and crisp on every device! The retina images will be generated for you automatically (though you can also do it manually) and served to the retina devices. The concept of retina images for full-size images is also a very unique feature which is only provided by this plugin (which is why it became unique).
+This plugin does two things: it creates the image files required by the High-DPI devices and it displays them to your visitors accordingly. Your website will look beautiful and crisp on every device! The retina images will be generated for you automatically (though you can also do it manually) and served to the retina devices. The concept of retina images for full-size images is also a very unique feature which is only provided by this plugin (which is why it became unique). More information and tutorial available on the [official website](https://meowapps.com/plugin/wp-retina-2x/).
 
-**Retina Methods**. It supports different methods to serve the images to your visitors. Why? Depending on the theme and plugins you are using (and also the way you use images in your website), not all the methods can work. Ideally, I would recommend using the Responsive Images method, then if it doesn't work, the PictureFill method (which covers normally most cases). Retina.js should be the fallback method. There are more methods than this with their specific options.
+=== Retina Methods ===
+It supports different methods to serve the images to your visitors. Why? Depending on the theme and plugins you are using (and also the way you use images in your website), not all the methods can work. Ideally, I would recommend using the Responsive Images method, then if it doesn't work, the PictureFill method (which covers normally most cases). Retina.js should be the fallback method. There are more methods than this with their specific options.
 
-**Plug & Play**. With a well-made theme and website, this plugin doesn't require normally any specific set-up. All the defaults settings are fine. Works with multi-site and many kinds of installs.
+=== Plug & Play ===
+With a well-made theme and website, this plugin doesn't require normally any specific set-up. All the defaults settings are fine. Works with multi-site and many kinds of installs.
 
-**Optimized**. The plugin is very fast and optimized. It doesn't create anything in the database.
+=== Responsive Images ===
+WP has support for Responsive Images and this plugin handles this nicely by adding the retina images in the src-set created by WordPress. The HTML for the images not handled by WP 4.4 (outside posts) will also be handled by the plugin (pick "Picturefill" method for this). The plugin also provides an option to disable the 'Medium Large' created by WordPress which is actually not useful (it's a hack basically), this plugin does it better.
 
-**Pro**. When activated, the Pro version adds support for Retina for full-size, support for lazy-loading for your responsive images and various options. And it supports my work :)
+=== Optimized ===
+The plugin is very fast and optimized. It doesn't create anything in the database.
 
-**Responsive Images**. WP has support for Responsive Images and this plugin handles this nicely by adding the retina images in the src-set created by WordPress. The HTML for the images not handled by WP 4.4 (outside posts) will also be handled by the plugin (pick "Picturefill" method for this). The plugin also provides an option to disable the 'Medium Large' created by WordPress which is actually not useful (it's a hack basically), this plugin does it better.
+=== Pro Version ===
+The Pro version adds support for Retina for full-size, support for lazy-loading for your responsive images and various options. And it supports my work :)
 
-**CSS & Background Images**. The plugin cannot inject CSS to handles the images added through CSS, that's both too dangerous and potentially very incorrect. However, in its Pro version and with PictureFill, you get an option to replace the inline CSS background image by their retina equivalent.
-
-More information and tutorial available one https://meowapps.com/wp-retina-2x/.
+=== CSS & Background Images ===
+The plugin cannot inject CSS to handles the images added through CSS, that's both too dangerous and potentially very incorrect. However, in its Pro version and with PictureFill, you get an option to replace the inline CSS background image by their retina equivalent.
 
 = Quickstart =
 
@@ -33,6 +38,9 @@ More information and tutorial available one https://meowapps.com/wp-retina-2x/.
 3. Check if it works! - if it doesn't, read the FAQ, the tutorial, and check the forums.
 
 == Changelog ==
+
+= 5.5.6 =
+* Update: Lazysizes updated to 5.1.0 (from 4.0.4).
 
 = 5.5.5 =
 * Fix: Display Full-Size Retina uploader only if the option is active.

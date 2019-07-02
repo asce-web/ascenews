@@ -39,6 +39,7 @@ final class ITSEC_Global_Settings_New extends ITSEC_Settings {
 			'cron_test_time'            => 0,
 			'enable_grade_report'       => false,
 			'server_ips'                => array(),
+			'feature_flags'             => array(),
 		);
 	}
 
