@@ -64,7 +64,7 @@ class PowerPressPostToSocial {
 			$guid = urlencode( get_the_guid() );
 			
 			$EpisodeData = powerpress_get_enclosure_data($post_id);
-			if( !empty($EpisodeData) ) {
+			if( !empty($EpisodeData) && parse_url($EpisodeData['url'], PHP_URL_HOST) == 'media.blubrry.com' ) {
 				add_thickbox();
 				echo "<strong styleX='font-size: 115%; display: block; text-align: center;'><a class='thickbox button button-primary button-large' href='admin.php?action=powerpress-jquery-pts&width=600&height=550&post_id={$post_id}&guid={$guid}&TB_iframe=true' target='blank' title='Post to Social'>Post to Social</a></strong>";
 				$can_post = true;
@@ -83,11 +83,14 @@ class PowerPressPostToSocial {
 			else if( $can_post == false ) {
 			
 				_e( 'No podcast episode available in this post to send to social sites.', 'powerpress' );
-			} else {
+			} else if (parse_url($EpisodeData['url'], PHP_URL_HOST) == 'media.blubrry.com') {
 				_e( 'Nothing posted yet.', 'powerpress' );
 				echo ' ';
 				echo "<a class='thickbox' href='admin.php?action=powerpress-jquery-pts&width=600&height=550&post_id={$post_id}&guid={$guid}&TB_iframe=true' target='blank'>Post Now!</a>";
 			}
+			else {
+			    _e('The media file must be hosted on Blubrry to post to social sites.', 'powerpress');
+            }
 		}
 		else {
 			echo "This post must be published before you can post to social sharing sites.";
@@ -102,12 +105,11 @@ class PowerPressPostToSocial {
 		$Settings = get_option( 'powerpress_general' );
 
 		$post_id = get_the_ID();
-		$program_keyword = $Settings['blubrry_program_keyword'];
 		$guid = get_the_guid();
 
 		$enclosure_data = powerpress_get_enclosure_data( $post_id );
 		if ( !empty( $enclosure_data ) ) {
-			$results = callUpdateListing($post_id, $program_keyword, $guid);
+			$results = callUpdateListing($post_id, $guid);
 			$podcast_id = $results['podcast-id'];
 
 			add_post_meta( $post_id, 'podcast-id', $podcast_id, true );
@@ -121,9 +123,16 @@ class PowerPressPostToSocial {
  * @param string $guid
  * @return array|mixed|object|string
  */
-function callUpdateListing( $post_id, $program_keyword, $guid ) {
-	$Settings = get_option( 'powerpress_general' );
+function callUpdateListing( $post_id, $guid ) {
+	$Settings = get_option('powerpress_general');
 	$episodeData = powerpress_get_enclosure_data( $post_id );
+	if(!empty($episodeData['program_keyword'])) {
+	    //for multi account support, if empty then fallback to
+	    $program_keyword = $episodeData['program_keyword'];
+    }
+	else {
+        $program_keyword = $Settings['blubrry_program_keyword'];
+    }
 	if( empty($episodeData['duration']) )
 		$episodeData['duration'] = '';
 	
@@ -161,7 +170,7 @@ function callUpdateListing( $post_id, $program_keyword, $guid ) {
 
 	foreach ( $api_url_array as $api_url ) {
 		$response = powerpress_remote_fopen( "{$api_url}social/{$program_keyword}/update-listing.json", $Settings['blubrry_auth'], json_encode( $post_params ) );
-		
+
 		if ( $response ) {
 			break;
 		}
@@ -187,10 +196,8 @@ function callGetSocialOptions( $program_keyword, $podcast_id ) {
 	$Settings = get_option( 'powerpress_general' );
 
 	$api_url_array = powerpress_get_api_array();
-
 	foreach ( $api_url_array as $api_url ) {
-		$response = powerpress_remote_fopen("{$api_url}social/{$program_keyword}/get-social-options.json", $Settings['blubrry_auth'] );
-
+		$response = powerpress_remote_fopen("{$api_url}social/{$program_keyword}/get-social-options.json?podcast_id={$podcast_id}", $Settings['blubrry_auth'] );
 		if ( $response ) {
 			break;
 		}
@@ -355,7 +362,7 @@ function powerpress_ajax_pts($Settings)
 	}
 
 	// Make API calls here //
-	$program_keyword = $Settings['blubrry_program_keyword'];
+
 	$post_id = (int) $_GET['post_id'];
 	$guid    = urldecode( $_GET['guid'] );
 
@@ -364,9 +371,8 @@ function powerpress_ajax_pts($Settings)
 		$response = array( 'podcast-id' => get_post_meta( $post_id, 'podcast-id', true ) );
 	}
 	else {
-		$response = callUpdateListing( $post_id, $program_keyword, $guid );
+		$response = callUpdateListing( $post_id, $guid );
 	}
-
 	if ( !is_array( $response ) ) { // an error occurred\	
 		echo "<br /><br />";
 		echo $response;
@@ -392,12 +398,18 @@ function powerpress_ajax_pts($Settings)
 	}
 
 	$podcast_id = $response['podcast-id'];
-	add_post_meta( $post_id, 'podcast-id', $podcast_id, true );
-
+    $EpisodeData = powerpress_get_enclosure_data($post_id);
+    if(!empty($EpisodeData['program_keyword'])) {
+        $program_keyword = $EpisodeData['program_keyword'];
+    }
+    else {
+        $program_keyword = $Settings['blubrry_program_keyword'];
+    }
+    add_post_meta( $post_id, 'podcast-id', $podcast_id, true );
 	// get the info necessary to create the post to social form using the `get-social-options` api call
 	$response = callGetSocialOptions( $program_keyword, $podcast_id );
 
-	if ( !is_array( $response ) ) { // a cURL error occurred
+    if ( !is_array( $response ) ) { // a cURL error occurred
 		echo $response;
 		exit;
 	}
@@ -444,7 +456,10 @@ function powerpress_ajax_pts($Settings)
 		<input type="hidden" name="podcast-id" value="<?php echo $podcast_id; ?>">
 						<input type="hidden" name="post-id" value="<?php echo $post_id; ?>">
 	<?php
-
+        if (empty($response['accounts'])) {
+            echo '<h2>No social accounts linked</h2>';
+            echo '<p>Visit the <a href="https://publish.blubrry.com/social/" target="_blank">Podcaster Dashboard</a> to link your social accounts</p>';
+        }
         if (!empty($response['accounts']['Twitter'])){
             echo '<h2>' ."<img src='{$response['settings']['twitter_image']}'>" ." Twitter" .'</h2>'; ?>
 
@@ -516,7 +531,7 @@ function powerpress_ajax_pts($Settings)
                id="post_button" />
     <a href="#" class="btn btn-sm btn-default"
        onclick="self.parent.tb_remove();"><?php echo __( 'Cancel', 'powerpress' ); ?></a>
-	</form>
+    </form>
 	<?php
 	powerpress_admin_jquery_footer();
 }
@@ -529,9 +544,15 @@ function powerpress_ajax_pts_post($Settings)
 
 	$api_url_array = powerpress_get_api_array();
 
-	$program_keyword = $Settings['blubrry_program_keyword'];
 	$podcast_id = $_POST['podcast-id'];
 	$post_id = $_POST['post-id'];
+	$EpisodeData = powerpress_get_enclosure_data($post_id);
+	if(!empty($EpisodeData['program_keyword'])) {
+        $program_keyword = $EpisodeData['program_keyword'];
+    }
+	else {
+        $program_keyword = $Settings['blubrry_program_keyword'];
+    }
 
 	unset( $_POST['podcast-id'] );
 	unset( $_POST['post-id'] );
@@ -539,29 +560,29 @@ function powerpress_ajax_pts_post($Settings)
 	$post_data = array();
 
     /*foreach ( $_POST as $key => $value ) {
-		if ( $value ) { // we don't allow empty messages to be posted to social media
+        if ( $value ) { // we don't allow empty messages to be posted to social media
 
-			preg_match("/-(\d+)-?/", $key, $matches);
-			$social_id = $matches[1];
+            preg_match("/-(\d+)-?/", $key, $matches);
+            $social_id = $matches[1];
 
-			preg_match("/^(\w+)-/i", $key, $matches);
-			$social_type = strtolower($matches[1]);
+            preg_match("/^(\w+)-/i", $key, $matches);
+            $social_type = strtolower($matches[1]);
 
-			if ( !isset( $post_data[ $social_id ] ) ) {
-				$post_data[ $social_id ] = array(
-					'social-id' => $social_id,
-					'social-type' => $social_type,
-				);
-			}
+            if ( !isset( $post_data[ $social_id ] ) ) {
+                $post_data[ $social_id ] = array(
+                    'social-id' => $social_id,
+                    'social-type' => $social_type,
+                );
+            }
 
-			if ( !isset( $post_data[ $social_id ]['social-data'] ) ) {
-				$post_data[ $social_id ]['social-data'] = array();
-			}
+            if ( !isset( $post_data[ $social_id ]['social-data'] ) ) {
+                $post_data[ $social_id ]['social-data'] = array();
+            }
 
-			$field_name = preg_replace( "/^\w+-/i", "", $key );
+            $field_name = preg_replace( "/^\w+-/i", "", $key );
 
-			$post_data[ $social_id ]['social-data'][ $field_name ] = $value;
-		}
+            $post_data[ $social_id ]['social-data'][ $field_name ] = $value;
+        }
 
     }*/
 
@@ -587,14 +608,13 @@ function powerpress_ajax_pts_post($Settings)
 	    $post_data['youtube']['accounts'] = $_POST['youtube_meta'];
 	    $post_data['youtube']['description'] = $_POST['youtube_description'];
 	    $post_data['youtube']['title'] = $_POST['youtube_title'];
-	}
+    }
 
 
 	$post_params = array( 'podcast-id' => $podcast_id, 'post-data' => $post_data, '' );
 
 	foreach ( $api_url_array as $api_url ) {
 		$response = powerpress_remote_fopen( "{$api_url}social/{$program_keyword}/post.json", $Settings['blubrry_auth'], json_encode( $post_params ) );
-
 		if ( $response ) {
 			break;
 		}
@@ -603,7 +623,7 @@ function powerpress_ajax_pts_post($Settings)
 	$response = json_decode( $response, true );
 
 	if ( $response['status'] == 'success' ) {
-		powerpress_page_message_add_notice( __( 'Post to social has been scheduled.', 'powerpress' ) );
+		powerpress_page_message_add_notice( __( 'Posting to social been scheduled! Please allow up to an hour to post.', 'powerpress' ) );
 		powerpress_page_message_print();
 
 		add_post_meta( $post_id, 'pts_scheduled', 1, true );

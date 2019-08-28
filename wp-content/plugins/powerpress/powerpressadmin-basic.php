@@ -1005,6 +1005,9 @@ function powerpressadmin_edit_blubrry_services($General, $action_url = false, $a
 			echo __('Blubrry Statistics and Media Hosting Enabled!', 'powerpress');
 		?>
 	</p>
+	<?php if( !empty($General['blubrry_hosting']) && $General['blubrry_hosting'] !== 'false'  && !empty($General['blubrry_program_keyword']) ) { ?>
+	<p style="margin-left: 30px;"><?php echo __('Blubrry Program ID: ', 'powerpress'); ?> <i><?php echo $General['blubrry_program_keyword']; ?></i>
+	</p><?php } ?>
 	<?php
 		}
 		
@@ -1046,6 +1049,10 @@ function powerpressadmin_edit_blubrry_services($General, $action_url = false, $a
 	<p style="margin-top: 10px;">
 	<input name="DisableStatsInDashboard" type="checkbox" value="1"<?php if( $DisableStatsInDashboard == true ) echo ' checked'; ?> />
 	<?php echo __('Remove Statistics from WordPress Dashboard', 'powerpress'); ?></p>
+    <p>
+        <input type="checkbox" id="blubrry_network_mode" value="1" name="General[network_mode]" <?php echo $General['network_mode'] == '1' ? 'checked' : ''; ?> />
+        <label for="blubrry_network_mode"><?php echo __('Network mode (publish to multiple Blubrry Hosting Accounts)', 'powerpress') ?></label>
+    </p>
 </div>
 <?php
 }
