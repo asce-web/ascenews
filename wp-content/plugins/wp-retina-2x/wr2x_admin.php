@@ -107,8 +107,6 @@ class Meow_WR2X_Admin extends MeowApps_Admin {
 				if ( $w >= $large_w || $h >= $large_h ) $defaults[$name] = 1;
 			}
 			register_setting( 'wr2x_settings', 'wr2x_ignore_sizes', array ( 'default' => $defaults ) );
-
-			register_setting( 'wr2x_settings', 'wr2x_auto_generate' );
 			register_setting( 'wr2x_settings', 'wr2x_full_size' );
 			register_setting( 'wr2x_settings', 'wr2x_method' );
 			register_setting( 'wr2x_settings', 'wr2x_quality' );

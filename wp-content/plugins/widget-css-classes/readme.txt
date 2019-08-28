@@ -1,4 +1,4 @@
-=== Widget CSS Classes ===
+﻿=== Widget CSS Classes ===
 Contributors: elusivelight, keraweb
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=cindy@cleverness.org
 Author URI: http://cleverness.org
@@ -7,9 +7,9 @@ Tags: widgets, classes, css, widget classes, widget css
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.3
-Tested up to: 5.0
+Tested up to: 5.2
 Requires PHP: 5.2.4
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 
 Add custom classes and ids plus first, last, even, odd, and numbered classes to your widgets.
 
@@ -96,12 +96,16 @@ Please file a [bug report on GitHub](https://github.com/cleverness/widget-css-cl
 
 == Changelog ==
 
+= 1.5.4 =
+* **Compatibility:** Fix for old single widgets (remove notice). [#37](https://github.com/cleverness/widget-css-classes/issues/37) (props @westonruter)
+* Tested with WP 5.2.
+
 = 1.5.3 =
-* **Compatibility:** dFactory Responsive Lightbox widget option. #33
+* **Compatibility:** dFactory Responsive Lightbox widget option. [#33](https://github.com/cleverness/widget-css-classes/issues/33)
 * Tested with WP 5.0.
 
 = 1.5.2.1 =
-* **i18n:** Remove sv_SE translation from the plugin directory. It's 95% on translate.wordpress.org and accepted as the better version. [#23](https://github.com/cleverness/widget-css-classes/issues/23) 
+* **i18n:** Remove sv_SE translation from the plugin directory. It's 95% on translate.wordpress.org and accepted as the better version. [#23](https://github.com/cleverness/widget-css-classes/issues/23)
 * **Documentation:** Readme & Wiki. [#31](https://github.com/cleverness/widget-css-classes/issues/31)
 * **Compatibility:** Tested with WordPress 4.9
 

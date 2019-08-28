@@ -564,6 +564,7 @@ final class ITSEC_Notification_Center {
 	public function run() {
 		add_action( 'itsec_change_admin_user_id', array( $this, 'update_notification_user_id_on_admin_change' ) );
 		add_action( 'itsec_module_settings_after_title', array( $this, 'display_notification_center_link_for_module' ) );
+		add_action( 'itsec_register_highlighted_logs', array( $this, 'register_highlighted_log' ) );
 		$this->setup_scheduling();
 	}
 
@@ -644,6 +645,16 @@ final class ITSEC_Notification_Center {
 			$href = esc_attr( "#itsec-notification-center-notification-settings--{$display}" );
 			echo '<a href="' . $href .'" class="itsec-notification-center-link" data-module-link="notification-center">' . esc_html__( 'Notification Center', 'better-wp-security' ) . '</a>';
 		}
+	}
+
+	/**
+	 * Register a highlighted log for mail send errors.
+	 */
+	public function register_highlighted_log() {
+		ITSEC_Lib_Highlighted_Logs::register_dynamic_highlight( 'notification-center-send-failed', array(
+			'module' => 'notification_center',
+			'code'   => 'send_failed::%'
+		) );
 	}
 
 	/**

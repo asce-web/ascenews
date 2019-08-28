@@ -30,6 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Ai1wm_Feedback_Controller {
 
 	public static function feedback( $params = array() ) {
+		ai1wm_setup_environment();
 
 		// Set params
 		if ( empty( $params ) ) {
@@ -75,25 +76,26 @@ class Ai1wm_Feedback_Controller {
 
 		$extensions = Ai1wm_Extensions::get();
 
+		// Exclude File Extension
 		if ( defined( 'AI1WMTE_PLUGIN_NAME' ) ) {
 			unset( $extensions[ AI1WMTE_PLUGIN_NAME ] );
 		}
 
 		$purchases = array();
 		foreach ( $extensions as $extension ) {
-			if ( $uuid = get_option( $extension['key'] ) ) {
+			if ( ( $uuid = get_option( $extension['key'] ) ) ) {
 				$purchases[] = $uuid;
 			}
 		}
 
-		$purchases = implode( PHP_EOL, $purchases );
+		try {
+			Ai1wm_Feedback::add( $type, $email, $message, $terms, implode( PHP_EOL, $purchases ) );
+		} catch ( Ai1wm_Feedback_Exception $e ) {
+			echo json_encode( array( 'errors' => array( $e->getMessage() ) ) );
+			exit;
+		}
 
-		$model = new Ai1wm_Feedback;
-
-		// Send feedback
-		$errors = $model->add( $type, $email, $message, $terms, $purchases );
-
-		echo json_encode( array( 'errors' => $errors ) );
+		echo json_encode( array( 'errors' => array() ) );
 		exit;
 	}
 }

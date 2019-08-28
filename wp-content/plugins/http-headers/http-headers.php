@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.12.2
+Version: 1.13.4
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -31,145 +31,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-if (get_option('hh_strict_transport_security_max_age') === false) {
-	$value = get_option('hh_strict_transport_security_value');
-	$max_age = preg_match('/max-age=(\d+)/', $value, $match) ? $match[1] : 0;
-	$sub_domains = strpos($value, 'includeSubDomains') !== false ? 1 : 0;
-	add_option('hh_strict_transport_security_max_age', $max_age, null, 'yes');
-	add_option('hh_strict_transport_security_sub_domains', $sub_domains, null, 'yes');
-	add_option('hh_strict_transport_security_preload', 0, null, 'yes');
-}
-
-if (get_option('hh_referrer_policy') === false) {
-	add_option('hh_referrer_policy', 0, null, 'yes');
-	add_option('hh_referrer_policy_value', null, null, 'yes');
-}
-
-if (get_option('hh_content_security_policy') === false) {
-	add_option('hh_content_security_policy', 0, null, 'yes');
-	add_option('hh_content_security_policy_value', null, null, 'yes');
-}
-
-if (get_option('hh_content_security_policy_report_only') === false) {
-	add_option('hh_content_security_policy_report_only', 0, null, 'yes');
-}
-
-if (get_option('hh_public_key_pins_report_only') === false) {
-	add_option('hh_public_key_pins_report_only', 0, null, 'yes');
-}
-
-if (get_option('hh_x_xxs_protection_uri') === false) {
-	add_option('hh_x_xxs_protection_uri', null, null, 'yes');
-}
-
-if (get_option('hh_method') === false) {
-	add_option('hh_method', 'php', null, 'yes');
-}
-	
-if (get_option('hh_connection') === false) {
-	add_option('hh_connection', 0, null, 'yes');
-	add_option('hh_connection_value', null, null, 'yes');
-}
-
-if (get_option('hh_cache_control') === false) {
-	add_option('hh_cache_control', 0, null, 'yes');
-	add_option('hh_cache_control_value', null, null, 'yes');
-}
-
-if (get_option('hh_age') === false) {
-	add_option('hh_age', 0, null, 'yes');
-	add_option('hh_age_value', null, null, 'yes');
-}
-
-if (get_option('hh_pragma') === false) {
-	add_option('hh_pragma', 0, null, 'yes');
-	add_option('hh_pragma_value', null, null, 'yes');
-}
-
-if (get_option('hh_expires') === false) {
-	add_option('hh_expires', 0, null, 'yes');
-	add_option('hh_expires_value', null, null, 'yes');
-	add_option('hh_expires_type', null, null, 'yes');
-}
-
-if (get_option('hh_content_encoding') === false) {
-	add_option('hh_content_encoding', 0, null, 'yes');
-	add_option('hh_content_encoding_value', null, null, 'yes');
-	add_option('hh_content_encoding_ext', null, null, 'yes');
-}
-
-if (get_option('hh_vary') === false) {
-	add_option('hh_vary', 0, null, 'yes');
-	add_option('hh_vary_value', null, null, 'yes');
-}
-
-if (get_option('hh_x_powered_by') === false) {
-	add_option('hh_x_powered_by', 0, null, 'yes');
-	add_option('hh_x_powered_by_option', null, null, 'yes');
-	add_option('hh_x_powered_by_value', null, null, 'yes');
-}
-
-if (get_option('hh_www_authenticate') === false) {
-	add_option('hh_www_authenticate', 0, null, 'yes');
-	add_option('hh_www_authenticate_type', null, null, 'yes');
-	add_option('hh_www_authenticate_realm', null, null, 'yes');
-	add_option('hh_www_authenticate_user', null, null, 'yes');
-	add_option('hh_www_authenticate_pswd', null, null, 'yes');
-}
-
-if (get_option('hh_cookie_security') === false) {
-	add_option('hh_cookie_security', 0, null, 'yes');
-	add_option('hh_cookie_security_value', null, null, 'yes');
-}
-	
-if (get_option('hh_expect_ct') === false) {
-	add_option('hh_expect_ct', 0, null, 'yes');
-	add_option('hh_expect_ct_max_age', null, null, 'yes');
-	add_option('hh_expect_ct_report_uri', null, null, 'yes');
-	add_option('hh_expect_ct_enforce', null, null, 'yes');
-}
-	
-if (get_option('hh_timing_allow_origin') === false) {
-	add_option('hh_timing_allow_origin', 0, null, 'yes');
-	add_option('hh_timing_allow_origin_value', null, null, 'yes');
-	add_option('hh_timing_allow_origin_url', null, null, 'yes');
-}
-
-if (get_option('hh_custom_headers') === false) {
-	add_option('hh_custom_headers', 0, null, 'yes');
-	add_option('hh_custom_headers_value', null, null, 'yes');
-}
-	
-if (get_option('hh_x_permitted_cross_domain_policies') === false) {
-    add_option('hh_x_permitted_cross_domain_policies', 0, null, 'yes');
-    add_option('hh_x_permitted_cross_domain_policies_value', null, null, 'yes');
-}
-
-if (get_option('hh_x_download_options') === false) {
-    add_option('hh_x_download_options', 0, null, 'yes');
-    add_option('hh_x_download_options_value', null, null, 'yes');
-}
-
-if (get_option('hh_x_dns_prefetch_control') === false) {
-    add_option('hh_x_dns_prefetch_control', 0, null, 'yes');
-    add_option('hh_x_dns_prefetch_control_value', null, null, 'yes');
-}
-
-if (get_option('hh_report_to') === false) {
-    add_option('hh_report_to', 0, null, 'yes');
-    add_option('hh_report_to_value', null, null, 'yes');
-}
-
-if (get_option('hh_feature_policy') === false) {
-    add_option('hh_feature_policy', 0, null, 'yes');
-    add_option('hh_feature_policy_feature', null, null, 'yes');
-    add_option('hh_feature_policy_origin', null, null, 'yes');
-    add_option('hh_feature_policy_value', null, null, 'yes');
-}
-
-if (get_option('hh_clear_site_data') === false) {
-    add_option('hh_clear_site_data', 0, null, 'yes');
-    add_option('hh_clear_site_data_value', null, null, 'yes');
+$options = include dirname(__FILE__) . '/views/includes/options.inc.php';
+foreach ($options as $option) {
+    if (get_option($option[0]) === false) {
+        add_option($option[0], $option[1], null, 'yes');
+	}
 }
 
 function build_csp_value($value) {
@@ -554,6 +420,9 @@ function php_cookie_security_directives() {
         if (isset($value['Secure'])) {
             $lines[] = 'session.cookie_secure = on';
         }
+        if (isset($value['SameSite']) && in_array($value['SameSite'], array('None', 'Lax', 'Strict'))) {
+            $lines[] = sprintf('session.cookie_samesite = "%s"', $value['SameSite']);
+        }
     }
     
     return $lines;
@@ -569,7 +438,7 @@ function http_headers() {
 	foreach ($headers as $key => $value) {
 	    if ($key == 'Access-Control-Allow-Origin') { 
             if (isset($_SERVER['HTTP_ORIGIN'])) {
-                if ($value == '*') {
+                if (in_array($value, array('*', 'null'))) {
                     $isCors = true;
                     header(sprintf("%s: *", $key));
                 }
@@ -662,6 +531,7 @@ function http_headers_admin() {
 	register_setting('http-headers-acma', 'hh_access_control_max_age');
 	register_setting('http-headers-acma', 'hh_access_control_max_age_value');
 	register_setting('http-headers-ce', 'hh_content_encoding');
+	register_setting('http-headers-ce', 'hh_content_encoding_module');
 	register_setting('http-headers-ce', 'hh_content_encoding_value');
 	register_setting('http-headers-ce', 'hh_content_encoding_ext');
 	register_setting('http-headers-vary', 'hh_vary');
@@ -734,10 +604,6 @@ function http_headers_option($option) {
                 check_admin_referer('http-headers-ce-options');
                 update_content_encoding_directives();
                 break;
-            case array_key_exists('hh_vary', $_POST):
-                check_admin_referer('http-headers-vary-options');
-				update_content_encoding_directives();
-				break;
             case array_key_exists('hh_expires', $_POST):
                 check_admin_referer('http-headers-exp-options');
 				update_expires_directives();
@@ -959,20 +825,21 @@ function iis_check_requirements() {
 
 function apache_headers_directives() {
 	$lines = array();
-		list($headers, $statuses, $unset, $append) = get_http_headers();
+	list($headers, $statuses, $unset, $append) = get_http_headers();
 			
-		foreach ($unset as $header) {
-			$lines[] = sprintf('    Header unset %s', $header);
+	foreach ($unset as $header) {
+		$lines[] = sprintf('    Header always unset %s', $header);
+		$lines[] = sprintf('    Header unset %s', $header);
+	}
+	$all = array();
+	foreach ($headers as $key => $value) {
+		if (in_array($key, array('WWW-Authenticate'))) {
+			continue;
 		}
-		$all = array();
-		foreach ($headers as $key => $value) {
-			if (in_array($key, array('WWW-Authenticate'))) {
-				continue;
-			}
-			if (in_array($key, array('X-Content-Type-Options'))) {
-				$all[] = sprintf('  Header always set %s %s', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
-				continue;
-			}
+		if (in_array($key, array('X-Content-Type-Options'))) {
+			$all[] = sprintf('  Header always set %s %s', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
+			continue;
+		}
         if ($key == 'Strict-Transport-Security') {
             $lines[] = sprintf('    Header set %s %s env=HTTPS', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
             continue;
@@ -986,7 +853,7 @@ function apache_headers_directives() {
                     $value = array();
                 }
             }
-            $value[] = 'null';
+            //$value[] = 'null';
             if (is_array($value))
             {
             	$all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace('.', '\.', join('|', $value)));
@@ -1022,6 +889,26 @@ function apache_content_encoding_directives() {
 	$lines = array();
     if (get_option('hh_content_encoding') == 1) {
 	
+        $content_encoding_module = get_option('hh_content_encoding_module');
+        switch ($content_encoding_module) {
+            case 'brotli':
+                $module = 'mod_brotli.c';
+                $module_end = '';
+                $filter = 'BROTLI_COMPRESS';
+                break;
+            case 'brotli_deflate':
+                $module = "mod_brotli.c>\n<IfModule mod_deflate.c";
+                $module_end = "\n</IfModule>";
+                $filter = 'BROTLI_COMPRESS;DEFLATE';
+                break;
+            case 'deflate':
+            default:
+                $module = 'mod_deflate.c';
+                $module_end = '';
+                $filter = 'DEFLATE';
+                break;
+        }
+        
 		$content_encoding_value = get_option('hh_content_encoding_value');
 		if (!$content_encoding_value) {
 			$content_encoding_value = array();
@@ -1033,20 +920,20 @@ function apache_content_encoding_directives() {
 		}
 		if (!empty($content_encoding_ext)) {
 			$lines[] = sprintf('<FilesMatch "\.(%s)$">', join('|', array_keys($content_encoding_ext)));
-			$lines[] = '  <IfModule mod_deflate.c>';
-			$lines[] = '    SetOutputFilter DEFLATE';
-			$lines[] = '  </IfModule>';
+            $lines[] = sprintf('  <IfModule %s>', $module);
+            $lines[] = sprintf('    SetOutputFilter %s', $filter);
+            $lines[] = sprintf('  </IfModule>%s', $module_end);
 			$lines[] = '</FilesMatch>';
 		}
 		if (!empty($content_encoding_value)) {
 			if (!empty($lines)) {
 				$lines[] = '';
 			}
-			$lines[] = '<IfModule mod_deflate.c>';
-			foreach ($content_encoding_value as $item => $whatever) {
-				$lines[] = sprintf('  AddOutputFilterByType DEFLATE %s', $item);
+            $lines[] = sprintf('<IfModule %s>', $module);
+            foreach (array_keys($content_encoding_value) as $item) {
+                $lines[] = sprintf('  AddOutputFilterByType %s %s', $filter, $item);
 			}
-			$lines[] = '</IfModule>';
+            $lines[] = sprintf('</IfModule>%s', $module_end);
 		}
 	}
 				
@@ -1112,13 +999,21 @@ function apache_auth_directives() {
 		$file = $type == 'Basic' ? '.hh-htpasswd' : '.hh-htdigest';
 		
 		$lines[] = '<FilesMatch "^\.hh-ht(digest|passwd)$">';
-		$lines[] = '  Order deny,allow';
-		$lines[] = '  Deny from all';
+        $lines[] = '  <IfModule mod_authz_core.c>';
+        $lines[] = '    Require all denied';
+        $lines[] = '  </IfModule>';
+        $lines[] = '  <IfModule !mod_authz_core.c>';
+		$lines[] = '    Order deny,allow';
+		$lines[] = '    Deny from all';
+        $lines[] = '  </IfModule>';
 		$lines[] = '</FilesMatch>';
+        // no empty AuthName
+		$realm = get_option('hh_www_authenticate_realm'); // AuthName
+		$realm = ($realm == '') ? 'restricted area':$realm; // Empty => give fixed value
 		
 		$lines[] = sprintf('<IfModule mod_auth_%s.c>', strtolower($type));
 		$lines[] = sprintf('  AuthType %s', get_option('hh_www_authenticate_type'));
-		$lines[] = sprintf('  AuthName "%s"', get_option('hh_www_authenticate_realm'));
+        $lines[] = sprintf('  AuthName "%s"', $realm);
 		$lines[] = sprintf('  AuthUserFile "%s%s"', get_home_path(), $file);
         $lines[] = '  Require valid-user';
 		$lines[] = '</IfModule>';
@@ -1171,6 +1066,9 @@ function apache_cookie_security_directives() {
 		if (isset($value['Secure'])) {
 			$lines[] = 'php_flag session.cookie_secure on';
 		}
+        if (isset($value['SameSite']) && in_array($value['SameSite'], array('None', 'Lax', 'Strict'))) {
+            $lines[] = sprintf('php_value session.cookie_samesite "%s"', $value['SameSite']);
+        }
 	}
 
     return $lines;
@@ -1254,6 +1152,10 @@ function update_cookie_security_directives() {
     return insert_with_markers($filename, "HttpHeadersCookieSecurity", $lines);
 }
 
+function is_samesite_supported() {
+    return version_compare(PHP_VERSION, '7.3.0', '>=');
+}
+
 function http_headers_text_domain() {
     load_plugin_textdomain('http-headers', false, basename( dirname( __FILE__ ) ) . '/languages/');
 }
@@ -1298,18 +1200,19 @@ function http_headers_post_import() {
         && is_uploaded_file($_FILES['file']['tmp_name'])
         && $_FILES['file']['error'] == UPLOAD_ERR_OK
     )) {
-        wp_redirect(sprintf("%soptions-general.php?page=http-headers&tab=advanced&status=ERR", get_admin_url()));
+        wp_redirect(sprintf("%soptions-general.php?page=http-headers&tab=advanced&status=ERR&code=100", get_admin_url()));
         exit;
     }
     
     $string = @file_get_contents($_FILES['file']['tmp_name']);
     if ($string === false) {
-        wp_redirect(sprintf("%soptions-general.php?page=http-headers&tab=advanced&status=ERR", get_admin_url()));
+        wp_redirect(sprintf("%soptions-general.php?page=http-headers&tab=advanced&status=ERR&code=101", get_admin_url()));
         exit;
     }
     
     $arr = preg_split('/;(\s+)?\n/', $string);
     foreach ($arr as $statement) {
+        $statement = preg_replace("/(INSERT\s*INTO\s*)[\w\_]+options/", '${1}'.$wpdb->options, $statement);
         $wpdb->query($statement);
     }
     
@@ -1320,18 +1223,43 @@ function http_headers_post_import() {
 function http_headers_post_export() {
     check_admin_referer('export');
     global $wpdb;
-    include 'views/includes/config.inc.php';
-    $statement = sprintf("SELECT * FROM %s WHERE option_name IN ('%s');", $wpdb->options, join("','", $options));
+    $options = include dirname(__FILE__) . '/views/includes/options.inc.php';
+    $opts = array();
+    foreach ($options as $option)
+    {
+        $opts[] = $option[0];
+    }
+    $statement = sprintf("SELECT * FROM %s WHERE option_name IN ('%s');", $wpdb->options, join("','", $opts));
     $results = $wpdb->get_results($statement, ARRAY_A);
     $sql = array();
-    foreach ($results as $item)
+    
+    $indexes = array();
+    foreach ($options as $option)
     {
-        $value = str_replace("'", "''", $item['option_value']);
-        $query = array();
-        $query[] = sprintf("INSERT INTO %s (option_id, option_name, option_value, autoload)", $wpdb->options);
-        $query[] = sprintf("VALUES (NULL, '%s', '%s', '%s')", $item['option_name'], $value, $item['autoload']);
-        $query[] = sprintf("ON DUPLICATE KEY UPDATE option_value = '%s', autoload = '%s';", $value, $item['autoload']);
-        $sql[] = join("\n", $query);
+    	foreach ($results as $item)
+    	{
+            if ($item['option_name'] == $option[0])
+            {
+                $indexes[$option[0]] = 1;
+                
+		        $value = str_replace("'", "''", $item['option_value']);
+		        $query = array();
+		        $query[] = sprintf("INSERT INTO %s (option_id, option_name, option_value, autoload)", $wpdb->options);
+		        $query[] = sprintf("VALUES (NULL, '%s', '%s', '%s')", $item['option_name'], $value, $item['autoload']);
+		        $query[] = sprintf("ON DUPLICATE KEY UPDATE option_value = '%s', autoload = '%s';", $value, $item['autoload']);
+		        $sql[] = join("\n", $query);
+                break;
+            }
+        }
+        
+        if (!isset($indexes[$option[0]]))
+        {
+            $query = array();
+            $query[] = sprintf("INSERT INTO %s (option_id, option_name, option_value, autoload)", $wpdb->options);
+            $query[] = sprintf("VALUES (NULL, '%s', '%s', 'yes')", $option[0], $option[1]);
+            $query[] = sprintf("ON DUPLICATE KEY UPDATE option_value = '%s', autoload = 'yes';", $option[1]);
+            $sql[] = join("\n", $query);
+        }
     }
     
     $sql = join("\n\n", $sql);

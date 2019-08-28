@@ -34,8 +34,6 @@ class Ai1wm_Export_Controller {
 	}
 
 	public static function export( $params = array() ) {
-		global $wp_filter;
-
 		ai1wm_setup_environment();
 
 		// Set params
@@ -61,17 +59,8 @@ class Ai1wm_Export_Controller {
 			exit;
 		}
 
-		// Get hook
-		if ( isset( $wp_filter['ai1wm_export'] ) && ( $filters = $wp_filter['ai1wm_export'] ) ) {
-			// WordPress 4.7 introduces new class for working with filters/actions called WP_Hook
-			// which adds another level of abstraction and we need to address it.
-			if ( isset( $filters->callbacks ) ) {
-				$filters = $filters->callbacks;
-			}
-
-			ksort( $filters );
-
-			// Loop over filters
+		// Loop over filters
+		if ( ( $filters = ai1wm_get_filters( 'ai1wm_export' ) ) ) {
 			while ( $hooks = current( $filters ) ) {
 				if ( intval( $params['priority'] ) === key( $filters ) ) {
 					foreach ( $hooks as $hook ) {
@@ -128,6 +117,7 @@ class Ai1wm_Export_Controller {
 				next( $filters );
 			}
 		}
+
 		return $params;
 	}
 
@@ -163,38 +153,27 @@ class Ai1wm_Export_Controller {
 	}
 
 	public static function cleanup() {
-		// // Iterate over storage directory
-		// $iterator = new Ai1wm_Recursive_Directory_Iterator( AI1WM_STORAGE_PATH );
+		try {
+			// Iterate over storage directory
+			$iterator = new Ai1wm_Recursive_Directory_Iterator( AI1WM_STORAGE_PATH );
 
-		// // Exclude index.php
-		// $iterator = new Ai1wm_Recursive_Exclude_Filter( $iterator, array( 'index.php' ) );
+			// Exclude index.php
+			$iterator = new Ai1wm_Recursive_Exclude_Filter( $iterator, array( 'index.php' ) );
 
-		// // Recursively iterate over content directory
-		// $iterator = new Ai1wm_Recursive_Iterator_Iterator( $iterator, RecursiveIteratorIterator::CHILD_FIRST, RecursiveIteratorIterator::CATCH_GET_CHILD );
-
-		// // We can't delete in the main loop since deletion updates mtime for parent folders
-		// $files = $folders = array();
-		// foreach ( $iterator as $item ) {
-		// 	try {
-		// 		if ( $item->getMTime() < time() - 23 * 60 * 60 ) {
-		// 			if ( $item->isFile() ) {
-		// 				$files[] = $item->getPathname();
-		// 			} elseif ( $item->isDir() ) {
-		// 				$folders[] = $item->getPathname();
-		// 			}
-		// 		}
-		// 	} catch ( Exception $e ) {
-		// 	}
-		// }
-
-		// // Delete outdated files
-		// foreach ( $files as $file ) {
-		// 	@unlink( $file );
-		// }
-
-		// // Delete outdated folders
-		// foreach ( $folders as $folder ) {
-		// 	Ai1wm_Directory::delete( $folder );
-		// }
+			// Loop over folders and files
+			foreach ( $iterator as $item ) {
+				try {
+					if ( $item->getMTime() < ( time() - AI1WM_MAX_STORAGE_CLEANUP ) ) {
+						if ( $item->isDir() ) {
+							Ai1wm_Directory::delete( $item->getPathname() );
+						} else {
+							Ai1wm_File::delete( $item->getPathname() );
+						}
+					}
+				} catch ( Exception $e ) {
+				}
+			}
+		} catch ( Exception $e ) {
+		}
 	}
 }

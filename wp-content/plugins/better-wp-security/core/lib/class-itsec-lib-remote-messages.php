@@ -29,6 +29,12 @@ class ITSEC_Lib_Remote_Messages {
 		return in_array( $action, self::get_actions(), true );
 	}
 
+	public static function get_feature( $flag ) {
+		$response = self::get_response();
+
+		return isset( $response['features'][ $flag ] ) ? $response['features'][ $flag ] : null;
+	}
+
 	public static function get_raw_messages() {
 		$response = self::get_response();
 
@@ -88,6 +94,7 @@ class ITSEC_Lib_Remote_Messages {
 			'ttl'      => HOUR_IN_SECONDS,
 			'messages' => array(),
 			'actions'  => array(),
+			'features' => array(),
 		) );
 
 		$sanitized = array(
@@ -132,12 +139,7 @@ class ITSEC_Lib_Remote_Messages {
 			return self::$_response;
 		}
 
-		$data = get_site_option( self::OPTION, array() );
-		$data = wp_parse_args( $data, array(
-			'response'  => array(),
-			'requested' => 0,
-			'ttl'       => 0,
-		) );
+		$data = self::get_stored_response();
 
 		if ( ! $data['response'] ) {
 			self::schedule_check();
@@ -150,8 +152,21 @@ class ITSEC_Lib_Remote_Messages {
 			$events = ITSEC_Core::get_scheduler()->get_single_events();
 
 			foreach ( $events as $event ) {
-				if ( self::EVENT === $event['id'] && $event['fire_at'] + HOUR_IN_SECONDS > ITSEC_Core::get_current_time_gmt() ) {
-					return self::$_response = $data['response'];
+				// If we are less than an hour late for processing the refresh, return the stale data.
+				if ( self::EVENT === $event['id'] ) {
+					if ( $event['fire_at'] + HOUR_IN_SECONDS > ITSEC_Core::get_current_time_gmt() ) {
+						return self::$_response = $data['response'];
+					}
+
+					// If its been more than a day, call the API right now.
+					if ( $event['fire_at'] + DAY_IN_SECONDS > ITSEC_Core::get_current_time_gmt() ) {
+						ITSEC_Core::get_scheduler()->run_single_event( self::EVENT );
+						$data = self::get_stored_response();
+
+						if ( $data['requested'] === ITSEC_Core::get_current_time_gmt() ) {
+							return self::$_response = $data['response'];
+						}
+					}
 				}
 			}
 
@@ -159,6 +174,17 @@ class ITSEC_Lib_Remote_Messages {
 		}
 
 		return self::$_response = $data['response'];
+	}
+
+	private static function get_stored_response() {
+		$data = get_site_option( self::OPTION, array() );
+		$data = wp_parse_args( $data, array(
+			'response'  => array(),
+			'requested' => 0,
+			'ttl'       => 0,
+		) );
+
+		return $data;
 	}
 
 	private static function schedule_check() {

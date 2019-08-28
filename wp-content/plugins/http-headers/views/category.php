@@ -136,7 +136,21 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 						$ext = join(', ', array_keys($ext));
 						$value .= (!empty($value) ? '<br>' : null) . $ext;
 					}
-					$value = !empty($value) ? sprintf('gzip (%s)', $value) : 'gzip';
+					$module = get_option('hh_content_encoding_module');
+					switch ($module) {
+					    case 'brotli_deflate':
+					        $enc = 'br, gzip';
+					        break;
+					    case 'brotli':
+					        $enc = 'br';
+					        break;
+					    case 'deflate':
+					    default:
+					        $enc = 'gzip';
+					        break;
+					}
+					
+					$value = !empty($value) ? sprintf('%s (%s)', $enc, $value) : $enc;
 					break;
 				case 'hh_vary':
 					$value = !$value ? null : join(', ', array_keys($value));
@@ -175,7 +189,14 @@ include dirname(__FILE__) . '/includes/breadcrumbs.inc.php';
 					$value = join('<br>', $tmp);
 					break;
 				case 'hh_cookie_security':
-					$value = is_array($value) ? join(', ', array_keys($value)) : NULL;
+				    if (is_array($value)) {
+				        if (isset($value['SameSite']) && !is_samesite_supported()) {
+				            unset($value['SameSite']);
+                        }
+                    }
+					$value = is_array($value) && !empty($value)
+                        ? '&#10004; ' . join(' &#10004; ', array_keys($value))
+                        : NULL;
 					break;
 				case 'hh_expect_ct':
 					$tmp = array();

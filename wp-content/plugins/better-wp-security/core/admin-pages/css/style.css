@@ -34,7 +34,7 @@
 	cursor: inherit;
 }
 
-ul {
+.itsec-module-settings-container ul {
 	list-style: outside;
 	padding-left: 1em;
 }
