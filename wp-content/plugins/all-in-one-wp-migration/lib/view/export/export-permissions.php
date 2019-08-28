@@ -26,48 +26,18 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
+?>
 
-class Ai1wm_Directory {
-
-	/**
-	 * Create directory (recursively)
-	 *
-	 * @param  string  $path Path to the directory
-	 * @return boolean
-	 */
-	public static function create( $path ) {
-		return @mkdir( $path, 0777, true );
-	}
-
-	/**
-	 * Delete directory (recursively)
-	 *
-	 * @param  string  $path Path to the directory
-	 * @return boolean
-	 */
-	public static function delete( $path ) {
-		if ( @is_dir( $path ) ) {
-			try {
-				// Iterate over directory
-				$iterator = new Ai1wm_Recursive_Directory_Iterator( $path );
-
-				// Recursively iterate over directory
-				$iterator = new Ai1wm_Recursive_Iterator_Iterator( $iterator, RecursiveIteratorIterator::CHILD_FIRST, RecursiveIteratorIterator::CATCH_GET_CHILD );
-
-				// Remove files and directories
-				foreach ( $iterator as $item ) {
-					if ( $item->isDir() ) {
-						@rmdir( $item->getPathname() );
-					} else {
-						@unlink( $item->getPathname() );
-					}
-				}
-			} catch ( Exception $e ) {
-			}
-
-			return @rmdir( $path );
-		}
-
-		return false;
-	}
-}
+<div class="ai1wm-message ai1wm-red-message ai1wm-clear" style="margin-top: 4em;">
+	<?php
+	printf(
+		__(
+			'<h3>Site could not be exported</h3>' .
+			'<p>Please make sure that storage directory <strong>%s</strong> has read and write permissions.</p>' .
+			'<p><a href="https://help.servmask.com/knowledgebase/invalid-file-permissions/" target="_blank">Technical details</a></p>',
+			AI1WM_PLUGIN_NAME
+		),
+		AI1WM_STORAGE_PATH
+	);
+	?>
+</div>

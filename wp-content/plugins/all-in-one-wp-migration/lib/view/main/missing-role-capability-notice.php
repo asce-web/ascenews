@@ -26,48 +26,16 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
+?>
 
-class Ai1wm_Directory {
-
-	/**
-	 * Create directory (recursively)
-	 *
-	 * @param  string  $path Path to the directory
-	 * @return boolean
-	 */
-	public static function create( $path ) {
-		return @mkdir( $path, 0777, true );
-	}
-
-	/**
-	 * Delete directory (recursively)
-	 *
-	 * @param  string  $path Path to the directory
-	 * @return boolean
-	 */
-	public static function delete( $path ) {
-		if ( @is_dir( $path ) ) {
-			try {
-				// Iterate over directory
-				$iterator = new Ai1wm_Recursive_Directory_Iterator( $path );
-
-				// Recursively iterate over directory
-				$iterator = new Ai1wm_Recursive_Iterator_Iterator( $iterator, RecursiveIteratorIterator::CHILD_FIRST, RecursiveIteratorIterator::CATCH_GET_CHILD );
-
-				// Remove files and directories
-				foreach ( $iterator as $item ) {
-					if ( $item->isDir() ) {
-						@rmdir( $item->getPathname() );
-					} else {
-						@unlink( $item->getPathname() );
-					}
-				}
-			} catch ( Exception $e ) {
-			}
-
-			return @rmdir( $path );
-		}
-
-		return false;
-	}
-}
+<div class="error">
+	<p>
+		<?php
+		_e(
+			'All-in-One WP Migration: Your current profile role does not have Export/Import capabilities enabled. ' .
+			'<a href="https://help.servmask.com/knowledgebase/how-to-add-import-and-export-capabilities-to-wordpress-users/" target="_blank">Technical details</a>',
+			AI1WM_PLUGIN_NAME
+		);
+		?>
+	</p>
+</div>
