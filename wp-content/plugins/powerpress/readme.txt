@@ -4,7 +4,7 @@ Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts,
 Requires at least: 3.6
 Requires PHP: 5.2
 Tested up to: 5.2.2
-Stable tag: 7.4.4
+Stable tag: 7.5.3
 Donate link: https://create.blubrry.com/resources/podcast-media-hosting/
 License: GPLv2 or later
 
@@ -234,6 +234,29 @@ To install Blubrry PowerPress manually, follow these steps:
 = Fan of PowerPress and want to show your support? =
 If you are a fan of PowerPress, we would greatly appreciate it if you could take a moment and [leave us a review on WordPress.org](https://wordpress.org/support/plugin/powerpress/reviews/?rate=5#new-post). Your support is greatly appreciated!
 
+= 7.5.3 =
+* Released on 7/31/2019
+* Fixed bug for older versions of PHP with WebSub, service to notify Google Podcasts of new episodes.
+
+
+= 7.5.2 =
+* Released on 7/25/2019
+* Fixed logic bug introduced in 7.5 for sites using versions of PHP 5.4 or older.
+* Added code changes to Blubrry Hosting's Post to Social from PowerPress feature. (Last beta release of this feature!)
+
+
+= 7.5.1 =
+* Released on 7/23/2019
+* Added library for PubSubHubbub. Missed it when merging latest git release into wordpress.org svn. Sorry about that! 
+
+
+= 7.5 =
+* Released on 7/23/2019
+* Added new Apple categories announced in July. The new Apple Categories will be made available on Apple Podcasts mid August, 2019.
+* Added Multi-program Blubrry Podcast Hosting, perfect for Category podcasting.
+* Added *Update Google PubSubHubbub*, lets Google Podcasts and other podcast directory services when your podcast publishes new episodes.
+* Added support for various languages to podcast as including "Thai" and "Vietnamese".
+
 
 = 7.4.4 =
 * Releasd on 6/21/2019
@@ -458,7 +481,7 @@ Nicolas Bouliane, [Personal Blog](http://nicolasbouliane.com/) - contributed cod
 
 == Translators ==
 * Danish translation for v1.0.11+ by [Team Blogos](http://wordpress.blogos.dk/s%C3%B8g-efter-downloads/?did=280) - Latest translation available [here](http://wordpress.blogos.dk/s%C3%B8g-efter-downloads/?did=280)
-* French translation for v1.0.11+ by [Aurélien Denis](http://wpchannel.com/) - Aurélien is looking for assistance maintaining the French translation, email wpchannel [at] gmail.com if interested.
+* French translation for v1.0.11+ by [Aurï¿½lien Denis](http://wpchannel.com/) - Aurï¿½lien is looking for assistance maintaining the French translation, email wpchannel [at] gmail.com if interested.
 * Simplified Chinese for v1.0.12+ by [webmote](http://codeex.cn) - From webmote: Welcome to use the plugin. Very good! and then hope you to access my site.
 * Italian translation for v2.0.4+ by [Umberto Sartori](http://veneziadoc.net/)
 * Romanian translation for v2.0.4+ by Alexander Ovsov (Web Geek Sciense: http://webhostinggeeks.com/science/)
