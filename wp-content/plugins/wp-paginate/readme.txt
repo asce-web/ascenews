@@ -2,12 +2,8 @@
 Contributors: maxfoundry, emartin24, AlanP57
 Tags: paginate, pagination, navigation, page, wp-paginate, comments, rtl, seo, usability
 Requires at least: 2.6.0 (2.7.0 for comments pagination)
-<<<<<<< HEAD
-Tested up to: 4.9.8
-=======
-Tested up to: 5.0.0
->>>>>>> stage
-Stable tag: 2.0.5
+Tested up to: 5.2.3
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -163,6 +159,9 @@ Example (also applies to `wp_paginate_comments()`):
 When calling `wp_paginate_comments()`, WP-Paginate adds an extra class to the `ol` element, `wp-paginate-comments`.
 
 == Changelog ==
+= 2.0.6 =
+* Fixed issue with slashes added to URLs containing query strings
+
 = 2.0.5 =
 * Added option to add trailing slash to pagination links when needed
 

@@ -3,7 +3,7 @@
 Plugin Name: WP-Paginate
 Plugin URI: https://wordpress.org/plugins/wp-paginate/
 Description: A simple and flexible pagination plugin for WordPress posts and comments.
-Version: 2.0.5
+Version: 2.0.6
 Author: Max Foundry
 Author URI: http://maxfoundry.com
 Text Domain: 'wp-paginate'
@@ -60,7 +60,7 @@ if (!class_exists('WPPaginate')) {
         /**
          * @var string The plugin version
          */
-        public $version = '2.0.5';
+        public $version = '2.0.6';
 
         /**
          * @var string The options string name for this plugin
@@ -340,10 +340,10 @@ if (!class_exists('WPPaginate')) {
                 ? rtrim(esc_url(get_pagenum_link($page + 1)), '/')
                 : get_comments_pagenum_link($page + 1);
             
-            if($slash_option == true) {
-               $prevlink . '/';
-               $nextlink . '/';
-            }
+            //if($slash_option == true) {
+            //   $prevlink . '/';
+            //   $nextlink . '/';
+            //}
 						
             $output = stripslashes(wp_kses_decode_entities($before));
             if ($pages > 1) {
@@ -359,7 +359,9 @@ if (!class_exists('WPPaginate')) {
                 $ellipsis = "<li><span class='gap'>...</span></li>";
 
                 if ($page > 1 && !empty($previouspage)) {
-                  if($slash_option)
+                  $prevlink = rtrim($prevlink, '/');      
+                  $contains_param = (strpos($prevlink, '?') !== false) ? true : false;                        
+                  if($slash_option && !$contains_param)
                     $output .= sprintf('<li><a href="%s/" class="prev">%s</a></li>', $prevlink, stripslashes($previouspage));
                   else
                     $output .= sprintf('<li><a href="%s" class="prev">%s</a></li>', $prevlink, stripslashes($previouspage));
@@ -397,15 +399,20 @@ if (!class_exists('WPPaginate')) {
                 else {
                     $output .= $this->paginate_loop(1, $pages, $page, $slash_option);
                 }
-
+                
                 if ($page < $pages && !empty($nextpage)) {
-                  if($slash_option)
+                  $nextlink = rtrim($nextlink, '/');      
+                  $contains_param = (strpos($nextlink, '?') !== false) ? true : false;      
+                  if($slash_option && !$contains_param)
                     $output .= sprintf('<li><a href="%s/" class="next">%s</a></li>', $nextlink, stripslashes($nextpage));
                   else
                     $output .= sprintf('<li><a href="%s" class="next">%s</a></li>', $nextlink, stripslashes($nextpage));
                 }
                 $output .= "</ol>";
             }
+            //error_log($output);
+            
+            
             $output .= stripslashes(wp_kses_decode_entities($after));
 
             if ($pages > 1 || $empty) {
