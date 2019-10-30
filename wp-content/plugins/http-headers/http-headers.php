@@ -3,7 +3,7 @@
 Plugin Name: HTTP Headers
 Plugin URI: https://zinoui.com/blog/http-headers-for-wordpress
 Description: A plugin for HTTP headers management including security, access-control (CORS), caching, compression, and authentication.
-Version: 1.13.4
+Version: 1.14.1
 Author: Dimitar Ivanov
 Author URI: https://zinoui.com
 License: GPLv2 or later
@@ -131,7 +131,7 @@ function get_http_headers() {
 		$hh_cache_control_value = get_option('hh_cache_control_value', array());
 		$tmp = array();
 		foreach ($hh_cache_control_value as $k => $v) {
-			if (in_array($k, array('max-age', 's-maxage'))) {
+			if (in_array($k, array('max-age', 's-maxage', 'stale-while-revalidate', 'stale-if-error'))) {
 				if (strlen($v) > 0) {
 					$tmp[] = sprintf("%s=%u", $k, $v);
 				}
@@ -239,18 +239,42 @@ function get_http_headers() {
 	}
 	if (get_option('hh_access_control_allow_headers') == 1)
 	{
+        $tmp = array();
 		$value = get_option('hh_access_control_allow_headers_value');
 		if (!empty($value))
 		{
-			$headers['Access-Control-Allow-Headers'] = join(', ', array_keys($value));
+            $tmp = array_merge($tmp, array_keys($value));
+		}
+        $custom = get_option('hh_access_control_allow_headers_custom');
+        if (!empty($custom))
+        {
+            $tmp = array_merge($tmp, $custom);
+        }
+        if ($tmp)
+        {
+            $tmp = array_filter($tmp, 'trim');
+            $tmp = array_unique($tmp);
+            $headers['Access-Control-Allow-Headers'] = join(', ', $tmp);
 		}
 	}
 	if (get_option('hh_access_control_expose_headers') == 1)
 	{
+	    $tmp = array();
 		$value = get_option('hh_access_control_expose_headers_value');
 		if (!empty($value))
 		{
-			$headers['Access-Control-Expose-Headers'] = join(', ', array_keys($value));
+            $tmp = array_merge($tmp, array_keys($value));
+		}
+        $custom = get_option('hh_access_control_expose_headers_custom');
+        if (!empty($custom))
+        {
+            $tmp = array_merge($tmp, $custom);
+        }
+        if ($tmp)
+        {
+            $tmp = array_filter($tmp, 'trim');
+            $tmp = array_unique($tmp);
+            $headers['Access-Control-Expose-Headers'] = join(', ', $tmp);
 		}
 	}
 	if (get_option('hh_p3p') == 1)
@@ -526,8 +550,10 @@ function http_headers_admin() {
 	register_setting('http-headers-acam', 'hh_access_control_allow_methods_value');
 	register_setting('http-headers-acah', 'hh_access_control_allow_headers');
 	register_setting('http-headers-acah', 'hh_access_control_allow_headers_value');
+    register_setting('http-headers-acah', 'hh_access_control_allow_headers_custom');
 	register_setting('http-headers-aceh', 'hh_access_control_expose_headers');
 	register_setting('http-headers-aceh', 'hh_access_control_expose_headers_value');
+    register_setting('http-headers-aceh', 'hh_access_control_expose_headers_custom');
 	register_setting('http-headers-acma', 'hh_access_control_max_age');
 	register_setting('http-headers-acma', 'hh_access_control_max_age_value');
 	register_setting('http-headers-ce', 'hh_content_encoding');
@@ -580,6 +606,8 @@ function http_headers_admin() {
 	register_setting('http-headers-fp', 'hh_feature_policy_origin');
 	register_setting('http-headers-csd', 'hh_clear_site_data');
 	register_setting('http-headers-csd', 'hh_clear_site_data_value');
+    register_setting('http-headers-cty', 'hh_content_type');
+    register_setting('http-headers-cty', 'hh_content_type_value');
 }
 	
 function http_headers_option($option) {
@@ -603,6 +631,10 @@ function http_headers_option($option) {
             case array_key_exists('hh_content_encoding', $_POST):
                 check_admin_referer('http-headers-ce-options');
                 update_content_encoding_directives();
+                break;
+            case array_key_exists('hh_content_type', $_POST):
+                check_admin_referer('http-headers-cty-options');
+                update_content_type_directives();
                 break;
             case array_key_exists('hh_expires', $_POST):
                 check_admin_referer('http-headers-exp-options');
@@ -698,6 +730,18 @@ function nginx_content_encoding_directives() {
             $lines[] = sprintf('gzip_types %s;', join(' ', array_keys($content_encoding_value)));
         }
     }
+    return $lines;
+}
+
+function nginx_content_type_directives() {
+    $lines = array();
+    if (get_option('hh_content_type') == 1) {
+        $values = get_option('hh_content_type_value', array());
+        foreach ($values as $ext => $media_type) {
+            $lines[] = sprintf("%s %s;", $media_type, $ext);
+        }
+    }
+
     return $lines;
 }
 
@@ -798,6 +842,10 @@ function iis_content_encoding_directives() {
     //TODO scheduled for v2.0.0
 }
 
+function iis_content_type_directives() {
+    //TODO scheduled for v2.0.0
+}
+
 function iis_expires_directives() {
     //TODO scheduled for v2.0.0
 }
@@ -856,7 +904,7 @@ function apache_headers_directives() {
             //$value[] = 'null';
             if (is_array($value))
             {
-            	$all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace('.', '\.', join('|', $value)));
+                $all[] = sprintf('    SetEnvIf Origin "^(%s)$" CORS=$0', str_replace(array('.', '*'), array('\.', '\*'), join('|', $value)));
             } else {
                 $all[] = '    SetEnvIf Origin "^(.+)$" CORS=$0';
             }
@@ -869,11 +917,11 @@ function apache_headers_directives() {
             continue;
         }
 			$lines[] = sprintf('    Header set %s %s', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
-		}
-		foreach ($append as $key => $value) {
-			$lines[] = sprintf('    Header append %s %s', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
-		}
-		if (!empty($lines)) {
+	}
+	foreach ($append as $key => $value) {
+		$lines[] = sprintf('    Header append %s %s', $key, sprintf('%1$s%2$s%1$s', strpos($value, '"') === false ? '"' : "'", $value));
+	}
+    if (!empty($lines) || !empty($all)) {
         $lines = array_merge(
             array('<IfModule mod_headers.c>'),
             $all,
@@ -890,23 +938,15 @@ function apache_content_encoding_directives() {
     if (get_option('hh_content_encoding') == 1) {
 	
         $content_encoding_module = get_option('hh_content_encoding_module');
-        switch ($content_encoding_module) {
-            case 'brotli':
-                $module = 'mod_brotli.c';
-                $module_end = '';
-                $filter = 'BROTLI_COMPRESS';
-                break;
-            case 'brotli_deflate':
-                $module = "mod_brotli.c>\n<IfModule mod_deflate.c";
-                $module_end = "\n</IfModule>";
-                $filter = 'BROTLI_COMPRESS;DEFLATE';
-                break;
-            case 'deflate':
-            default:
-                $module = 'mod_deflate.c';
-                $module_end = '';
-                $filter = 'DEFLATE';
-                break;
+
+		$module = 'mod_deflate.c';
+		$filter = 'DEFLATE';
+        $accept_encoding = 'gzip';
+
+        if ($content_encoding_module == 'brotli') {
+            $module = 'mod_brotli.c';
+            $filter = 'BROTLI_COMPRESS';
+            $accept_encoding = 'br';
         }
         
 		$content_encoding_value = get_option('hh_content_encoding_value');
@@ -918,22 +958,37 @@ function apache_content_encoding_directives() {
 		if (!$content_encoding_ext) {
 			$content_encoding_ext = array();
 		}
-		if (!empty($content_encoding_ext)) {
-			$lines[] = sprintf('<FilesMatch "\.(%s)$">', join('|', array_keys($content_encoding_ext)));
-            $lines[] = sprintf('  <IfModule %s>', $module);
-            $lines[] = sprintf('    SetOutputFilter %s', $filter);
-            $lines[] = sprintf('  </IfModule>%s', $module_end);
-			$lines[] = '</FilesMatch>';
+
+        $type = join('|', array_keys($content_encoding_value));
+        $ext = join('|', array_keys($content_encoding_ext));
+
+        if (!empty($type) && !empty($ext)) {
+            $expression = sprintf('(%%{CONTENT_TYPE} =~ m#^(%1$s)# || %%{REQUEST_FILENAME} =~ /.(%2$s)$/)', $type, $ext);
+        } elseif (!empty($type)) {
+            $expression = sprintf('%%{CONTENT_TYPE} =~ m#^(%1$s)#', $type);
+        } elseif (!empty($ext)) {
+            $expression = sprintf('%%{REQUEST_FILENAME} =~ /.(%1$s)$/', $ext);
 		}
-		if (!empty($content_encoding_value)) {
-			if (!empty($lines)) {
-				$lines[] = '';
-			}
+
+        if (isset($expression)) {
+            $lines[] = '<IfModule mod_filter.c>';
+            $lines[] = '  FilterDeclare HttpHeaders';
+            if (in_array($content_encoding_module, array('brotli', 'deflate'))) {
             $lines[] = sprintf('<IfModule %s>', $module);
-            foreach (array_keys($content_encoding_value) as $item) {
-                $lines[] = sprintf('  AddOutputFilterByType %s %s', $filter, $item);
+                $lines[] = sprintf('    FilterProvider HttpHeaders %1$s "%%{HTTP:Accept-Encoding} =~ /%2$s/ && %3$s"', $filter, $accept_encoding, $expression);
+                $lines[] = '  </IfModule>';
+            } else {
+                $lines[] = '  <IfModule mod_deflate.c>';
+                $lines[] = '    <IfModule !mod_brotli.c>';
+                $lines[] = sprintf('      FilterProvider HttpHeaders DEFLATE "%%{HTTP:Accept-Encoding} =~ /gzip/ && %1$s"', $expression);
+                $lines[] = '    </IfModule>';
+                $lines[] = '  </IfModule>';
+                $lines[] = '  <IfModule mod_brotli.c>';
+                $lines[] = sprintf('    FilterProvider HttpHeaders BROTLI_COMPRESS "%%{HTTP:Accept-Encoding} =~ /br/ && %1$s"', $expression);
+                $lines[] = '  </IfModule>';
 			}
-            $lines[] = sprintf('</IfModule>%s', $module_end);
+            $lines[] = '  FilterChain HttpHeaders';
+            $lines[] = '</IfModule>';
 		}
 	}
 				
@@ -964,6 +1019,20 @@ function apache_expires_directives() {
 		$lines[] = '</IfModule>';
 	}
     
+    return $lines;
+}
+
+function apache_content_type_directives() {
+    $lines = array();
+    if (get_option('hh_content_type') == 1) {
+        $values = get_option('hh_content_type_value', array());
+        $lines[] = '<IfModule mod_mime.c>';
+        foreach ($values as $ext => $media_type) {
+            $lines[] = sprintf("  AddType %s .%s", $media_type, $ext);
+        }
+        $lines[] = '</IfModule>';
+    }
+
     return $lines;
 }
 
@@ -1105,6 +1174,15 @@ function update_expires_directives() {
 	return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersExpires", $lines);
 }
 
+function update_content_type_directives() {
+    $lines = array();
+    if (get_option('hh_method') == 'htaccess') {
+        $lines = apache_content_type_directives();
+    }
+
+    return insert_with_markers(get_home_path().'.htaccess', "HttpHeadersContentType", $lines);
+}
+
 function update_timing_directives() {
 	$lines = array();
 	if (get_option('hh_method') == 'htaccess') {
@@ -1177,7 +1255,7 @@ function http_headers_enqueue($hook) {
         //return;
     }
 
-    wp_enqueue_script('http_headers_admin_scripts', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array(), '1.13.0', true);
+    wp_enqueue_script('http_headers_admin_scripts', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array(), '1.14.0', true);
     wp_localize_script('http_headers_admin_scripts', 'hh', array(
         'lbl_delete' => __('Delete', 'http-headers'),
         'lbl_value' => __('Value', 'http-headers'),
@@ -1326,6 +1404,7 @@ function http_headers_activate() {
     update_auth_credentials();
     update_auth_directives();
     update_content_encoding_directives();
+    update_content_type_directives();
     update_expires_directives();
     update_cookie_security_directives();
     update_timing_directives();
@@ -1336,6 +1415,7 @@ function http_headers_deactivate() {
     
     insert_with_markers($filename, "HttpHeaders", array());
     insert_with_markers($filename, "HttpHeadersCompression", array());
+    insert_with_markers($filename, "HttpHeadersContentType", array());
     insert_with_markers($filename, "HttpHeadersExpires", array());
     insert_with_markers($filename, "HttpHeadersTiming", array());
     insert_with_markers($filename, "HttpHeadersAuth", array());

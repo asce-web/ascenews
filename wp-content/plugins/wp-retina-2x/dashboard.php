@@ -214,9 +214,9 @@ class Meow_WR2X_Dashboard {
 			$disable_responsive = get_option( 'wr2x_disable_responsive', false );
 			$keep_src = get_option( 'wr2x_picturefill_keep_src', false );
 
-			if ( $method == 'HTML Rewrite' || $method == 'Retina-Images' || $disable_responsive || $keep_src ) {
+			if ( $method == 'HTML Rewrite' || $method == 'Retina-Images' || $disable_responsive ) {
 				echo '<div class="error"><p>';
-				echo __( '<b>WARNING</b>. You are using an option that will be removed in a future release. The plan is to remove two methods (HTML Rewrite and Retina-Images), Disable Responsive, and Keep IMG SRC. Those options are not necessary, and it is better to keep the plugin clean and focus. This warning message will go away if you avoid using those options (and will disappear in a future release). If you are using one of those options and really would like to keep it, please come here to talk about it: <a target= "_blank" href="https://meowapps.com/wp-retina-2x-faq/">Featured comment at this end of this page</a>. Thanks :)', 'wp-retina-2x' );
+				echo __( '<b>WARNING</b>. You are using an option that will be removed in a future release. The plan is to remove two methods (HTML Rewrite and Retina-Images), and Disable Responsive. Those options are not necessary, and it is better to keep the plugin clean and focus. This warning message will go away if you avoid using those options (and will disappear in a future release). If you are using one of those options and really would like to keep it, please contact the support.', 'wp-retina-2x' );
 				echo '</p></div>';
 			}
 		?>

@@ -34,12 +34,10 @@ class Meow_WR2X_Core {
 	}
 
 	function is_rest() {
-		$prefix = rest_get_url_prefix() . '/';
-		$method = $_SERVER['REQUEST_METHOD'];
-		$uri = $_SERVER['REQUEST_URI'];
-		if ( strpos( $uri, $prefix ) !== false )
-			return true;
-		return false;
+    if ( empty( $_SERVER[ 'REQUEST_URI' ] ) )
+    	return false;
+    $rest_prefix = trailingslashit( rest_get_url_prefix() );
+    return strpos( $_SERVER[ 'REQUEST_URI' ], $rest_prefix ) !== false ? true : false;
 	}
 
 	function init() {
@@ -206,21 +204,26 @@ class Meow_WR2X_Core {
 		if ( get_option( 'wr2x_picturefill_css_background', false ) && $this->admin->is_registered() ) {
 			// Standard CSS background
 			preg_match_all( "/url(?:\(['\"]?)(.*?)(?:['\"]?\))/", $buffer, $matches );
-			$match_css = $matches[0];
-			$match_url = $matches[1];
+			//error_log( print_r( $matches, 1 ) );
+			if ( count( $matches ) == 2 ) {
+				$match_css = $matches[0];
+				$match_url = $matches[1];
+			}
 			// Lazy CSS background
 			preg_match_all( "/data-background=(?:['\"])(.*?)(?:['\"])/", $buffer, $matches );
-			$match_css = array_merge( $match_css, $matches[0] );
-			$match_url = array_merge( $match_url, $matches[1] );
+			if ( count( $matches ) == 2 ) {
+				$match_css = array_merge( $match_css, $matches[0] );
+				$match_url = array_merge( $match_url, $matches[1] );
+			}
 			// Lazy CSS background
 			preg_match_all( "/data-bigimg=(?:['\"])(.*?)(?:['\"])/", $buffer, $matches );
-			$match_css = array_merge( $match_css, $matches[0] );
-			$match_url = array_merge( $match_url, $matches[1] );
-			if ( count( $matches ) != 2 )
-				return $buffer;
+			if ( count( $matches ) == 2 ) {
+				$match_css = array_merge( $match_css, $matches[0] );
+				$match_url = array_merge( $match_url, $matches[1] );
+			}
 			$nodes_count = 0;
 			$nodes_replaced = 0;
-			for ( $c = 0; $c < count( $matches[0] ); $c++ ) {
+			for ( $c = 0; $c < count( $match_css ); $c++ ) {
 				$css = $match_css[$c];
 				$url = $match_url[$c];
 				if ( !$this->is_supported_image( $url ) )
