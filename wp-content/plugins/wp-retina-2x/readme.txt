@@ -5,7 +5,7 @@ Donate link: https://commerce.coinbase.com/checkout/d047546a-77a8-41c8-9ea9-4a95
 Requires at least: 4.4
 Tested up to: 5.2
 Requires PHP: 7.0
-Stable tag: 5.5.6
+Stable tag: 5.5.7
 
 Make your website look beautiful and crisp on modern displays by creating and displaying retina images. WP 4.4+ is also supported and enhanced.
 
@@ -38,6 +38,11 @@ The plugin cannot inject CSS to handles the images added through CSS, that's bot
 3. Check if it works! - if it doesn't, read the FAQ, the tutorial, and check the forums.
 
 == Changelog ==
+
+= 5.5.7 =
+* Fix: Background CSS wasn't working properly in a few cases.
+* Update: Lazysizes updated to 5.1.1 (from 5.0.0).
+* Update: Parser optimized.
 
 = 5.5.6 =
 * Update: Lazysizes updated to 5.1.0 (from 4.0.4).
