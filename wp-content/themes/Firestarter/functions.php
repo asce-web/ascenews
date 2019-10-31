@@ -186,6 +186,7 @@ require_once (TEMPLATEPATH . '/widgets/archive-widget.php');
 if ( function_exists('register_sidebar') ) {
 	register_sidebar(array(
 		'name' => 'Header Ad Area',
+        'id' => 'sidebar-1',
 		'before_widget' => '',
 		'after_widget' => '',
 		'before_title' => '',
@@ -203,6 +204,7 @@ if ( function_exists('register_sidebar') ) {
 
 if ( function_exists('register_sidebar') ) {
 	register_sidebar(array('name'=>'Featured Post',
+		'id' => 'sidebar-2',
 		'before_widget' => '<div class="featured-post">',
 		'after_widget' => '</div>',
 		'before_title' => '',
@@ -212,6 +214,7 @@ if ( function_exists('register_sidebar') ) {
 if ( function_exists('register_sidebar') ) {
 	register_sidebar(array(
 		'name' => 'Homepage Middle Section',
+        'id' => 'sidebar-3',
 		'before_widget' => '<li class="homedouble">',
 		'after_widget' => '</li>',
 		'before_title' => '',
@@ -230,6 +233,7 @@ if ( function_exists('register_sidebar') ) {
 if ( function_exists('register_sidebar') ) {
 	register_sidebar(array(
 		'name' => 'Homepage Right Sidebar',
+        'id' => 'sidebar-4',
 		'before_widget' => '<li class="widget">',
 		'after_widget' => '</li>',
 		'before_title' => '<div class="widgettitle"><span>',
