@@ -17,7 +17,7 @@ class fs_latestnews_widget extends WP_Widget
      * Widget setup.
      */
 
-    function fs_latestnews_widget()
+    function __construct()
     {
         parent::__construct(
             false, // Base ID

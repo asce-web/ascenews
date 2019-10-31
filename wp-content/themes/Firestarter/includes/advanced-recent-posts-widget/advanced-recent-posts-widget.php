@@ -34,7 +34,7 @@ function advanced_recent_posts_widget()
 class advanced_recent_posts_widget extends WP_Widget
 {
     /** constructor */
-    function advanced_recent_posts_widget()
+    function __construct()
     {
         $widget_ops = array(
             'classname' => 'advanced_recent_posts_widget',

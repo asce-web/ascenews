@@ -18,7 +18,7 @@ class fs_slider_widget extends WP_Widget
      * Widget setup.
      */
 
-    function fs_slider_widget()
+    function __construct()
     {
         parent::__construct(
             false, // Base ID

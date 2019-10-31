@@ -14,7 +14,7 @@ class video_widget extends WP_Widget
 {
 
     /** constructor -- name this the same as the class above */
-    function video_widget()
+    function __construct()
     {
         parent::__construct(false, $name = 'Video Widget');
     }

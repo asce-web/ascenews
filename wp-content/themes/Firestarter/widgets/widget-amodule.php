@@ -19,7 +19,7 @@ class fs_amodule_widget extends WP_Widget
     /**
      * Widget setup.
      */
-    function fs_amodule_widget()
+    function __construct()
     {
         parent::__construct(
             false, // Base ID

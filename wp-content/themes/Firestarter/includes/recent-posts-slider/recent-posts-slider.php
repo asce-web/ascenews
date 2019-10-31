@@ -961,13 +961,9 @@ class RpsWidget extends WP_Widget
 
     /** constructor */
 
-    function RpsWidget()
+    public function __construct()
     {
-        parent::__construct(
-            false, // Base ID
-            'Recent Posts Slider', // Name
-            array('description' => 'Your blogs recent post using slider',) // Args
-        );
+        parent::__construct(false, $name = 'Recent Posts Slider', array('description' => __('Your blogs recent post using slider', 'TF_EN')));
     }
 
     /** @see WP_Widget::widget */

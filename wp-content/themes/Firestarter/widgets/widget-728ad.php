@@ -14,7 +14,7 @@ class fs_728ad_widget extends WP_Widget {
 	/**
 	 * Widget setup.
 	 */
-    function fs_728ad_widget()
+    function __construct()
     {
         parent::__construct(
             false, // Base ID

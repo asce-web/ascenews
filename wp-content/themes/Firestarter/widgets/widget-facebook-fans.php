@@ -12,7 +12,7 @@ function fans_widget()
 class fans_widget extends WP_Widget {
 
     /** constructor -- name this the same as the class above */
-    function fans_widget() {
+    function __construct() {
         parent::__construct(false, $name = 'Facebook Fans');
     }
  

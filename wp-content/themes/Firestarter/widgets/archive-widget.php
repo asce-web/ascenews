@@ -16,7 +16,7 @@ class cb_archive_widget extends WP_Widget {
     /*
      * Register widget with WordPress.
      */
-    function cb_archive_widget() {
+    function __construct(){
         parent::__construct(
             false, // Base ID
             'Custom Archive Widget', // Name
