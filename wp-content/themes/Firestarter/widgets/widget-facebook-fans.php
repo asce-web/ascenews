@@ -2,12 +2,18 @@
 /**
  * Facebook Fans Widget Class
  */
+
+add_action('widgets_init', 'fans_widget');
+function fans_widget()
+{
+    register_widget('fans_widget');
+}
+
 class fans_widget extends WP_Widget {
- 
- 
+
     /** constructor -- name this the same as the class above */
     function fans_widget() {
-        parent::WP_Widget(false, $name = 'Facebook Fans');	
+        parent::__construct(false, $name = 'Facebook Fans');
     }
  
     /** @see WP_Widget::widget -- do not rename this */
@@ -57,5 +63,4 @@ class fans_widget extends WP_Widget {
  
  
 } // end class fans_widget
-add_action('widgets_init', create_function('', 'return register_widget("fans_widget");'));
 ?>

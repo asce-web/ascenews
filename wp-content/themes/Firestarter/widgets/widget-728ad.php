@@ -14,14 +14,14 @@ class fs_728ad_widget extends WP_Widget {
 	/**
 	 * Widget setup.
 	 */
-	function fs_728ad_widget() {
-		/* Widget settings. */
-		$widget_ops = array( 'classname' => 'fs_728ad_widget', 'description' => __('This widget shows an ad box with a size of 728x90, built for Header Ad Area.', 'TF_EN') );
-
-
-		/* Create the widget. */
-		$this->WP_Widget( 'fs_728ad_widget', __('Firestarter Homepage 728x90 Ad Box', 'fs_728ad_widget'), $widget_ops );
-	}
+    function fs_728ad_widget()
+    {
+        parent::__construct(
+            false, // Base ID
+            'Firestarter Homepage 728x90 Ad Box', // Name
+            array('description' => 'This widget shows an ad box with a size of 728x90, built for Header Ad Area.',) // Args
+        );
+    }
 
 	/**
 	 * How to display the widget on the screen.
