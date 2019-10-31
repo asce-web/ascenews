@@ -11,7 +11,7 @@ Author URI: http://www.whereyoursolutionis.com/author/scriptonite/
 
 
 register_activation_hook(__FILE__,'AddFixPatch'); 
-register_deactivation_hook($file, 'Rsscleansweep'); 
+register_deactivation_hook(__FILE__, 'Rsscleansweep');
 add_action('admin_menu','add_rssFixer');
 
 
