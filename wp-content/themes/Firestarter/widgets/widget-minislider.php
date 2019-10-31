@@ -1,162 +1,114 @@
 <?php
 
 /**
-
  * Plugin Name: Homepage Mini Slider
-
  */
 
 
-
-add_action( 'widgets_init', 'fs_minislider_load' );
-
-
-
-function fs_minislider_load() {
-
-	register_widget( 'fs_minislider_widget' );
-
+add_action('widgets_init', 'fs_minislider_load');
+function fs_minislider_load()
+{
+    register_widget('fs_minislider_widget');
 }
 
+class fs_minislider_widget extends WP_Widget
+{
+    /**
+     * Widget setup.
+     */
+    function __construct()
+    {
+        parent::__construct(
+            false, // Base ID
+            'Firestarter Homepage Mini Slider', // Name
+            array('description' => 'This widget shows a mini slider of a category posts, built for Homepage Left Sidebar.',) // Args
+        );
+    }
 
+    /**
+     * How to display the widget on the screen.
+     */
 
-class fs_minislider_widget extends WP_Widget {
+    function widget($args, $instance)
+    {
 
+        extract($args);
 
 
-	/**
+        /* Our variables from the widget settings. */
 
-	 * Widget setup.
 
-	 */
+        $categories = $instance['categories'];
 
-	function fs_minislider_widget() {
 
-		/* Widget settings. */
+        ?>
 
-		$widget_ops = array( 'classname' => 'fs_minislider_widget', 'description' => __('This widget shows a mini slider of a category posts, built for Homepage Left Sidebar.', 'fs_minislider_widget') );
 
+        <?php echo do_shortcode('[parallaxcontentslider categ="' . $categories . '"]'); ?>
 
 
+        <?php
 
-		/* Create the widget. */
 
-		$this->WP_Widget( 'fs_minislider_widget', __('Firestarter Homepage Mini Slider', 'fs_minislider_widget'), $widget_ops );
+    }
 
-	}
+    /**
+     * Update the widget settings.
+     */
 
+    function update($new_instance, $old_instance)
+    {
 
+        $instance = $old_instance;
 
-	/**
 
-	 * How to display the widget on the screen.
+        /* Strip tags for title and name to remove HTML (important for text inputs). */
 
-	 */
+        $instance['categories'] = $new_instance['categories'];
 
-	function widget( $args, $instance ) {
 
-		extract( $args );
+        return $instance;
 
+    }
 
 
-		/* Our variables from the widget settings. */
+    function form($instance)
+    {
 
 
+        /* Set up some default widget settings. */
 
-		$categories = $instance['categories'];
-                
+        $instance = wp_parse_args((array)$instance, $defaults); ?>
 
-		?>
 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-<?php echo do_shortcode( '[parallaxcontentslider categ="' . $categories . '"]' ); ?>
+        <!-- Category -->
 
+        <p>
 
+            <label for="<?php echo $this->get_field_id('categories'); ?>">Select Category:</label>
 
+            <select id="<?php echo $this->get_field_id('categories'); ?>"
+                    name="<?php echo $this->get_field_name('categories'); ?>" style="width:100%;">
 
-		<?php
 
+                <?php $categories = get_categories('hide_empty=0&depth=1&type=post'); ?>
 
+                <?php foreach ($categories as $category) { ?>
 
-	}
-	/**
+                    <option value='<?php echo $category->term_id; ?>' <?php if ($category->term_id == $instance['categories']) echo 'selected="selected"'; ?>><?php echo $category->cat_name; ?></option>
 
-	 * Update the widget settings.
+                <?php } ?>
 
-	 */
+            </select>
 
-	function update( $new_instance, $old_instance ) {
+        </p>
 
-		$instance = $old_instance;
 
+        <?php
 
-
-		/* Strip tags for title and name to remove HTML (important for text inputs). */
-
-		$instance['categories'] = $new_instance['categories'];
-
-
-
-
-
-		return $instance;
-
-	}
-
-
-
-
-
-	function form( $instance ) {
-
-
-
-		/* Set up some default widget settings. */
-
-		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
-
-
-
-
-		<!-- Category -->
-
-		<p>
-
-			<label for="<?php echo $this->get_field_id('categories'); ?>">Select Category:</label>
-
-			<select id="<?php echo $this->get_field_id('categories'); ?>" name="<?php echo $this->get_field_name('categories'); ?>" style="width:100%;">
-
-
-				<?php $categories = get_categories('hide_empty=0&depth=1&type=post'); ?>
-
-				<?php foreach($categories as $category) { ?>
-
-				<option value='<?php echo $category->term_id; ?>' <?php if ($category->term_id == $instance['categories']) echo 'selected="selected"'; ?>><?php echo $category->cat_name; ?></option>
-
-				<?php } ?>
-
-			</select>
-
-		</p>
-
-
-
-
-
-	<?php
-
-	}
+    }
 
 }
-
 
 
 ?>

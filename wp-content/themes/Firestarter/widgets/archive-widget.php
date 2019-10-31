@@ -4,13 +4,20 @@
  * 
  */
 
+
+add_action('widgets_init', 'cb_archive_widget');
+function cb_archive_widget()
+{
+    register_widget('cb_archive_widget');
+}
+
 class cb_archive_widget extends WP_Widget {
 
     /*
      * Register widget with WordPress.
      */
-    function cb_archive_widget() {
-        parent::WP_Widget(
+    function __construct(){
+        parent::__construct(
             false, // Base ID
             'Custom Archive Widget', // Name
             array( 'description' =>  'Use this widget to place Specific Archives depending on category selection', ) // Args
@@ -137,5 +144,4 @@ class cb_archive_widget extends WP_Widget {
         <?php 
     }
 }// register widget
-
-add_action( 'widgets_init', create_function('', 'return register_widget("cb_archive_widget");') );?>
+?>
