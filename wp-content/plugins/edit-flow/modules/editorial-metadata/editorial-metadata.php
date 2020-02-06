@@ -341,11 +341,6 @@ class EF_Editorial_Metadata extends EF_Module {
 	 */
 	function handle_post_metaboxes() {
 		$title = __( 'Editorial Metadata', 'edit-flow' );
-		if ( current_user_can( 'manage_options' ) ) {
-			// Make the metabox title include a link to edit the Editorial Metadata terms. Logic similar to how Core dashboard widgets work.
-			$url = add_query_arg( 'page', 'ef-editorial-metadata-settings', get_admin_url( null, 'admin.php' ) );
-			$title .= ' <span class="postbox-title-action"><a href="' . esc_url( $url ) . '" class="edit-box open-box">' . __( 'Configure' ) . '</a></span>';
-		}
 
 		$supported_post_types = $this->get_post_types_for_module( $this->module );
 		foreach ( $supported_post_types as $post_type ) {
@@ -361,7 +356,13 @@ class EF_Editorial_Metadata extends EF_Module {
 	function display_meta_box( $post ) {
 		echo "<div id='" . self::metadata_taxonomy . "_meta_box'>";
 		// Add nonce for verification upon save
-		echo "<input type='hidden' name='" . self::metadata_taxonomy . "_nonce' value='" . wp_create_nonce(__FILE__) . "' />";
+		echo "<input type='hidden' name='" . self::metadata_taxonomy . "_nonce' value='" . wp_create_nonce( 'ef-save-metabox' ) . "' />";
+
+		if ( current_user_can( 'manage_options' ) ) {
+			// Make the metabox title include a link to edit the Editorial Metadata terms. Logic similar to how Core dashboard widgets work.
+			$url = add_query_arg( 'page', 'ef-editorial-metadata-settings', get_admin_url( null, 'admin.php' ) );
+			echo '<p><a href="'. esc_url( $url ) . '">' . __( 'Configure', 'edit-flow' ) . '</a></p>';
+		}
 	
 		$terms = $this->get_editorial_metadata_terms();
 		if ( !count( $terms ) ) {
@@ -392,7 +393,8 @@ class EF_Editorial_Metadata extends EF_Module {
 						echo "<label for='$postmeta_key'>{$term->name}</label>";
 						if ( $description_span )
 							echo "<label for='$postmeta_key'>$description_span</label>";
-						echo "<input id='$postmeta_key' name='$postmeta_key' type='text' class='date-time-pick' value='$current_metadata' />";
+						echo '<input id="' . esc_attr( $postmeta_key ) .'" name="' . esc_attr( $postmeta_key ) . '" type="tex" class="date-time-pick" value="' . esc_attr( $current_metadata ) . '" />';
+						echo '<input type="hidden" id="' . esc_attr( $postmeta_key ) . '_hidden' . '" name="' . esc_attr( $postmeta_key ) . '_hidden' . '" />';
 						break;
 					case "location":
 						echo "<label for='$postmeta_key'>{$term->name}</label>";
@@ -447,9 +449,9 @@ class EF_Editorial_Metadata extends EF_Module {
 	private function show_date_or_datetime( $current_date ) {
 
 		if( date( 'Hi', $current_date ) == '0000')
-			return date( 'M d Y', $current_date );
+			return date_i18n( 'M d Y', $current_date );
 		else
-			return date( 'M d Y H:i', $current_date );
+			return date_i18n( 'M d Y H:i', $current_date );
 	}
 
 	/**
@@ -463,7 +465,7 @@ class EF_Editorial_Metadata extends EF_Module {
 		// Authentication checks: make sure data came from our meta box and that the current user is allowed to edit the post
 		// TODO: switch to using check_admin_referrer? See core (e.g. edit.php) for usage
 		if ( ! isset( $_POST[self::metadata_taxonomy . "_nonce"] )
-			|| ! wp_verify_nonce( $_POST[self::metadata_taxonomy . "_nonce"], __FILE__ ) ) {
+			|| ! wp_verify_nonce( $_POST[self::metadata_taxonomy . "_nonce"], 'ef-save-metabox' ) ) {
 			return $id;
 		}
 		
@@ -494,10 +496,18 @@ class EF_Editorial_Metadata extends EF_Module {
 			} else {
 
 				// TODO: Move this to a function
-				if ( $type == 'date' ) {
-					$new_metadata = strtotime( $new_metadata );
+				if ( 'date' === $type ) {
+					$date_to_parse =  isset( $_POST[ $key . '_hidden' ] ) ? $_POST[ $key . '_hidden' ] : '';
+					$date = DateTime::createFromFormat('Y-m-d H:i', $date_to_parse );
+
+					if ( false !== $date ) { 
+						$new_metadata = $date->getTimestamp();
+					} else {
+						// Fallback, in case $_POST[ $key . '_hidden' ] was not previosuly set
+						$new_metadata = strtotime( $new_metadata );
+					}
 				}
-				if ( $type == 'number' ) {
+				if ( 'number' === $type ) {
 					$new_metadata = (int)$new_metadata;
 				}
 				

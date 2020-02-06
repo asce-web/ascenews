@@ -7,7 +7,7 @@ if ( !class_exists( 'MeowApps_Admin' ) ) {
 		public static $logo = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxIiB2aWV3Qm94PSIwIDAgMTY1IDE2NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8c3R5bGU+CiAgICAuc3Qye2ZpbGw6IzgwNDYyNX0uc3Qze2ZpbGw6I2ZkYTk2MH0KICA8L3N0eWxlPgogIDxwYXRoIGQ9Ik03MiA3YTc2IDc2IDAgMCAxIDg0IDkxQTc1IDc1IDAgMSAxIDcyIDd6IiBmaWxsPSIjNGE2YjhjIi8+CiAgPHBhdGggZD0iTTQ4IDQ4YzIgNSAyIDEwIDUgMTQgNSA4IDEzIDE3IDIyIDIwbDEtMTBjMS0yIDMtMyA1LTNoMTNjMiAwIDQgMSA1IDNsMyA5IDQtMTBjMi0zIDYtMiA5LTJoMTFjMyAyIDMgNSAzIDhsMiAzN2MwIDMtMSA3LTQgOGgtMTJjLTIgMC0zLTItNS00LTEgMS0yIDMtNCAzLTUgMS05IDEtMTMtMS0zIDItNSAyLTkgMnMtOSAxLTEwLTNjLTItNC0xLTggMC0xMi04LTMtMTUtNy0yMi0xMi03LTctMTUtMTQtMjAtMjMtMy00LTUtOC01LTEzIDEtNCAzLTEwIDYtMTMgNC0zIDEyLTIgMTUgMnoiIGZpbGw9IiMxMDEwMTAiLz4KICA8cGF0aCBjbGFzcz0ic3QyIiBkPSJNNDMgNTFsNCAxMS02IDVoLTZjLTMtNS0zLTExIDAtMTYgMi0yIDYtMyA4IDB6Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTQ3IDYybDMgNmMwIDMgMCA0LTIgNnMtNCAyLTcgMmwtNi05aDZsNi01eiIvPgogIDxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik01MCA2OGw4IDljLTMgMy01IDYtOSA4bC04LTljMyAwIDUgMCA3LTJzMy0zIDItNnoiLz4KICA8cGF0aCBkPSJNODIgNzRoMTJsNSAxOCAzIDExIDgtMjloMTNsMiA0MmgtOGwtMS0yLTEtMzEtMTAgMzItNyAxLTktMzMtMSAyOS0xIDRoLThsMy00MnoiIGZpbGw9IiNmZmYiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNTggNzdsNSA1Yy0xIDQtMiA4LTcgOGwtNy01YzQtMiA2LTUgOS04eiIvPgogIDxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik02MyA4Mmw5IDUtNiA5LTEwLTZjNSAwIDYtNCA3LTh6Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTcyIDg3bDMgMS0xIDExLTgtMyA2LTEweiIvPgo8L3N2Zz4K';
 
 		public static $loaded = false;
-		public static $admin_version = "2.0";
+		public static $admin_version = "2.4";
 
 		public $prefix; 		// prefix used for actions, filters (mfrh)
 		public $mainfile; 	// plugin main file (media-file-renamer.php)
@@ -21,6 +21,11 @@ if ( !class_exists( 'MeowApps_Admin' ) ) {
 					add_action( 'admin_menu', array( $this, 'admin_menu_start' ) );
 					add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 					add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+					add_action( 'wp_ajax_meow_perf_load', array( $this, 'wp_ajax_meow_perf_load' ) );
+					add_action( 'wp_ajax_meow_file_check', array( $this, 'wp_ajax_meow_file_check' ) );
+					if ( isset( $_GET['page'] ) && $_GET['page'] === 'meowapps-main-menu' ) {
+						add_filter( 'admin_footer_text',  array( $this, 'admin_footer_text' ), 100000, 1 );
+					}
 				}
 				MeowApps_Admin::$loaded = true;
 			}
@@ -49,6 +54,16 @@ if ( !class_exists( 'MeowApps_Admin' ) ) {
 			}
 			
 			add_filter( 'edd_sl_api_request_verify_ssl', array( $this, 'request_verify_ssl' ), 10, 0 );
+		}
+
+		function wp_ajax_meow_perf_load() {
+			return 'Did nothing but a blank request.';
+		}
+
+		function wp_ajax_meow_file_check() {
+			$tmpfile = wp_tempnam();
+			unlink( $tmpfile );
+			return "Created and deleted $tmpfile.";
 		}
 
 		function request_verify_ssl() {
@@ -390,13 +405,91 @@ if ( !class_exists( 'MeowApps_Admin' ) ) {
 					</div>
 				</div>
 
-				<h2>Recommendations</h2>
-				<div style="background: white; padding: 5px 15px 5px 15px; box-shadow: 2px 2px 1px rgba(0,0,0,.02);">
+				<h2>WordPress Performance & Recommendations</h2>
+				<div style="background: white; padding: 5px 15px 5px 15px; box-shadow: 2px 2px 1px rgba(0,0,0,.02); margin-bottom: 15px;">
+					<p><?php _e( 'The <b>Empty Request Time</b> helps you analyzing the raw performance of your install by giving you the average time it takes to run an empty request to your server. You can try to disable some plugins (or change their options) then and click on Reset to see how it influences the results. With <b>File Operation Time</b>, you will find out if your server is slow with files. An excellent install would have an Empty Request Time of less than 500 ms. Keep it absolutely under 2,000 ms. File Operation Time should take only a few milliseconds more than the Empty Request Time. For more information about this, <a href="https://meowapps.com/clean-optimize-wordpress/#Optimize_your_Empty_Request_Time" target="_blank">click here</a>.', 'meowapps' ); ?></p>
+				</div>
+
+				<div style="float: left; margin-right: 10px; text-align: center; padding: 10px; background: white; width: 200px; border: 1px solid #e2e2e2;">
+					<div style='font-size: 14px; line-height: 14px; margin-bottom: 20px;'>Empty Request Time</div>
+					<div style='font-size: 32px; line-height: 32px; margin-bottom: 10px;' id='meow-perf-load-average'>N/A</div>
+					<div style='font-size: 12px; line-height: 12px; margin-bottom: 20px;'>Based on 
+						<span id='meow-perf-load-count'>0</span> request(s)
+					</div>
+					<input type='submit' style='text-align: center; width: 100%;' id="meow-perf-reset" value="Reset" class="button button-primary">
+				</div>
+				
+				<div style="float: left; margin-right: 10px; text-align: center; padding: 10px; background: white; width: 200px; border: 1px solid #e2e2e2;">
+					<div style='font-size: 14px; line-height: 14px; margin-bottom: 20px;'>File Operation Time</div>
+					<div style='font-size: 32px; line-height: 32px; margin-bottom: 10px;' id='meow-file-check-time'>N/A</div>
+					<div style='font-size: 12px; line-height: 12px; margin-bottom: 20px;'>Create temporary file and delete it.</div>
+					<input type='submit' style='text-align: center; width: 100%;' id="meow-file-check-start" value="Check" class="button button-primary">
+				</div>
+
+				<div style="clear: both;"></div>
+
+				<script>
+					(function ($) {
+						var calls = 0;
+						var times = [];
+
+						$('#meow-perf-reset').on('click', function () {
+							calls = 0;
+							times = [];
+							$('#meow-perf-load-average').text('N/A');
+							$('#meow-perf-load-count').text('0');
+						});
+
+						function perfLoad() {
+							var start = new Date().getTime();
+							$.ajax(ajaxurl, {
+								method: 'post',
+								dataType: 'json',
+								data: {
+									action: 'meow_perf_load',
+								}
+							}).done(function (response) {
+								var end = new Date().getTime();
+								var time = end - start;
+								calls++;
+								times.push(time);
+								var sum = times.reduce(function(a, b) { return a + b; });
+								var avg = Math.ceil(sum / times.length);
+								$('#meow-perf-load-average').text(avg + ' ms');
+								$('#meow-perf-load-count').text(calls);
+								setTimeout(perfLoad, 5000);
+							});
+						};
+
+						function perfFile() {
+							var start = new Date().getTime();
+							$.ajax(ajaxurl, {
+								method: 'post',
+								dataType: 'json',
+								data: {
+									action: 'meow_file_check',
+								}
+							}).done(function (response) {
+								var end = new Date().getTime();
+								var time = end - start;
+								$('#meow-file-check-time').text(time + ' ms');
+								$('#meow-file-check-start').text('Check');
+							});
+						};
+
+						$('#meow-file-check-start').on('click', function () {
+							$('#meow-file-check-start').text('...');
+							perfFile();
+						});
+
+						setTimeout(perfLoad, 1500);
+						
+					})(jQuery);
+				</script>
+
+				<div style="background: white; padding: 5px 15px 5px 15px; box-shadow: 2px 2px 1px rgba(0,0,0,.02); margin-top: 15px;">
 					<p>
-						<?php _e( 'Too many WordPress installs are blown-up with useless and/or huge plugins, and bad practices. But that is because most users are overwhelmed by the diversity and immensity of the WordPress jungle. One rule of thumb is to keep your install the simplest as possible, with the least amount of plugins, in number and weight.', 'meowapps' )?>
-					</p>
-					<p>
-						<?php _e( 'Articles are kept being updated on the Meow Apps website, with all the latest recommendations. Please have a look and make your WordPress simpler, faster, better: ', 'meowapps' )?>
+						<?php _e( 'Too many WordPress installs are blown-up with useless and/or huge plugins, and bad practices. But that is because most users are overwhelmed by the diversity and immensity of the WordPress jungle. One rule of thumb is to keep your install the simplest as possible, with the least number of plugins (avoiding heavy ones too) and a good hosting service (avoid VPS except if you know exactly what you are doing). Articles are kept being updated on the Meow Apps website, with all the latest recommendations: ', 'meowapps' )?>
 						<a href='https://meowapps.com/debugging-wordpress/' target='_blank'>
 							How To Debug</a>, 
 						<a href='https://meowapps.com/seo-optimization/' target='_blank'>
@@ -452,7 +545,11 @@ if ( !class_exists( 'MeowApps_Admin' ) ) {
 
 				<?php
 			}
-			echo "<br /><small style='color: lightgray;'>Meow Admin " . MeowApps_Admin::$admin_version . "</small></div>";
+		}
+
+		function admin_footer_text( $current ) {
+			return "Thanks for using <a href='https://meowapps.com'>Meow Apps</a>! This is the Meow Admin " . 
+				MeowApps_Admin::$admin_version . ". <br /><i>Loaded from " . __FILE__ . "</i>";
 		}
 
 		// HELPERS
