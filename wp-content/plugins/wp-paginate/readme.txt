@@ -2,8 +2,8 @@
 Contributors: maxfoundry, emartin24, AlanP57
 Tags: paginate, pagination, navigation, page, wp-paginate, comments, rtl, seo, usability
 Requires at least: 2.6.0 (2.7.0 for comments pagination)
-Tested up to: 5.2.3
-Stable tag: 2.0.6
+Tested up to: 5.3.2
+Stable tag: 2.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,7 +135,7 @@ The `wp_paginate()` and `wp_paginate_comments()` functions each takes one option
 * title - The text/HTML to display before the pagination links
 * nextpage - The text/HTML to use for the next page link
 * previouspage - The text/HTML to use for the previous page link
-* before - The text/HTML to add before the pagination links
+* before - The text/HTML to add before the pagination links and title
 * after - The text/HTML to add after the pagination links
 * empty - Display before markup and after markup code even when the page list is empty
 * range - The number of page links to show before and after the current page
@@ -159,6 +159,9 @@ Example (also applies to `wp_paginate_comments()`):
 When calling `wp_paginate_comments()`, WP-Paginate adds an extra class to the `ol` element, `wp-paginate-comments`.
 
 == Changelog ==
+= 2.0.7 =
+* Fixed issue with not applying before and after function arguments
+
 = 2.0.6 =
 * Fixed issue with slashes added to URLs containing query strings
 

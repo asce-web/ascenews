@@ -7,3 +7,7 @@ DirectoryIndex index.php
 <IfModule mod_autoindex.c>
 Options -Indexes
 </IfModule>
+<Files web.config>
+Order allow,deny
+Deny from all
+</Files>

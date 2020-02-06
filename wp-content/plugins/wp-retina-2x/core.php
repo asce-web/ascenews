@@ -18,6 +18,10 @@ class Meow_WR2X_Core {
 		add_action( 'init', array( $this, 'init' ) );
 		include( __DIR__ . '/api.php' );
 
+		if ( get_option( 'wr2x_big_image_size_threshold', false ) ) {
+			add_filter( 'big_image_size_threshold', array( $this, 'big_image_size_threshold' ) );
+		}
+
 		// In Admin
 		if ( is_admin() ) {
 			include( __DIR__ . '/ajax.php' );
@@ -31,6 +35,10 @@ class Meow_WR2X_Core {
 				new Meow_WR2X_MediaLibrary( $this );
 			}
 		}
+	}
+
+	function big_image_size_threshold() {
+		return false;
 	}
 
 	function is_rest() {

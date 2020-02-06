@@ -18,6 +18,7 @@ final class ITSEC_Security_Check_Scanner {
 			'magic-links'         => __( 'Magic Links', 'better-wp-security' ),
 			'malware-scheduling'  => __( 'Malware Scan Scheduling', 'better-wp-security' ),
 			'network-brute-force' => __( 'Network Brute Force Protection', 'better-wp-security' ),
+			'passwordless-login'  => __( 'Passwordless Login', 'better-wp-security' ),
 			'strong-passwords'    => __( 'Strong Passwords', 'better-wp-security' ),
 			'two-factor'          => __( 'Two-Factor Authentication', 'better-wp-security' ),
 			'user-logging'        => __( 'User Logging', 'better-wp-security' ),
@@ -78,6 +79,7 @@ final class ITSEC_Security_Check_Scanner {
 
 		self::add_network_brute_force_signup();
 
+		self::enforce_activation( 'passwordless-login', __( 'Passwordless Login', 'better-wp-security' ) );
 		self::enforce_password_requirement_enabled( 'strength', __( 'Strong Password Enforcement', 'better-wp-security' ) );
 		self::enforce_activation( 'two-factor', __( 'Two-Factor Authentication', 'better-wp-security' ) );
 		self::enforce_setting( 'two-factor', 'available_methods', 'all', esc_html__( 'Changed the Authentication Methods Available to Users setting in Two-Factor Authentication to "All Methods".', 'better-wp-security' ) );

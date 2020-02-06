@@ -3,9 +3,9 @@ Contributors: TigrouMeow
 Tags: retina, images, image, responsive, lazysizes, lazy, attachment, media, files, iphone, ipad, high-dpi
 Donate link: https://commerce.coinbase.com/checkout/d047546a-77a8-41c8-9ea9-4a950f61832f
 Requires at least: 4.4
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 7.0
-Stable tag: 5.5.7
+Stable tag: 5.6.0
 
 Make your website look beautiful and crisp on modern displays by creating and displaying retina images. WP 4.4+ is also supported and enhanced.
 
@@ -38,6 +38,10 @@ The plugin cannot inject CSS to handles the images added through CSS, that's bot
 3. Check if it works! - if it doesn't, read the FAQ, the tutorial, and check the forums.
 
 == Changelog ==
+
+= 5.6.0 =
+* Add: Option to remove the image size threshold (which is set to 2560 since WordPress 5.3). 
+* Updade: PHP Simple Dom updated to 1.9.1.
 
 = 5.5.7 =
 * Fix: Background CSS wasn't working properly in a few cases.
