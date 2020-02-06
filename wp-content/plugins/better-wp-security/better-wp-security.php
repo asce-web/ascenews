@@ -6,11 +6,22 @@
  * Description: Take the guesswork out of WordPress security. iThemes Security offers 30+ ways to lock down WordPress in an easy-to-use WordPress security plugin.
  * Author: iThemes
  * Author URI: https://ithemes.com
- * Version: 7.4.1
+ * Version: 7.6.1
  * Text Domain: better-wp-security
  * Network: True
  * License: GPLv2
+ * Requires PHP: 5.5
  */
+
+if ( version_compare( phpversion(), '5.5.0', '<' ) ) {
+	function itsec_free_minimum_php_version_notice() {
+		echo '<div class="notice notice-error"><p>' . esc_html__( 'iThemes Security requires PHP 5.5 or higher.', 'better-wp-security' ) . '</p></div>';
+	}
+
+	add_action( 'admin_notices', 'itsec_free_minimum_php_version_notice' );
+
+	return;
+}
 
 function itsec_load_textdomain() {
 

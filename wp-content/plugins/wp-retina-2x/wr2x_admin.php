@@ -128,12 +128,14 @@ class Meow_WR2X_Admin extends MeowApps_Admin {
 			add_settings_field( 'wr2x_debug', __( "Debug", 'wp-retina-2x' ),
 				array( $this, 'admin_debug_callback' ),
 				'wr2x_advanced_settings-menu', 'wr2x_advanced_settings' );
-
-			add_settings_field( 'wr2x_disable_responsive', __( "<br /><br />Disable Responsive", 'wp-retina-2x' ),
+			add_settings_field( 'wr2x_disable_responsive', __( "Disable Responsive", 'wp-retina-2x' ),
 				array( $this, 'admin_disable_responsive_callback' ),
 				'wr2x_advanced_settings-menu', 'wr2x_advanced_settings' );
 			add_settings_field( 'wr2x_cdn_domain', __( "Custom CDN Domain", 'wp-retina-2x' ) . "<br />(Pro)",
 				array( $this, 'admin_cdn_domain_callback' ),
+				'wr2x_advanced_settings-menu', 'wr2x_advanced_settings' );
+			add_settings_field( 'wr2x_big_image_size_threshold', __( "Big Image Size Threshold", 'wp-retina-2x' ),
+				array( $this, 'admin_big_image_size_threshold' ),
 				'wr2x_advanced_settings-menu', 'wr2x_advanced_settings' );
 
 			register_setting( 'wr2x_advanced_settings', 'wr2x_auto_generate' );
@@ -141,6 +143,7 @@ class Meow_WR2X_Admin extends MeowApps_Admin {
 			register_setting( 'wr2x_advanced_settings', 'wr2x_disable_responsive' );
 			register_setting( 'wr2x_advanced_settings', 'wr2x_disable_medium_large' );
 			register_setting( 'wr2x_advanced_settings', 'wr2x_cdn_domain' );
+			register_setting( 'wr2x_advanced_settings', 'wr2x_big_image_size_threshold' );
 			register_setting( 'wr2x_advanced_settings', 'wr2x_over_http_check' );
 			register_setting( 'wr2x_advanced_settings', 'wr2x_debug' );
 
@@ -264,7 +267,7 @@ class Meow_WR2X_Admin extends MeowApps_Admin {
 
 					<div class="meow-col meow-span_1_of_2">
 
-						<?php $this->display_serialkey_box( "https://meowapps.com/wp-retina-2x/" ); ?>
+						<?php $this->display_serialkey_box( "https://meowapps.com/plugin/wp-retina-2x/" ); ?>
 
 						<?php if ( get_option( 'wr2x_method', 'none' ) == 'Picturefill' ): ?>
 						<div class="meow-box">
@@ -336,9 +339,17 @@ class Meow_WR2X_Admin extends MeowApps_Admin {
 
 	function admin_disable_responsive_callback( $args ) {
 		$value = get_option( 'wr2x_disable_responsive', null );
-		$html = '<br /><br /><input type="checkbox" id="wr2x_disable_responsive" name="wr2x_disable_responsive" value="1" ' .
+		$html = '<input type="checkbox" id="wr2x_disable_responsive" name="wr2x_disable_responsive" value="1" ' .
 			checked( 1, get_option( 'wr2x_disable_responsive' ), false ) . '/>';
 		$html .= '<label>Disable the Responsive Images feature.</label><br /><small>Get back control over your HTML if you need.</small>';
+		echo $html;
+	}
+
+	function admin_big_image_size_threshold( $args ) {
+		$value = get_option( 'wr2x_big_image_size_threshold', null );
+		$html = '<input type="checkbox" id="wr2x_big_image_size_threshold" name="wr2x_big_image_size_threshold" 
+			value="1" ' . checked( 1, get_option( 'wr2x_big_image_size_threshold' ), false ) . '/>';
+		$html .= '<label>Disable</label><br /><small>By default, WordPress limits the size of the image to 2560px (with or height) maximum.</small>';
 		echo $html;
 	}
 
@@ -359,7 +370,7 @@ class Meow_WR2X_Admin extends MeowApps_Admin {
 			<option ' . selected( 'HTML Rewrite', $value, false ) . 'value="HTML Rewrite">HTML Rewrite</option>
 			<option ' . selected( 'Retina-Images', $value, false ) . 'value="Retina-Images">Retina-Images</option>
 			<option ' . selected( 'none', $value, false ) . 'value="none">None</option>
-		</select><small><br />' . __( 'In all cases (including "None"), Retina support will be added to the Responsive Images. Check the <a target="_blank" href="https://meowapps.com/wp-retina-2x-methods" />Retina Methods</a> page if you want to know more about those methods.', 'wp-retina-2x' ) . '</small>';
+		</select><small><br />' . __( 'In all cases (including "None"), Retina support will be added to the Responsive Images. Check the <a target="_blank" href="https://meowapps.com/wp-retina-2x-methods/" />Retina Methods</a> page if you want to know more about those methods.', 'wp-retina-2x' ) . '</small>';
 		echo $html;
 	}
 

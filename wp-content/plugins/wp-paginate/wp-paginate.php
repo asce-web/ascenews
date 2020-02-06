@@ -3,7 +3,7 @@
 Plugin Name: WP-Paginate
 Plugin URI: https://wordpress.org/plugins/wp-paginate/
 Description: A simple and flexible pagination plugin for WordPress posts and comments.
-Version: 2.0.6
+Version: 2.0.7
 Author: Max Foundry
 Author URI: http://maxfoundry.com
 Text Domain: 'wp-paginate'
@@ -60,7 +60,7 @@ if (!class_exists('WPPaginate')) {
         /**
          * @var string The plugin version
          */
-        public $version = '2.0.6';
+        public $version = '2.0.7';
 
         /**
          * @var string The options string name for this plugin
@@ -283,11 +283,14 @@ if (!class_exists('WPPaginate')) {
          * Pagination based on options/args
          */
         function paginate($args = false) {
+          
+          
             if ($this->type === 'comments' && !get_option('page_comments'))
                 return;
 
             $r = wp_parse_args($args, $this->options);
             extract($r, EXTR_SKIP);
+            //error_log("r " . print_r($r, true));
 						
 						if(isset($this->options['preset']))
 						  $preset = $this->options['preset'];
@@ -299,12 +302,16 @@ if (!class_exists('WPPaginate')) {
 						else
 						  $font = 'font-inherit';
 						
-						if(isset($this->options['before']))
+						if(isset($before))
+							$before_option = $before;
+						else if(isset($this->options['before']))
 							$before_option = $this->options['before'];
 						else
 						  $before_option = '<div class="navigation">';
 						
-						if(isset($this->options['after']))
+						if(isset($after))
+							$after_option = $after;
+						else if(isset($this->options['after']))
 							$after_option = $this->options['after'];
 						else
 						  $after_option = '</div>';						
@@ -410,8 +417,6 @@ if (!class_exists('WPPaginate')) {
                 }
                 $output .= "</ol>";
             }
-            //error_log($output);
-            
             
             $output .= stripslashes(wp_kses_decode_entities($after));
 

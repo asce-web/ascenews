@@ -319,7 +319,7 @@ class Output {
                 'img' => ( ! empty($post_thumbnail) ) ? '<a href="' . $permalink . '" ' . ($post_title_attr !== $post_title ? 'title="' . $post_title_attr . '" ' : '' ) . 'target="' . $this->admin_options['tools']['link']['target'] . '">' . $post_thumbnail . '</a>' : '',
                 'img_no_link' => $post_thumbnail,
                 'url' => $permalink,
-                'text_title' => $post_title_attr,
+                'text_title' => $post_title,
                 'taxonomy' => $post_taxonomies,
                 'author' => ( ! empty($post_author) ) ? '<a href="' . get_author_posts_url($post_object->uid != $post_id ? get_post_field('post_author', $post_id) : $post_object->uid ) . '">' . $post_author . '</a>' : '',
                 'views' => ( $this->public_options['order_by'] == "views" || $this->public_options['order_by'] == "comments" ) ? number_format_i18n($post_views) : number_format_i18n($post_views, 2),
@@ -386,6 +386,11 @@ class Output {
         } else {
             $title = $post_object->title;
         }
+
+        // Run the_title filter so core/plugin title hooks can
+        // be applied to the post title
+        $title = apply_filters('the_title', $title, $post_object->id);
+
         return apply_filters('wpp_the_title', $title, $post_object->id, $post_id);
     }
 
@@ -534,8 +539,15 @@ class Output {
 
         if ( $this->public_options['stats_tag']['date']['active'] ) {
             // Check locale
-            if ( $current_language_locale = $this->translate->get_locale($this->translate->get_current_language()) ) {
+            if ( ! $current_language_locale = $this->translate->get_locale($this->translate->get_current_language()) ) {
+                $current_language_locale = get_locale();
+            }
+
+            try {
                 Moment\Moment::setLocale($current_language_locale);
+            } // Locale not found, fallback to English (US)
+            catch( \Exception $e ) {
+                Moment\Moment::setLocale('en_US');
             }
 
             $m = new Moment\Moment('@' . strtotime($post_object->date));

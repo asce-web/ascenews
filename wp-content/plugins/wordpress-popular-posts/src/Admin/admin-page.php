@@ -240,6 +240,7 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
         <li <?php echo ('stats' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=stats'); ?>" title="<?php esc_attr_e('Stats', 'wordpress-popular-posts'); ?>"><span><?php _e('Stats', 'wordpress-popular-posts'); ?></span></a></li>
         <li <?php echo ('tools' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=tools'); ?>" title="<?php esc_attr_e('Tools', 'wordpress-popular-posts'); ?>"><span><?php _e('Tools', 'wordpress-popular-posts'); ?></span></a></li>
         <li <?php echo ('params' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=params'); ?>" title="<?php esc_attr_e('Parameters', 'wordpress-popular-posts'); ?>"><span><?php _e('Parameters', 'wordpress-popular-posts'); ?></span></a></li>
+        <li <?php echo ('debug' == $current ) ? 'class="current"' : ''; ?>><a href="<?php echo admin_url('options-general.php?page=wordpress-popular-posts&tab=debug'); ?>" title="Debug"><span>Debug</span></a></li>
     </ul>
 </nav>
 
@@ -874,7 +875,7 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
                         <tr>
                             <td><strong>post_html</strong></td>
                             <td><?php _e('Sets the HTML structure of each post', 'wordpress-popular-posts'); ?></td>
-                            <td><?php _e('Text string, custom HTML', 'wordpress-popular-posts'); ?>.<br /><br /><strong><?php _e('Available Content Tags', 'wordpress-popular-posts'); ?>:</strong> <br /><br /><em>{thumb}</em> (<?php _e('returns thumbnail linked to post/page, requires thumbnail_width & thumbnail_height', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{thumb_img}</em> (<?php _e('returns thumbnail image without linking to post/page, requires thumbnail_width & thumbnail_height', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{thumb_url}</em> (<?php _e('returns thumbnail url, requires thumbnail_width & thumbnail_height', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{title}</em> (<?php _e('returns linked post/page title', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{pid}</em> (<?php _e('returns the post/page ID', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{summary}</em> (<?php _e('returns post/page excerpt, and requires excerpt_length to be greater than 0', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{stats}</em> (<?php _e('returns the default stats tags', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{rating}</em> (<?php _e('returns post/page current rating, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{score}</em> (<?php _e('returns post/page current rating as an integer, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{url}</em> (<?php _e('returns the URL of the post/page', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{text_title}</em> (<?php _e('returns post/page title, no link', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{author}</em> (<?php _e('returns linked author name, requires stats_author=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{category}</em> (<?php _e('returns linked category name, requires stats_category=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{taxonomy}</em> (<?php _e('returns linked taxonomy names, requires stats_taxonomy=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{views}</em> (<?php _e('returns views count only, no text', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{comments}</em> (<?php _e('returns comments count only, no text, requires stats_comments=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{date}</em> (<?php _e('returns post/page date, requires stats_date=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{total_items}</em> (<?php _e('outputs number of popular posts found', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{item_position}</em> (<?php _e('outputs the position of the post in the listing', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{nofollow}</em> (<?php _e('outputs rel="nofollow" for the current post', 'wordpress-popular-posts'); ?>)</td>
+                            <td><?php _e('Text string, custom HTML', 'wordpress-popular-posts'); ?>.<br /><br /><strong><?php _e('Available Content Tags', 'wordpress-popular-posts'); ?>:</strong> <br /><br /><em>{thumb}</em> (<?php _e('returns thumbnail linked to post/page, requires thumbnail_width & thumbnail_height', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{thumb_img}</em> (<?php _e('returns thumbnail image without linking to post/page, requires thumbnail_width & thumbnail_height', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{thumb_url}</em> (<?php _e('returns thumbnail url, requires thumbnail_width & thumbnail_height', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{title}</em> (<?php _e('returns linked post/page title', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{pid}</em> (<?php _e('returns the post/page ID', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{summary}</em> (<?php _e('returns post/page excerpt, and requires excerpt_length to be greater than 0', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{stats}</em> (<?php _e('returns the default stats tags', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{rating}</em> (<?php _e('returns post/page current rating, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{score}</em> (<?php _e('returns post/page current rating as an integer, requires WP-PostRatings installed and enabled', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{url}</em> (<?php _e('returns the URL of the post/page', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{text_title}</em> (<?php _e('returns post/page title, no link', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{author}</em> (<?php _e('returns linked author name, requires stats_author=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{category}</em> (<?php _e('returns linked category name, requires stats_category=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{taxonomy}</em> (<?php _e('returns linked taxonomy names, requires stats_taxonomy=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{views}</em> (<?php _e('returns views count only, no text', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{comments}</em> (<?php _e('returns comments count only, no text, requires stats_comments=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{date}</em> (<?php _e('returns post/page date, requires stats_date=1', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{total_items}</em> (<?php _e('outputs number of popular posts found', 'wordpress-popular-posts'); ?>)<br /><br /> <em>{item_position}</em> (<?php _e('outputs the position of the post in the listing', 'wordpress-popular-posts'); ?>)</td>
                             <td>&lt;li&gt;{thumb} {title} &lt;span class="wpp-meta post-stats"&gt;{stats}&lt;/span&gt;&lt;/li&gt;</td>
                             <td><strong><?php _e('With wpp_get_mostpopular():', 'wordpress-popular-posts'); ?></strong><br /><br />&lt;?php<br />$args = array(<br />&nbsp;&nbsp;&nbsp;&nbsp;'post_html' => '&lt;li&gt;{thumb} &lt;a href="{url}"&gt;{text_title}&lt;/a&gt;&lt;/li&gt;'<br />);<br /><br />wpp_get_mostpopular($args );<br />?&gt;<br /><br /><hr /><br /><strong><?php _e('With the [wpp] shortcode:', 'wordpress-popular-posts'); ?></strong><br /><br />[wpp post_html='&lt;li&gt;{thumb} &lt;a href="{url}"&gt;{text_title}&lt;/a&gt;&lt;/li&gt;']<br /><br /></td>
                         </tr>
@@ -892,6 +893,32 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
     $my_theme = wp_get_theme();
     $site_plugins = get_plugins();
     $plugin_names = [];
+    $performance_nag = get_option('wpp_performance_nag');
+
+    if ( ! $performance_nag ) {
+        $performance_nag = [
+            'status' => 0,
+            'last_checked' => null
+        ];
+    }
+
+    switch($performance_nag['status']) {
+        case 0:
+            $performance_nag_status = 'Inactive';
+            break;
+        case 1:
+            $performance_nag_status = 'Active';
+            break;
+        case 2:
+            $performance_nag_status = 'Remind me later';
+        break;
+        case 3:
+            $performance_nag_status = 'Dismissed';
+            break;
+        default:
+            $performance_nag_status = 'Inactive';
+            break;
+    }
 
     foreach( $site_plugins as $main_file => $plugin_meta ) :
         if ( ! is_plugin_active($main_file) )
@@ -900,14 +927,24 @@ if ( ! $wpp_rand = get_option("wpp_rand") ) {
     endforeach;
     ?>
     <div id="wpp_debug" <?php echo ( "debug" == $current ) ? '' : ' style="display: none;"'; ?>>
+        <h3>Plugin Configuration</h3>
+        <p><strong>Performance Nag:</strong> <?php echo $performance_nag_status; ?></p>
+        <p><strong>Log Limit:</strong> <?php echo ( $this->config['tools']['log']['limit'] ) ? 'Yes, keep data for ' . $this->config['tools']['log']['expires_after'] . ' days' : 'No'; ?></p>
+        <p><strong>Log Views From:</strong> <?php echo ( 0 == $this->config['tools']['log']['level'] ) ? 'Visitors only' : ( (2 == $this->config['tools']['log']['level']) ? 'Logged-in users only' : 'Everyone' ); ?></p>
+        <p><strong>Data Caching:</strong> <?php echo ( $this->config['tools']['cache']['active'] ) ? 'Yes, ' . $this->config['tools']['cache']['interval']['value'] . ' ' . $this->config['tools']['cache']['interval']['time'] : 'No'; ?></p>
+        <p><strong>Data Sampling:</strong> <?php echo ( $this->config['tools']['sampling']['active'] ) ? 'Yes, with a rate of ' . $this->config['tools']['sampling']['rate'] : 'No'; ?></p>
+        <p><strong>External object cache:</strong> <?php echo ( wp_using_ext_object_cache() ) ? 'Yes' : 'No'; ?></p>
+        <p><strong>WPP_CACHE_VIEWS:</strong> <?php echo ( defined('WPP_CACHE_VIEWS') && WPP_CACHE_VIEWS ) ? 'Yes' : 'No'; ?></p>
+
+        <br />
+
+        <h3>System Info</h3>
         <p><strong>PHP version:</strong> <?php echo phpversion(); ?></p>
         <p><strong>PHP extensions:</strong> <?php echo implode(', ', get_loaded_extensions()); ?></p>
         <p><strong>Database version:</strong> <?php echo $wpdb->get_var("SELECT VERSION();"); ?></p>
         <p><strong>InnoDB availability:</strong> <?php echo $wpdb->get_var("SELECT SUPPORT FROM INFORMATION_SCHEMA.ENGINES WHERE ENGINE = 'InnoDB';"); ?></p>
         <p><strong>WordPress version:</strong> <?php echo $wp_version; ?></p>
         <p><strong>Multisite:</strong> <?php echo ( function_exists('is_multisite') && is_multisite() ) ? 'Yes' : 'No'; ?></p>
-        <p><strong>External object cache:</strong> <?php echo ( wp_using_ext_object_cache() ) ? 'Yes' : 'No'; ?></p>
-        <p><strong>WPP_CACHE_VIEWS:</strong> <?php echo ( defined('WPP_CACHE_VIEWS') && WPP_CACHE_VIEWS ) ? 'Yes' : 'No'; ?></p>
         <p><strong>Active plugins:</strong> <?php echo implode(', ', $plugin_names); ?></p>
         <p><strong>Theme:</strong> <?php echo $my_theme->get('Name') . ' (' . $my_theme->get('Version') . ') by ' . $my_theme->get('Author'); ?></p>
     </div>
