@@ -20,15 +20,15 @@ class WPGO_Simple_Sitemap_BootStrap {
 		$root = $this->module_roots['dir'];
 
 		// enqueue plugin scripts
-		require_once( $root . 'classes/enqueue-scripts.php' );
+		require_once( $root . 'lib/classes/enqueue-scripts.php' );
 		new WPGO_Simple_Sitemap_Enqueue_Scripts($this->module_roots);
 
 		// plugin docs/settings page
-		require_once( $root . 'classes/settings.php' );
+		require_once( $root . 'lib/classes/settings.php' );
 		new WPGO_Simple_Sitemap_Settings($this->module_roots);
 		
 		// sitemap shortcodes
-		require_once( $root . 'classes/shortcodes/shortcodes.php' );
+		require_once( $root . 'lib/classes/shortcodes/shortcodes.php' );
 		new WPGO_Simple_Sitemap_Shortcodes($this->module_roots);
 		
 		// localize plugin
