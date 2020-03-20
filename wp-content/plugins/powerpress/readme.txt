@@ -4,7 +4,7 @@ Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts,
 Requires at least: 3.6
 Requires PHP: 5.2
 Tested up to: 5.3.2
-Stable tag: 8.1.2
+Stable tag: 8.2.6
 Donate link: https://create.blubrry.com/resources/podcast-media-hosting/
 License: GPLv2 or later
 
@@ -231,11 +231,56 @@ To install Blubrry PowerPress manually, follow these steps:
 = Next Major Release Announcements =
 * We are looking for beta testers! If you would like to beta test future versions of PowerPress, please [contact us](http://blubrry.com/contact.php#feedback) with your name and email.
 
-* PowerPress 8.1 beta 1 will be available in mid October, 2019! Please visit the [PowerPress Beta]https://create.blubrry.com/resources/powerpress/powerpress-beta/) page for more information.
+* PowerPress 8.3 beta 1 will be available in early March, 2020! Please visit the [PowerPress Beta]https://create.blubrry.com/resources/powerpress/powerpress-beta/) page for more information.
 
 = Fan of PowerPress and want to show your support? =
 If you are a fan of PowerPress, we would greatly appreciate it if you could take a moment and [leave us a review on WordPress.org](https://wordpress.org/support/plugin/powerpress/reviews/?rate=5#new-post). Your support is greatly appreciated!
 
+= 8.2.6 =
+* Released 3/4/2020
+* Fixed a bug that was messing with some users' season numbers
+* Added an option in Settings to display the whole episode box (as opposed to verifying the media link before allowing any metadata to be entered)
+* Fixed a bug that was being caused by translated characters
+* Corrected the powerpress player shortcode [powerpress] in the episode box
+* Fixed some smaller bugs dealing with the functionality of the tabs and the artwork preview for multiple categories
+
+= 8.2.5 =
+* Released 2/20/2020
+* Fixed a bug that was preventing the explicit setting from saving
+
+= 8.2.4 =
+* Released 2/18/2020
+* Minified CSS files for faster loading times
+* Consolidated CSS classes and gave them more unique names so as to avoid conflict with other plugins
+* Added the ability for PowerPress to remember the season of the last episode published and put this as a default value in this field for new posts
+* Made poster image setting visible to all
+
+= 8.2.3 =
+* Released 2/13/2020
+* Added Remove Episode option  back into episode box
+* Fixed a bug where title input wasn't showing up (for users who had selected to specify an episode title)
+* Season value is now allowed to be empty
+* Added a label for the explicit setting
+* Fixed a bug where the settings for the player size weren't showing up for video media
+
+= 8.2.2 =
+* Released 2/12/2020
+* Tweaked id3 library so as to prevent php compatibility errors
+* Fixed a bug that was throwing an error in the subscribe widget
+* Slight CSS tweaks
+
+= 8.2.1 =
+* Released 2/11/2020
+* Fixed editor detection--now styling/responsiveness will accommodate for classic editor
+* Fixed a bug where the .js file wasn't getting loaded for everyone
+* Fixed a bug that would reload the page when a "View More"-type link was clicked
+
+= 8.2 =
+* Released 2/10/2020
+* Eliminated Episode tab--whole episode box appears
+* New interface with multiple tabs and cleaner, clearer settings
+* Media link is now verified automatically
+* Updated id3 library to be compatible with PHP 7.4
 
 = 8.1.2 =
 * Released 1/17/2020
@@ -523,13 +568,12 @@ If you are a fan of PowerPress, we would greatly appreciate it if you could take
 * Quicktime Embed option for m4a audio removed due to security concerns with Quicktime.
 * SWF embed support dropped.
 * Embed link now toggles embed box when clicked multiple times.
-* ATTENTION: The 1 pixel out audio player will be removed from PowerPress 7.1.
 
 = Additional PowerPress Version History =
 Please visit the [PowerPress Version History](http://create.blubrry.com/resources/powerpress/advanced-tools-and-options/powerpress-version-history/) page for history prior to version 6.0.
 
 == Upgrade Notice ==
-ATTENTION: The 1 pixel out audio player will be removed from PowerPress 7.1.
+None
 
 == Contributors ==
 Angelo Mandato, CIO [Blubrry](http://www.blubrry.com) - Plugin founder, architect and lead developer
