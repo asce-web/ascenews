@@ -1,0 +1,46 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: lib/src/blocks/simple-sitemap-group/index.js:95
+#: lib/src/blocks/simple-sitemap/index.js:108
+#: modules/src/blocks/simple-sitemap-group/index.js:155
+#: modules/src/blocks/simple-sitemap/index.js:193
+msgid "General Settings"
+msgstr ""
+
+#: lib/src/blocks/simple-sitemap/index.js:163
+#: modules/src/blocks/simple-sitemap/index.js:302
+msgid "Tab Settings"
+msgstr ""
+
+#: lib/src/blocks/simple-sitemap/index.js:168
+#: modules/src/blocks/simple-sitemap/index.js:342
+msgid "Page Settings"
+msgstr ""
+
+#: modules/src/blocks/simple-sitemap-group/index.js:218
+#: modules/src/blocks/simple-sitemap/index.js:256
+msgid "Heading Settings"
+msgstr ""
+
+#: modules/src/blocks/simple-sitemap-group/index.js:229
+#: modules/src/blocks/simple-sitemap/index.js:267
+msgid "Container Settings"
+msgstr ""
+
+#: modules/src/blocks/simple-sitemap-group/index.js:240
+#: modules/src/blocks/simple-sitemap/index.js:278
+msgid "Sitemap Item Settings"
+msgstr ""
+
+#: modules/src/blocks/simple-sitemap-group/index.js:254
+#: modules/src/blocks/simple-sitemap/index.js:292
+msgid "Excerpt Settings"
+msgstr ""
+
+#: modules/src/blocks/simple-sitemap-group/index.js:259
+#: modules/src/blocks/simple-sitemap/index.js:297
+msgid "Featured Image Settings"
+msgstr ""

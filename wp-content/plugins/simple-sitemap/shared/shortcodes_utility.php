@@ -164,7 +164,6 @@ class WPGO_Shortcode_Utility {
 			echo '</div>';
 
 		endif;
-
 	}
 
 	public static function get_the_title( $title_text, $permalink, $args, $parent_page = false, $parent_page_link = '1' ) {

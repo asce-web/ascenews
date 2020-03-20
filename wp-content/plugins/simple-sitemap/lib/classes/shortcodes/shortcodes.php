@@ -26,11 +26,11 @@ class WPGO_Simple_Sitemap_Shortcodes {
 		require_once( $root . 'shared/shortcodes_utility.php' );		
 
 		// [simple-sitemap] shortcode
-		require_once( $root . 'classes/shortcodes/simple-sitemap-shortcode.php' );
+		require_once( $root . 'lib/classes/shortcodes/simple-sitemap-shortcode.php' );
 		new WPGO_Simple_Sitemap_Shortcode($this->module_roots);
 
 		// [simple-sitemap-group] shortcode
-		require_once( $root . 'classes/shortcodes/simple-sitemap-group-shortcode.php' );
+		require_once( $root . 'lib/classes/shortcodes/simple-sitemap-group-shortcode.php' );
 		new WPGO_Simple_Sitemap_Group_Shortcode($this->module_roots);
 	}
 

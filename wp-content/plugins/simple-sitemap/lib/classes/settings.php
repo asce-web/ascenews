@@ -183,7 +183,7 @@
 
 					All shortcode attributes are now supported inside the editor via a specially built user interface.
 
-					<div style="margin-top:20px;text-align:center;"><img style="max-width:550px;" src="<?php echo $this->module_roots['pdir']; ?>assets/images/simple-sitemap-block.png" /></div>
+					<div style="margin-top:20px;text-align:center;"><img style="max-width:550px;" src="<?php echo $this->module_roots['pdir']; ?>shared/images/simple-sitemap-block.png" /></div>
 
 					<div>
 						<h4>Usage Instructions:</h4>
@@ -205,7 +205,7 @@
 
 				<div id="shortcodes-wrap">
 
-					<p>Click on the shortcodes below to view the full documentation for each shortcode. We now recommend using sitemap blocks inside the new WordPress editor rather than shortcodes.</p>
+					<p>Click on the shortcodes below to view the full documentation for each shortcode. We recommend using sitemap blocks inside the new WordPress editor rather than shortcodes.</p>
 	
 					<p style="margin:15px 0 0 0;"><code><a class="code-link" href="https://wpgoplugins.com/document/simple-sitemap-pro-documentation/#simple-sitemap" target="_blank">[simple-sitemap]</a></code> <?php printf( __( 'Displays a list of posts for one or more post types.', 'simple-sitemap' ) ); ?></p>
 
@@ -244,7 +244,7 @@
 						<li><code>separator="false"</code> <?php echo $pro_attribute; ?> - Optionally render separator lines inbetween sitemap items.</li>
 						<li><code>horizontal="false"</code> <?php echo $pro_attribute; ?> - Set to "true" to display sitemap items in a flat horizontal list. Great for adding a sitemap to the footer!</li>
 						<li><code>horizontal_separator=", "</code> <?php echo $pro_attribute; ?> - The character(s) used to separate sitemap items. Use with the 'horizontal' attribute.</li>
-						<li><code>nofollow="0"</code> <?php echo $pro_attribute; ?> - Set to "1" to make sitemap links <a href="https://en.wikipedia.org/wiki/Nofollow" target="_blank">nofollow</a>.</li>
+						<li><code>nofollow="false"</code> <?php echo $pro_attribute; ?> - Set to "true" to make sitemap links <a href="https://en.wikipedia.org/wiki/Nofollow" target="_blank">nofollow</a>.</li>
 						<li><code>numposts="-1"</code> <?php echo $pro_attribute; ?> - Limit the number of posts outputted in the sitemap.</li>
 						<li><code>visibility="true"</code> <?php echo $pro_attribute; ?> - Control whether private posts/pages are displayed in the sitemap.</li>
 					</ul>
@@ -276,7 +276,7 @@
 						<li><code>numposts="-1"</code> <?php echo $pro_attribute; ?> - Limit the number of posts outputted in the sitemap.</li>
 						<li><code>horizontal="false"</code> <?php echo $pro_attribute; ?> - Set to "true" to display sitemap items in a flat horizontal list. Great for adding a sitemap to the footer!</li>
 						<li><code>horizontal_separator=", "</code> <?php echo $pro_attribute; ?> - The character(s) used to separate sitemap items. Use with the 'horizontal' attribute.</li>
-						<li><code>nofollow="0"</code> <?php echo $pro_attribute; ?> - Set to "1" to make sitemap links <a href="https://en.wikipedia.org/wiki/Nofollow" target="_blank">nofollow</a>.</li>
+						<li><code>nofollow="false"</code> <?php echo $pro_attribute; ?> - Set to "true" to make sitemap links <a href="https://en.wikipedia.org/wiki/Nofollow" target="_blank">nofollow</a>.</li>
 					</ul>
 				</div>
 			</div>
@@ -296,7 +296,7 @@
 				<tr valign="top">
 					<th scope="row">Help support this plugin</th>
 					<td>
-						<div style="float:left;"><a style="margin-right:10px;line-height:0;display:block;" href="<?php echo $freemius_upgrade_url; ?>"><img style="box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);width:75px;border-radius:2px;border:2px white solid;" src="<?php echo $this->module_roots['pdir']; ?>assets/images/david.png"></a></div>
+						<div style="float:left;"><a style="margin-right:10px;line-height:0;display:block;" href="<?php echo $freemius_upgrade_url; ?>"><img style="box-shadow:0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);width:75px;border-radius:2px;border:2px white solid;" src="<?php echo $this->module_roots['pdir']; ?>lib/assets/images/david.png"></a></div>
 						<p style="margin-top:0;">Hi there, I'm David. I spend a lot of time developing FREE WordPress plugins like this one. If you like Simple Sitemap and use it on your website please consider making a <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FBAG4ZHA4TTUC" target="_blank">donation</a>, or purchase the <a href="<?php echo $freemius_upgrade_url; ?>">pro version</a>, to help fund continued development (and keep Dexter in doggy biscuits!).</p>
 					</td>
 				</tr>
@@ -305,15 +305,15 @@
 					<th scope="row">Try our other top plugins!</th>
 					<td>
 						<table class="other-plugins-tbl">
-							<tr><td><a class="plugin-image-link" href="https://wpgoplugins.com/plugins/flexible-faqs/" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>assets/images/flexible-faq-thumb.png"></a></td></tr>
+							<tr><td><a class="plugin-image-link" href="https://wpgoplugins.com/plugins/flexible-faqs/" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>shared/images/flexible-faq-thumb.png"></a></td></tr>
 							<tr><td class="plugin-text-link"><div><h3><a href="https://wpgoplugins.com/plugins/flexible-faqs/" target="_blank">Flexible FAQs</a></h3></div></td></tr>
 						</table>
 						<table class="other-plugins-tbl">
-							<tr><td><a class="plugin-image-link" href="https://wpgoplugins.com/plugins/content-censor/" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>assets/images/content-censor-thumb.png"></a></td></tr>
+							<tr><td><a class="plugin-image-link" href="https://wpgoplugins.com/plugins/content-censor/" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>shared/images/content-censor-thumb.png"></a></td></tr>
 							<tr><td class="plugin-text-link"><div><h3><a href="https://wpgoplugins.com/plugins/content-censor/" target="_blank">Content Censor</a></h3></div></td></tr>
 						</table>
 						<table class="other-plugins-tbl">
-							<tr><td><a class="plugin-image-link" href="https://wpgoplugins.com/plugins/seo-media-manager/" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>assets/images/seo-media-manager-thumb.png"></a></td></tr>
+							<tr><td><a class="plugin-image-link" href="https://wpgoplugins.com/plugins/seo-media-manager/" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>shared/images/seo-media-manager-thumb.png"></a></td></tr>
 							<tr><td class="plugin-text-link"><div><h3><a href="https://wpgoplugins.com/plugins/seo-media-manager/" target="_blank">SEO Media Manager</a></h3></div></td></tr>
 						</table>
 					</td>
@@ -331,9 +331,9 @@
 					<th scope="row">Keep in touch...</th>
 					<td>
 						<div><p style="margin-bottom:10px;">Come and say hello. I'd love to hear from you!</p>
-							<span><a class="social-link" href="http://www.twitter.com/dgwyer" title="Follow us on Twitter" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>assets/images/twitter.png" /></a></span>
-							<span><a class="social-link" href="https://www.facebook.com/wpgoplugins/" title="Our Facebook page" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>assets/images/facebook.png" /></a></span>
-							<span><a class="social-link" href="https://www.youtube.com/channel/UCWzjTLWoyMgtIfpDgJavrTg" title="View our YouTube channel" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>assets/images/yt.png" /></a></span>
+							<span><a class="social-link" href="http://www.twitter.com/dgwyer" title="Follow us on Twitter" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>shared/images/twitter.png" /></a></span>
+							<span><a class="social-link" href="https://www.facebook.com/wpgoplugins/" title="Our Facebook page" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>shared/images/facebook.png" /></a></span>
+							<span><a class="social-link" href="https://www.youtube.com/channel/UCWzjTLWoyMgtIfpDgJavrTg" title="View our YouTube channel" target="_blank"><img src="<?php echo $this->module_roots['pdir']; ?>shared/images/yt.png" /></a></span>
 							<span><a style="text-decoration:none;" title="Need help with ANY aspect of WordPress? We're here to help!" href="https://wpgoplugins.com/need-help-with-wordpress/" target="_blank"><span style="margin-left:-2px;color:#d41515;font-size:39px;line-height:32px;width:39px;height:39px;" class="dashicons dashicons-sos"></span></a></span>
 						</div>
 					</td>

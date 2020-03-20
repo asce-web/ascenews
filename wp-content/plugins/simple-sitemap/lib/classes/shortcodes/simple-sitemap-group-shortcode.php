@@ -13,7 +13,7 @@ class WPGO_Simple_Sitemap_Group_Shortcode {
 	}
 
 	/* Shortcode function. */
-	public function render($attr) {
+	public static function render($attr) {
 
 		/* Get attributes from the shortcode. */
 		$args = shortcode_atts( array(
@@ -31,7 +31,7 @@ class WPGO_Simple_Sitemap_Group_Shortcode {
 			// delete from free plugin
 			'image' => 'false',
 			'list_icon' => 'true',
-			'nofollow' => 0,
+			'nofollow' => 'false',
 			'visibility' => 'true',
 			'include_terms' => '',
 			'exclude_terms' => '',
@@ -65,7 +65,7 @@ class WPGO_Simple_Sitemap_Group_Shortcode {
 		$args['block_post_type'] = $args['type'];
 		$args['image'] = 'false';
 		$args['list_icon'] = 'true';
-		$args['nofollow'] = 0;
+		$args['nofollow'] = 'false';
 		$args['visibility'] = 'true';
 		$args['include_terms'] = '';
 		$args['exclude_terms'] = '';

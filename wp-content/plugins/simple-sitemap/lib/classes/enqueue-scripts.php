@@ -31,8 +31,8 @@ class WPGO_Simple_Sitemap_Enqueue_Scripts {
 			has_block( 'wpgoplugins/simple-sitemap-block' ) ||
 			has_block( 'wpgoplugins/simple-sitemap-group-block' )
 			) {
-				wp_enqueue_style( 'simple-sitemap-css', plugins_url( 'assets/css/simple-sitemap.css', $this->module_roots['file'] ) );
-				//wp_enqueue_script( 'simple-sitemap-js', plugins_url( 'assets/js/simple-sitemap.js', $this->module_roots['file'] ), array('jquery') );
+				wp_enqueue_style( 'simple-sitemap-css', plugins_url( 'lib/assets/css/simple-sitemap.css', $this->module_roots['file'] ) );
+				//wp_enqueue_script( 'simple-sitemap-js', plugins_url( 'lib/assets/js/simple-sitemap.js', $this->module_roots['file'] ), array('jquery') );
 		} */
 
 		// only enqueue scripts on pages containing sitemap blocks
@@ -41,7 +41,7 @@ class WPGO_Simple_Sitemap_Enqueue_Scripts {
 			has_block( 'wpgoplugins/simple-sitemap-block' ) ||
 			has_block( 'wpgoplugins/simple-sitemap-group-block' )
 			) ) {
-			wp_enqueue_style( 'simple-sitemap-css', plugins_url( 'assets/css/simple-sitemap.css', $this->module_roots['file'] ) );
+			wp_enqueue_style( 'simple-sitemap-css', plugins_url( 'lib/assets/css/simple-sitemap.css', $this->module_roots['file'] ) );
 			//wp_enqueue_script( 'simple-sitemap-js', plugins_url( 'assets/js/simple-sitemap.js', $this->module_roots['file'] ), array('jquery') );
 		} elseif (
 			!has_blocks() ||
@@ -50,9 +50,9 @@ class WPGO_Simple_Sitemap_Enqueue_Scripts {
 			has_block( 'wpgoplugins/simple-sitemap-group-block' )
 			)	) {
 			// Add scripts to the editor if no blocks, or no sitemap blocks, have been added. Otherwise when a sitemap block is added the sitemap scripts won't have been enqueued yet.
-			wp_enqueue_style( 'simple-sitemap-css', plugins_url( 'assets/css/simple-sitemap.css', $this->module_roots['file'] ) );
+			wp_enqueue_style( 'simple-sitemap-css', plugins_url( 'lib/assets/css/simple-sitemap.css', $this->module_roots['file'] ) );
 			//wp_enqueue_script( 'simple-sitemap-js', plugins_url( 'assets/js/simple-sitemap.js', $this->module_roots['file'] ), array('jquery') );
-		}		
+		}
 	}
 
 	/* Scripts for plugin settings page only. */
@@ -62,8 +62,8 @@ class WPGO_Simple_Sitemap_Enqueue_Scripts {
 			return;
 		}
 
-		wp_enqueue_style( 'simple-sitemap-settings-css', plugins_url('assets/css/simple-sitemap-admin.css', $this->module_roots['file']) );
-		wp_enqueue_script( 'simple-sitemap-settings-js', plugins_url('assets/js/simple-sitemap-admin.js', $this->module_roots['file']) );
+		wp_enqueue_style( 'simple-sitemap-settings-css', plugins_url('lib/assets/css/simple-sitemap-admin.css', $this->module_roots['file']) );
+		wp_enqueue_script( 'simple-sitemap-settings-js', plugins_url('lib/assets/js/simple-sitemap-admin.js', $this->module_roots['file']) );
 	}
 	
 	/**
@@ -78,7 +78,7 @@ class WPGO_Simple_Sitemap_Enqueue_Scripts {
 			// @todo if not used then this and all refs. can be removed
 			wp_register_script(
 				'simple-sitemap-block',
-				plugins_url( 'block_assets/js/blocks.editor.js', $this->module_roots['file'] ),
+				plugins_url( 'lib/block_assets/js/blocks.editor.js', $this->module_roots['file'] ),
 				array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' )
 			);
 
