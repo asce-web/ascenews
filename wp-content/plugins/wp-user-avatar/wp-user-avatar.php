@@ -1,16 +1,11 @@
 <?php
-/**
- * @package WP User Avatar
- * @version 2.2.5
- */
-
 /*
 Plugin Name: WP User Avatar
 Plugin URI: http://wordpress.org/plugins/wp-user-avatar/
 Description: Use any image from your WordPress Media Library as a custom user avatar. Add your own Default Avatar.
-Author: flippercode
-Author URI: http://www.flippercode.com/
-Version: 2.2.5
+Author: ProfilePress
+Author URI: https://profilepress.net/
+Version: 2.2.6
 Text Domain: wp-user-avatar
 Domain Path: /lang/
 */
@@ -83,6 +78,7 @@ class WP_User_Avatar_Setup {
     require_once(WPUA_INC.'class-wp-user-avatar-subscriber.php');
     require_once(WPUA_INC.'class-wp-user-avatar-update.php');
     require_once(WPUA_INC.'class-wp-user-avatar-widget.php');
+    require_once(WPUA_INC.'mo-notice.php');
     
     // Load TinyMCE only if enabled
     if((bool) $wpua_tinymce == 1) {
