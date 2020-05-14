@@ -3,8 +3,8 @@ Contributors: zinoui
 Donate link: https://zinoui.com/donation
 Tags: custom headers, http headers, headers, security, http header, header, cross domain, cors, xss, clickjacking, mitm, cross origin, cross site, privacy, p3p, hsts, referrer, csp, caching, compression, access control, authentication
 Requires at least: 3.2
-Tested up to: 5.3.2
-Stable tag: 1.15.0
+Tested up to: 5.4.1
+Stable tag: 1.15.1
 License: GPLv2 or later
 
 HTTP Headers adds CORS & security HTTP headers to your website.
@@ -34,6 +34,8 @@ Headers supported by HTTP Headers includes:
 * Expires
 * Feature-Policy
 * Pragma
+* ~~Public-Key-Pins~~
+* ~~Public-Key-Pins-Report-Only~~
 * P3P
 * Referrer-Policy
 * Report-To
@@ -80,6 +82,11 @@ These HTTP headers are being used in production services by popular websites as 
 Updates are on they way, so stay tuned at [@DimitarIvanov](https://twitter.com/DimitarIvanov)
 
 == Changelog ==
+
+= 1.15.1 =
+*Release Date - 9th May, 2020*
+
+* Fixed the "Access-Control-Allow-Origin" header
 
 = 1.15.0 =
 *Release Date - 26th January, 2020*

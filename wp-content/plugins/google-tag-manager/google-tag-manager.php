@@ -2,8 +2,8 @@
 /*
 Plugin Name: Google Tag Manager
 Plugin URI: http://wordpress.org/extend/plugins/google-tag-manager/
-Description: This is an implementation of the new Tag Management system from Google. It adds a field to the existing General Settings page for the ID, and if specified, outputs the tag management javascript in the page footer.
-Version: 1.0.2
+Description: This is an implementation of the Tag Management system from Google. It adds a field to the existing General Settings page for the ID, and if specified, outputs the tag management javascript in the page footer.
+Version: 1.0.3
 Author: George Stephanis
 Author URI: http://stephanis.info
 License: GPLv2 or later
@@ -16,6 +16,7 @@ class google_tag_manager {
 	public static function go() {
 		add_filter( 'admin_init',     array( __CLASS__, 'register_fields' ) );
 		add_action( 'wp_head',        array( __CLASS__, 'print_tag' ) );
+		add_action( 'wp_body_open',   array( __CLASS__, 'print_noscript_tag' ) ); // Core's new implementation! https://make.wordpress.org/themes/2019/03/29/addition-of-new-wp_body_open-hook/
 		add_action( 'genesis_before', array( __CLASS__, 'print_noscript_tag' ) ); // Genesis
 		add_action( 'tha_body_top',   array( __CLASS__, 'print_noscript_tag' ) ); // Theme Hook Alliance
 		add_action( 'body_top',       array( __CLASS__, 'print_noscript_tag' ) ); // THA Unprefixed

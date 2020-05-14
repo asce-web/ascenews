@@ -3,12 +3,12 @@ Contributors: georgestephanis
 Donate link: http://www.charitywater.org/donate/
 Tags: google, tag manager, tag management, analytics, theme hook alliance, genesis
 Requires at least: 2.7
-Tested up to: 4.7
-Stable tag: 1.0.2
+Tested up to: 5.4.1
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The Google Tag Manager plugin adds a field to the existing General Settings page for the ID and outputs the javascript in the front-end footer.
+The Google Tag Manager plugin adds a field to the existing General Settings page for the ID and outputs the javascript to make it work.
 
 == Description ==
 
@@ -31,6 +31,9 @@ This plugin makes it even easier to use Google Tag Manager, adding all the code 
 Two possibilities: First, you haven't yet specified the ID in the admin panel, or second, your theme is missing a `<?php wp_footer(); ?>` call.
 
 == Changelog ==
+
+= 1.0.3 =
+* Add support for the new `wp_body_open` hook in core.
 
 = 1.0.2 =
 * Switch to the new split-format for Google Tag Manager javascript and iframe format.

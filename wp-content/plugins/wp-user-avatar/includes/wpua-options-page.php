@@ -56,7 +56,6 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
   <form method="post" action="<?php echo admin_url('options.php'); ?>">
     <?php settings_fields('wpua-settings-group'); ?>
     <?php do_settings_fields('wpua-settings-group', ""); ?>
-    <?php do_action('wpua_donation_message'); ?>
     <table class="form-table">
       <?php
         // Format settings in table rows
@@ -205,29 +204,5 @@ $wpua_options_page_title = apply_filters('wpua_options_page_title', $wpua_option
   </form>
   
 </td>
-    <td>
-    <div id="fc-sidebar">
-    <div class="fc-box">
-    <h3>WP User Avatar Pro</h3>
-    <p><a target="_blank" href="http://www.wpuseravatar.com"><img width="500" src="<?php echo WPUA_URL.'images/wp-user-avatar-banner.png'; ?>" /></a></p>
-    <p><em>Introducing awesome features to enhance user experience when they upload own avatar.</em></p>
-    <p>Pro features include webcam, custom folder, amazon s3 storage, dropbox storage, cropping and priority support.</p>
-    <p><a class="button button-primary button-large" target="_blank" href="http://www.wpuseravatar.com">View Features »</a></p>
-  </div>
-  <div class="fc-box">
-    <h4>Looking for support?</h4>
-    <p>Use the <a target="_blank" href="http://www.flippercode.com/forums">support forums</a> on flippercode.com.</p>
-  </div>
-
-  <div class="fc-box">
-    <h4>Your Appreciation</h4>
-    <ul class="ul-square">
-      <li><a target="_blank" href="http://www.wpuseravatar.com/">Upgrade to WP User Avatar Pro</a></li>
-      <li><a target="_blank" href="https://wordpress.org/support/view/plugin-reviews/wp-user-avatar?rate=5#postform">Leave a ★★★★★ plugin review on WordPress.org</a></li>
-      <li><a target="_blank" href="https://wordpress.org/plugins/wp-user-avatar/">Vote "works" on the WordPress.org plugin page</a></li>
-    </ul>
-  </div>
-</div>
-    </td>
   </tr></table>
 </div>

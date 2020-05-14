@@ -3,8 +3,8 @@ Contributors: amandato, blubrry
 Tags: podcasting, podcast, podcaster, powerpress, itunes, apple, apple podcasts, google podcasts, google play, enclosure, professional, apple, apple tv, ipad, iphone, soundcloud, squarespace, youtube, viddler, ustream, podcasting, audio, video, rss2, feed, player, media, rss, mp3, music, embed, feedburner, statistics, stats, flv, flash, id3, episodes, blubrry, mp4, m4v, wordpressmu, mu, wordpress mu, multisite, multi site, mediacaster, post, plugin, posts, simple, social, dashboard, TSG, Buzzsprout, MTR, WP-boxCast, CastMyBlog, tgs podcasting,  simple podcasting, seriously simple podcasting, seriously-simple-podcasting, serious, seriously, ssp, podlove, podcast.de, clammr, clammr radio, audio player, stitcher, tunein, show, shows, series, docs, documentation, support, free, add-ons, extensions, addons, libsyn, libsyn-podcasting, podbean, podomatic, spreaker
 Requires at least: 3.6
 Requires PHP: 5.2
-Tested up to: 5.3.2
-Stable tag: 8.2.6
+Tested up to: 5.4
+Stable tag: 8.2.11
 Donate link: https://create.blubrry.com/resources/podcast-media-hosting/
 License: GPLv2 or later
 
@@ -231,10 +231,45 @@ To install Blubrry PowerPress manually, follow these steps:
 = Next Major Release Announcements =
 * We are looking for beta testers! If you would like to beta test future versions of PowerPress, please [contact us](http://blubrry.com/contact.php#feedback) with your name and email.
 
-* PowerPress 8.3 beta 1 will be available in early March, 2020! Please visit the [PowerPress Beta]https://create.blubrry.com/resources/powerpress/powerpress-beta/) page for more information.
+* PowerPress 8.3 beta 1 will be available in April, 2020! Please visit the [PowerPress Beta]https://create.blubrry.com/resources/powerpress/powerpress-beta/) page for more information.
 
 = Fan of PowerPress and want to show your support? =
 If you are a fan of PowerPress, we would greatly appreciate it if you could take a moment and [leave us a review on WordPress.org](https://wordpress.org/support/plugin/powerpress/reviews/?rate=5#new-post). Your support is greatly appreciated!
+
+= 8.2.11 =
+* Released 04/29/2020
+* Entry Box Settings are back--this time, find them by clicking the gear in the upper right of the entry box
+* The Permalinks setting has been moved from the Website tab in Settings to the new Entry Box Settings
+* Fixed a bug from 8.2.10 where media couldn't be removed from a post
+* Fixed a bug where "Verify" error messages were not showing up in the right spot
+
+= 8.2.10 =
+* Released 04/23/2020
+* Update design for episode box--media URL section and Remove Episode moved
+* Artwork previews now will use default images rather than broken ones
+* Fixed a compatibility issue with older php versions
+
+= 8.2.9 =
+* Released 04/03/2020
+* Corrected a typo in Non-Profit Apple category
+* Fixed bug with PodPress data clobbering an already imported episode in certain circumstances.
+* Added logic to handle importing with all supported Blubrry media URLs.
+
+
+= 8.2.8 =
+* Released 3/30/2020
+* Tested with new WordPress 5.4 beta
+* Subscribe on Email is now toggled by the checkbox in the Settings tab
+* Fixed a bug where Apple category tags with no subcategory were not generated correctly
+
+= 8.2.7 =
+* Released 3/20/2020
+* Stopped filling a default season number
+* Started displaying all of PowerPress to new installs so that the Settings link isn't broken on the Plugins page
+* Fixed a bug where GUIDs were not preserved on import for some feeds with newer versions of WordPress
+* Added the dark theme again which was mistakenly removed from the minified CSS file
+* Deleted notification about Apple's category changes
+* Fixed a number of small CSS problems
 
 = 8.2.6 =
 * Released 3/4/2020
