@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP USER AVATAR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-20 11:46+0530\n"
-"PO-Revision-Date: 2020-02-20 11:46+0530\n"
-"Last-Translator: Flipper Code <hello@flippercode.com>\n"
-"Language-Team: Flipper Code <hello@flippercode.com>\n"
+"POT-Creation-Date: 2020-04-22 11:23+0100\n"
+"PO-Revision-Date: 2020-04-22 11:27+0100\n"
+"Last-Translator: ProfilePress <https://profilepress.net/>\n"
+"Language-Team: ProfilePress <https://profilepress.net/>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: includes/class-wp-user-avatar-admin.php:113
@@ -30,7 +30,7 @@ msgstr ""
 
 #: includes/class-wp-user-avatar-admin.php:114
 #: includes/class-wp-user-avatar-admin.php:298
-#: includes/wpua-options-page.php:73
+#: includes/wpua-options-page.php:72
 msgid "Settings"
 msgstr ""
 
@@ -73,7 +73,7 @@ msgstr ""
 
 #: includes/class-wp-user-avatar-admin.php:267
 #: includes/class-wp-user-avatar-admin.php:381
-#: includes/wpua-options-page.php:194 includes/wpua-options-page.php:197
+#: includes/wpua-options-page.php:193 includes/wpua-options-page.php:196
 msgid "Default Avatar"
 msgstr ""
 
@@ -200,7 +200,7 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: includes/class-wp-user-avatar.php:185 includes/wpua-options-page.php:125
+#: includes/class-wp-user-avatar.php:185 includes/wpua-options-page.php:124
 #, php-format
 msgid "Maximum upload file size: %d%s."
 msgstr ""
@@ -338,80 +338,80 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: includes/wpua-options-page.php:81
+#: includes/wpua-options-page.php:80
 msgid "Add avatar button to Visual Editor"
 msgstr ""
 
-#: includes/wpua-options-page.php:87
+#: includes/wpua-options-page.php:86
 msgid "Allow Contributors & Subscribers to upload avatars"
 msgstr ""
 
-#: includes/wpua-options-page.php:93
+#: includes/wpua-options-page.php:92
 msgid "Disable Gravatar and use only local avatars"
 msgstr ""
 
-#: includes/wpua-options-page.php:115 includes/wpua-options-page.php:120
+#: includes/wpua-options-page.php:114 includes/wpua-options-page.php:119
 msgid "Upload Size Limit"
 msgstr ""
 
-#: includes/wpua-options-page.php:115 includes/wpua-options-page.php:120
+#: includes/wpua-options-page.php:114 includes/wpua-options-page.php:119
 msgid "(only for Contributors & Subscribers)"
 msgstr ""
 
-#: includes/wpua-options-page.php:123
+#: includes/wpua-options-page.php:122
 #, php-format
 msgid "%s exceeds the maximum upload size for this site."
 msgstr ""
 
-#: includes/wpua-options-page.php:130
+#: includes/wpua-options-page.php:129
 msgid "Allow users to edit avatars"
 msgstr ""
 
-#: includes/wpua-options-page.php:136
+#: includes/wpua-options-page.php:135
 msgid "Resize avatars on upload"
 msgstr ""
 
-#: includes/wpua-options-page.php:140
+#: includes/wpua-options-page.php:139
 msgid "Width"
 msgstr ""
 
-#: includes/wpua-options-page.php:142
+#: includes/wpua-options-page.php:141
 msgid "Height"
 msgstr ""
 
-#: includes/wpua-options-page.php:146
+#: includes/wpua-options-page.php:145
 msgid "Crop avatars to exact dimensions"
 msgstr ""
 
-#: includes/wpua-options-page.php:162 includes/wpua-options-page.php:165
+#: includes/wpua-options-page.php:161 includes/wpua-options-page.php:164
 msgid "Avatar Display"
 msgstr ""
 
-#: includes/wpua-options-page.php:168
+#: includes/wpua-options-page.php:167
 msgid "Show Avatars"
 msgstr ""
 
-#: includes/wpua-options-page.php:174 includes/wpua-options-page.php:177
+#: includes/wpua-options-page.php:173 includes/wpua-options-page.php:176
 msgid "Maximum Rating"
 msgstr ""
 
-#: includes/wpua-options-page.php:180
+#: includes/wpua-options-page.php:179
 msgid "G &#8212; Suitable for all audiences"
 msgstr ""
 
-#: includes/wpua-options-page.php:181
+#: includes/wpua-options-page.php:180
 msgid "PG &#8212; Possibly offensive, usually for audiences 13 and above"
 msgstr ""
 
-#: includes/wpua-options-page.php:182
+#: includes/wpua-options-page.php:181
 msgid "R &#8212; Intended for adult audiences above 17"
 msgstr ""
 
-#: includes/wpua-options-page.php:183
+#: includes/wpua-options-page.php:182
 msgid "X &#8212; Even more mature than above"
 msgstr ""
 
-#: includes/wpua-options-page.php:198
+#: includes/wpua-options-page.php:197
 msgid ""
 "For users without a custom avatar of their own, you can either display a "
 "generic logo or a generated one based on their e-mail address."

@@ -622,7 +622,7 @@ else
 <?php echo __('Show the most recent', 'powerpress'); ?>
 </th>
 <td>
-<p><input type="text" name="Feed[posts_per_rss]" style="width: 50px;"  value="<?php echo ( !empty($FeedSettings['posts_per_rss'])? $FeedSettings['posts_per_rss']:''); ?>" maxlength="5" /> <?php echo sprintf(__('episodes / posts per feed (site default: %d, maximum: %d)', 'powerpress'), get_option('posts_per_rss'), 300); ?></p>
+<p><input type="text" name="Feed[posts_per_rss]" style="width: 50px;"  value="<?php echo ( !empty($FeedSettings['posts_per_rss'])? $FeedSettings['posts_per_rss']:''); ?>" maxlength="5" /> <?php echo sprintf(__('episodes / posts per feed (site default: %d, recommended: %d)', 'powerpress'), get_option('posts_per_rss'), 300); ?></p>
 <p style="margin-top: 5px; margin-bottom: 0; font-weight: bold;"><?php echo __('Please enable the <i>Feed Episode Maximizer</i> option to optimize your feed for more than 10 episodes.', 'powerpress'); ?></p>
 </td>
 </tr>
@@ -918,7 +918,6 @@ function powerpressadmin_edit_itunes_feed($FeedSettings, $General, $FeedAttribs 
         <select <?php echo $errorClass ?>  name="Feed[apple_cat_1]" class="bpp_input_med">
             <?php
 
-            $Categories = powerpress_itunes_categories(true);
             $AppleCategories = powerpress_apple_categories(true);
 
             echo '<option value="">'. __('Select Category', 'powerpress') .'</option>';
@@ -926,7 +925,6 @@ function powerpressadmin_edit_itunes_feed($FeedSettings, $General, $FeedAttribs 
             foreach( $AppleCategories as $value=> $desc ) {
                 echo "\t<option value=\"$value\"" . ($FeedSettings['apple_cat_1'] == $value ? ' selected' : '') . ">" . htmlspecialchars($desc) . "</option>\n";
             }
-            reset($Categories);
             ?>
         </select>
         <p style="width: 250px;">
@@ -935,7 +933,7 @@ function powerpressadmin_edit_itunes_feed($FeedSettings, $General, $FeedAttribs 
         <?php
         if($errorClass == "class='pp-form-error'") {
             echo '<p style="width: 250px;">';
-            echo __('Please enter an Apple Podcasts category to prepare yourself for the new 2019 categories', 'powerpress');
+            echo __('Please enter an Apple Podcasts category', 'powerpress');
             echo '</p>';                }
         else {
             echo '<p style="height: 42px;">&puncsp;</p>';
@@ -973,7 +971,6 @@ function powerpressadmin_edit_itunes_feed($FeedSettings, $General, $FeedAttribs 
             echo "\t<option value=\"$value\"" . ($FeedSettings['apple_cat_2'] == $value ? ' selected' : '') . ">" . htmlspecialchars($desc) . "</option>\n";
         }
 
-        reset($Categories);
         ?>
     </select>
     <?php
@@ -1014,7 +1011,6 @@ function powerpressadmin_edit_itunes_feed($FeedSettings, $General, $FeedAttribs 
             echo "\t<option value=\"$value\"" . ($FeedSettings['apple_cat_3'] == $value ? ' selected' : '') . ">" . htmlspecialchars($desc) . "</option>\n";
         }
 
-        reset($Categories);
         ?>
     </select>
     <?php

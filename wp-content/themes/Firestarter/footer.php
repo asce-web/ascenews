@@ -3,21 +3,16 @@ $theme_options = get_option('option_tree');
 $tf_google_analytics = get_option_tree('tf_google_analytics', $theme_options, false);
 $tf_footertext = get_option_tree('tf_footertext', $theme_options, false);
 ?>
-
-
-</div><!--contentwrapper-->
-
+	</div><!--contentwrapper-->
 </div><!--innerwrapper-->
-
 
 <div id="footer">
   <div class="social">
     <ul class="social-menu">
-      <li class="social-item"><a href="https://www.facebook.com/ASCE.org" class="facebook">Facebook</a></li>
-      <li class="social-item"><a href="https://twitter.com/ascetweets" class="twitter">Twitter</a></li>
-      <li class="social-item"><a href="http://www.linkedin.com/groups?gid=143956&trk=myg_ugrp_ovr" class="linkedin">LinkedIn</a></li>
-      <li class="social-item"><a href="http://www.youtube.com/user/AmerSocCivilEng" class="youtube">YouTube</a></li>
-    <!--  <li class="social-item"><a href="https://plus.google.com/b/105603289001341360426/+AmerSocCivilEng/posts" class="googleplus">Google+</a></li>-->
+      <li class="social-item"><a href="https://www.facebook.com/ASCE.org" class="facebook" target="_blank">Facebook</a></li>
+      <li class="social-item"><a href="https://twitter.com/ascetweets" class="twitter" target="_blank">Twitter</a></li>
+      <li class="social-item"><a href="https://www.linkedin.com/company/american-society-of-civil-engineers/" class="linkedin" target="_blank">LinkedIn</a></li>
+      <li class="social-item"><a href="http://www.youtube.com/user/AmerSocCivilEng" class="youtube" target="_blank">YouTube</a></li>
     </ul>
   </div>
   <div class="separator"></div>
@@ -30,16 +25,7 @@ $tf_footertext = get_option_tree('tf_footertext', $theme_options, false);
 	</div>
 </div>
 </div><!-- /wrapper -->
-
-
-
-
-
-
-
 </div><!-- /theme -->
-
-
 <?php wp_footer(); ?>
 </body>  
 </html>  

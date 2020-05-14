@@ -47,14 +47,6 @@ function CheckRedirect(obj)
 	return true;
 }
 
-function SelectEmbedField(checked)
-{
-	if( checked )
-		jQuery('#embed_replace_player').removeAttr("disabled");
-	else
-		jQuery('#embed_replace_player').attr("disabled","disabled");
-}
-
 jQuery(document).ready(function($) {
 
 	
@@ -293,8 +285,7 @@ jQuery(document).ready( function() {
 		<div>
 			<input type="hidden" name="General[taxonomy_podcasting]" value="0" />
 			<input type="checkbox" name="General[taxonomy_podcasting]" value="1" <?php echo ( !empty($General['taxonomy_podcasting']) ?' checked':''); ?> /> 
-			<strong><?php echo __('Taxonomy Podcasting', 'powerpress'); ?></strong> 
-			<span style="font-size: 14px;">(<?php echo __('Feature sponsored by', 'powerpress'); ?> <a href="http://afterbuzztv.com/" target="_blank">AfterBuzzTV.com</a>)</span> - 
+			<strong><?php echo __('Taxonomy Podcasting', 'powerpress'); ?></strong> -
 			<?php echo __('Manage podcasting for specific taxonomies.', 'powerpress'); ?> 
 			<?php if( empty($General['taxonomy_podcasting']) ) { ?>
 			<span style="font-size: 85%;">(<?php echo __('feature will appear in left menu when enabled', 'powerpress'); ?>)</span>
@@ -751,17 +742,7 @@ function powerpressadmin_appearance($General=false, $Feed = false)
 </table>
 
 
-    <table class="form-table">
-        <tr valign="top">
-            <th scope="row">
-                <?php echo __('Episode Box Appearance', 'powerpress'); ?></th>
-            <td>
 
-                <p><label><input type="checkbox" name="General[skip_to_episode_settings]" value="2" <?php if( isset($General['skip_to_episode_settings']) && $General['skip_to_episode_settings'] ) echo 'checked '; ?>/> <?php echo __('Skip Media Verification', 'powerpress'); ?></label></p>
-                <p><?php echo __('Check this box to display all episode settings before the media is verified. If this setting is selected, you risk losing all your entered data if you try to publish an episode that has no media attached. This setting should only be enabled by very experienced PowerPress users.', 'powerpress'); ?></p>
-            </td>
-        </tr>
-    </table>
 </div><!-- end enable_presentation_settings -->
 <div id="presentation_settings"<?php if($General['disable_appearance']) echo ' style="display: none;"'; ?>>
 <!-- start presentation_settings in advanced mode -->
@@ -953,7 +934,7 @@ foreach( $linkoptions as $value => $desc )
 	<?php echo __('Use this option if you are having problems with the players not appearing on some or all of your pages.', 'powerpress'); ?>
 </p>
 <p style="margin-top: 20px; margin-bottom:0;">
-	<?php echo __('If the above option fixes the player issues, then you most likely have a conflicting theme or plugin activated. You can verify your theme is not causing the problem by testing your site using the latest default WordPress theme (twentyfourteen). For plugins, disable them one by one until the player re-appears, which indicates the last plugin deactivated caused the conflict.', 'powerpress'); ?>
+	<?php echo __('If the above option fixes the player issues, then you most likely have a conflicting theme or plugin activated. You can verify your theme is not causing the problem by testing your site using the latest default WordPress theme (Twenty Nineteen). For plugins, disable them one by one until the player re-appears, which indicates the last plugin deactivated caused the conflict.', 'powerpress'); ?>
 </p>
 </td>
 </tr>
